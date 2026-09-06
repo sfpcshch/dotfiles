@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# Đợi Wayland socket sẵn sàng
+while [ ! -S "$XDG_RUNTIME_DIR/${WAYLAND_DISPLAY:-wayland-0}" ]; do
+    sleep 0.1
+done
+
+# Khởi động Noctalia Desktop Shell (Taskbar, Start Menu, Wallpaper, Notifications, Polkit Agent)
+noctalia &
+
+# Cập nhật môi trường cho systemd và D-Bus
+dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=labwc:wlroots &
+
+# Khởi động bộ gõ tiếng Việt Fcitx5 (Lotus) ở chế độ Pure Wayland (để Xwayland chỉ bật khi có app X11 cần)
+fcitx5 -d --disable xim,xcb &
+
+# Tự động cập nhật hình nền Toplist (chạy ngầm rồi tự thoát, 0 MB RAM)
+~/.config/labwc/wallpaper-auto.sh &

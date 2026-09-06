@@ -1,0 +1,25 @@
+# Core Compositor & Desktop Shell
+labwc
+noctalia
+cachyos-mango-noctalia
+
+# Core Desktop Applications
+alacritty
+dolphin
+btop
+
+# Vietnamese Input Method (Fcitx5)
+fcitx5
+fcitx5-configtool
+fcitx5-gtk
+fcitx5-qt
+fcitx5-lotus-bin
+
+# Wayland Utilities & Media
+wtype
+grim
+slurp
+imagemagick
+jq
+curl
+git

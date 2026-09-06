@@ -1,0 +1,11 @@
+# Package Equivalents for Non-Arch Distros
+
+## 1. Fedora:
+# sudo dnf install labwc alacritty dolphin fcitx5 fcitx5-autostart fcitx5-gtk fcitx5-qt grim slurp ImageMagick jq curl git wtype btop
+# Note: Noctalia Shell can be built from source via cargo or downloaded from GitHub releases:
+# https://github.com/noctalia-dev/noctalia-shell
+
+## 2. Debian / Ubuntu:
+# sudo apt install labwc alacritty dolphin fcitx5 fcitx5-frontend-gtk3 fcitx5-frontend-qt5 grim slurp imagemagick jq curl git wtype btop
+# Note: Noctalia Shell can be downloaded as binary or built from source:
+# https://github.com/noctalia-dev/noctalia-shell

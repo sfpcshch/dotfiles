@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openbox_menu>
+  <menu id="root-menu" label="Desktop">
+    <item label="Next Wallpaper">
+      <action name="Execute" command="~/.config/labwc/wallpaper-cycle.sh next" />
+    </item>
+    <item label="Previous Wallpaper">
+      <action name="Execute" command="~/.config/labwc/wallpaper-cycle.sh prev" />
+    </item>
+    <item label="Wallpaper Source">
+      <action name="Execute" command="~/.config/labwc/wallpaper-info.sh" />
+    </item>
+    <separator />
+    <item label="File Manager">
+      <action name="Execute" command="dolphin" />
+    </item>
+    <item label="Terminal">
+      <action name="Execute" command="alacritty" />
+    </item>
+    <item label="Web Browser">
+      <action name="Execute" command="firefox" />
+    </item>
+    <separator />
+    <item label="Settings">
+      <action name="Execute" command="noctalia msg settings-open" />
+    </item>
+    <item label="Reconfigure">
+      <action name="Reconfigure" />
+    </item>
+  </menu>
+</openbox_menu>

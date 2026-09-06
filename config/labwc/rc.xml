@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<labwc_config>
+  <theme>
+    <!-- Sử dụng theme noctalia-macos với 3 nút tròn màu sắc nét -->
+    <name>noctalia-macos</name>
+    <titlebar>
+      <!-- Bố cục kiểu Windows: Icon bên trái; 3 nút Thu nhỏ, Phóng to, Đóng ở bên phải góc trên -->
+      <layout>icon:iconify,max,close</layout>
+    </titlebar>
+  </theme>
+
+  <!-- Cơ chế quản lý focus chuột giống Windows (bấm vào cửa sổ để kích hoạt) -->
+  <focus>
+    <followMouse>no</followMouse>
+    <raiseOnFocus>yes</raiseOnFocus>
+  </focus>
+
+  <!-- Tính năng Aero Snap: Kéo cửa sổ chạm cạnh để chia đôi hoặc phóng to toàn màn hình -->
+  <snapping>
+    <range inner="15" outer="15" />
+    <cornerRange>50</cornerRange>
+    <overlay enabled="yes">
+      <!-- Loại bỏ độ trễ (delay): khung xanh hiện ngay lập tức khi chạm cạnh màn hình -->
+      <delay inner="0" outer="0" />
+    </overlay>
+  </snapping>
+
+  <!-- Lực cản khi kéo cửa sổ chạm viền màn hình -->
+  <resist>
+    <screen>20</screen>
+    <windows>20</windows>
+  </resist>
+
+  <!-- Thao tác chuột: kéo tiêu đề di chuyển, click đúp phóng to, kéo góc đổi cỡ -->
+  <mouse>
+    <default />
+
+    <!-- Thao tác trên màn hình nền Desktop: Bấm chuột phải hoặc chuột trái để mở Menu đổi hình nền -->
+    <context name="Root">
+      <mousebind button="Right" action="Press">
+        <action name="ShowMenu" menu="root-menu" />
+      </mousebind>
+      <mousebind button="Left" action="Press">
+        <action name="ShowMenu" menu="root-menu" />
+      </mousebind>
+    </context>
+  </mouse>
+
+  <!-- Phím tắt chuẩn phong cách Windows -->
+  <keyboard>
+    <default />
+
+    <!-- Win + W: Chuyển sang hình nền tiếp theo (Next Wallpaper) -->
+    <keybind key="W-w">
+      <action name="Execute" command="~/.config/labwc/wallpaper-cycle.sh next" />
+    </keybind>
+    <!-- Win + Shift + W: Lùi lại hình nền trước đó (Previous Wallpaper) -->
+    <keybind key="W-S-w">
+      <action name="Execute" command="~/.config/labwc/wallpaper-cycle.sh prev" />
+    </keybind>
+
+    <!-- Nút Windows (Super) để bật/tắt Start Menu của Noctalia (chỉ mở khi nhả phím như Windows) -->
+    <keybind key="Super_L" onRelease="yes">
+      <action name="Execute" command="noctalia msg panel-toggle launcher" />
+    </keybind>
+    <keybind key="W-space">
+      <action name="Execute" command="noctalia msg panel-toggle launcher" />
+    </keybind>
+
+    <!-- Win + E: Mở File Explorer (Dolphin) -->
+    <keybind key="W-e">
+      <action name="Execute" command="dolphin" />
+    </keybind>
+
+    <!-- Win + Enter hoặc Win + T: Mở Terminal (Alacritty) -->
+    <keybind key="W-Return">
+      <action name="Execute" command="alacritty" />
+    </keybind>
+    <keybind key="W-t">
+      <action name="Execute" command="alacritty" />
+    </keybind>
+
+    <!-- Win + Mũi tên: Phóng to, thu nhỏ, chia nửa màn hình trái/phải -->
+    <keybind key="W-Up">
+      <action name="Maximize" />
+    </keybind>
+    <keybind key="W-Down">
+      <action name="Iconify" />
+    </keybind>
+    <keybind key="W-Left">
+      <action name="SnapToEdge" direction="left" />
+    </keybind>
+    <keybind key="W-Right">
+      <action name="SnapToEdge" direction="right" />
+    </keybind>
+
+    <!-- Win + D: Thu nhỏ tất cả cửa sổ để hiện Desktop (bấm lần nữa để hoàn tác) -->
+    <keybind key="W-d">
+      <action name="ToggleShowDesktop" />
+    </keybind>
+
+    <!-- Win + L: Khóa màn hình qua Noctalia Lockscreen -->
+    <keybind key="W-l">
+      <action name="Execute" command="noctalia msg session lock" />
+    </keybind>
+
+    <!-- Win + A: Mở Trung tâm điều khiển Control Center / Quick Settings (chuẩn Windows) -->
+    <keybind key="W-a">
+      <action name="Execute" command="noctalia msg panel-toggle control-center" />
+    </keybind>
+
+    <!-- Win + N: Mở Trung tâm thông báo Notifications (chuẩn Windows) -->
+    <keybind key="W-n">
+      <action name="Execute" command="noctalia msg panel-toggle control-center notifications" />
+    </keybind>
+
+    <!-- Win + V: Mở bảng lịch sử Clipboard -->
+    <keybind key="W-v">
+      <action name="Execute" command="noctalia msg panel-toggle clipboard" />
+    </keybind>
+
+    <!-- Win + Shift + S: Chụp ảnh màn hình vùng chọn (như Windows Snipping Tool) -->
+    <keybind key="W-S-s">
+      <action name="Execute" command="noctalia msg screenshot-region" />
+    </keybind>
+
+    <!-- Ctrl + Shift + Esc: Bật Task Manager btop -->
+    <keybind key="C-S-Escape">
+      <action name="Execute" command="alacritty -e btop" />
+    </keybind>
+
+    <!-- Win + I: Mở Cài đặt hệ thống Settings -->
+    <keybind key="W-i">
+      <action name="Execute" command="noctalia msg settings-open" />
+    </keybind>
+
+    <!-- Alt + F4: Đóng cửa sổ hiện tại -->
+    <keybind key="A-F4">
+      <action name="Close" />
+    </keybind>
+
+    <!-- Print Screen: Chụp ảnh màn hình một vùng hoặc toàn màn hình -->
+    <keybind key="Print">
+      <action name="Execute" command="noctalia msg screenshot-region" />
+    </keybind>
+    <keybind key="S-Print">
+      <action name="Execute" command="noctalia msg screenshot-fullscreen" />
+    </keybind>
+
+    <!-- Phím chức năng Fn: Tăng / Giảm độ sáng màn hình (kèm thanh OSD hiển thị của Noctalia) -->
+    <keybind key="XF86MonBrightnessUp">
+      <action name="Execute" command="noctalia msg brightness-up" />
+    </keybind>
+    <keybind key="XF86MonBrightnessDown">
+      <action name="Execute" command="noctalia msg brightness-down" />
+    </keybind>
+
+    <!-- Phím chức năng Fn: Âm lượng & Micro (đồng bộ thanh OSD của Noctalia) -->
+    <keybind key="XF86AudioRaiseVolume">
+      <action name="Execute" command="noctalia msg volume-up" />
+    </keybind>
+    <keybind key="XF86AudioLowerVolume">
+      <action name="Execute" command="noctalia msg volume-down" />
+    </keybind>
+    <keybind key="XF86AudioMute">
+      <action name="Execute" command="noctalia msg volume-mute" />
+    </keybind>
+    <keybind key="XF86AudioMicMute">
+      <action name="Execute" command="noctalia msg mic-mute" />
+    </keybind>
+
+    <!-- Phím chức năng Fn: Điều khiển trình phát nhạc / Media -->
+    <keybind key="XF86AudioPlay">
+      <action name="Execute" command="noctalia msg media toggle" />
+    </keybind>
+    <keybind key="XF86AudioNext">
+      <action name="Execute" command="noctalia msg media next" />
+    </keybind>
+    <keybind key="XF86AudioPrev">
+      <action name="Execute" command="noctalia msg media previous" />
+    </keybind>
+  </keyboard>
+</labwc_config>
