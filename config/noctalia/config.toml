@@ -184,8 +184,8 @@ show_labels = false
 group_by_workspace = false
 icon_scale = 1.35
 active_opacity = 1.0
-inactive_opacity = 0.6
-pinned_opacity = 0.6
+inactive_opacity = 1.0
+pinned_opacity = 0.4
 show_active_indicator = true
 
 [location]
