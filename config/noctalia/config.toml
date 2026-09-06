@@ -182,6 +182,8 @@ show_labels = false
 [widget.taskbar]
 group_by_workspace = false
 icon_scale = 1.35
+active_opacity = 1.0
+inactive_opacity = 0.6
 pinned_opacity = 0.6
 show_active_indicator = true
 
