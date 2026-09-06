@@ -3,6 +3,7 @@
   <theme>
     <!-- Sử dụng theme noctalia-macos với 3 nút tròn màu sắc nét -->
     <name>noctalia-macos</name>
+    <cornerRadius>0</cornerRadius>
     <titlebar>
       <!-- Bố cục kiểu Windows: Icon bên trái; 3 nút Thu nhỏ, Phóng to, Đóng ở bên phải góc trên -->
       <layout>icon:iconify,max,close</layout>
