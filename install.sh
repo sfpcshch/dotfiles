@@ -134,6 +134,7 @@ if [ -f "$HOME/.local/state/noctalia/settings.toml" ]; then
     sed -i 's/corner_radius_scale = [0-9.]\+/corner_radius_scale = 0.0/g' "$HOME/.local/state/noctalia/settings.toml"
     sed -i 's/background_radius = [0-9.]\+/background_radius = 0.0/g' "$HOME/.local/state/noctalia/settings.toml"
     sed -i 's/input_radius = [0-9.]\+/input_radius = 0.0/g' "$HOME/.local/state/noctalia/settings.toml"
+    sed -i 's/floating_offset = [0-9]\+/floating_offset = 0/g' "$HOME/.local/state/noctalia/settings.toml"
 fi
 
 # 5. Ensure ~/.local/bin is in PATH

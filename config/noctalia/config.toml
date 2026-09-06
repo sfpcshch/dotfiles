@@ -130,7 +130,7 @@ borders = true
 shadow = true
 transparency_mode = "soft"
 floating_layer = "overlay"
-floating_offset = 12
+floating_offset = 0
 control_center_placement = "floating"
 control_center_position = "bottom_right"
 launcher_placement = "floating"
@@ -185,7 +185,7 @@ group_by_workspace = false
 icon_scale = 1.35
 active_opacity = 1.0
 inactive_opacity = 1.0
-pinned_opacity = 0.4
+pinned_opacity = 0.65
 show_active_indicator = true
 
 [location]
