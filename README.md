@@ -37,7 +37,7 @@
 Khi cài lại CachyOS (hoặc bất kỳ distro Arch-based nào), bạn chỉ cần mở Terminal lên và chạy **1 dòng lệnh duy nhất**:
 
 ```bash
-git clone https://github.com/<TÊN_GITHUB_CỦA_BẠN>/dotfiles.git ~/dotfiles && cd ~/dotfiles && ./install.sh
+git clone https://github.com/sfpcshch/dotfiles.git ~/dotfiles && cd ~/dotfiles && ./install.sh
 ```
 
 *(Script sẽ tự động kiểm tra cài đủ các gói phần mềm cần thiết, tự sao lưu cấu hình cũ, triển khai theme và phím tắt, bạn không cần phải tự gõ thêm bất kỳ lệnh nào nữa!)*
@@ -58,10 +58,10 @@ git clone https://github.com/<TÊN_GITHUB_CỦA_BẠN>/dotfiles.git ~/dotfiles &
 2. Chạy 2 lệnh sau trên terminal của máy này:
    ```bash
    cd ~/dotfiles
-   git remote add origin git@github.com:<TÊN_GITHUB_CỦA_BẠN>/dotfiles.git
+   git remote add origin https://github.com/sfpcshch/dotfiles.git
    git push -u origin main
    ```
-*(Nếu dùng HTTPS thì thay URL bằng `https://github.com/<TÊN_GITHUB_CỦA_BẠN>/dotfiles.git`)*
+*(Hoặc dùng SSH nếu đã thêm SSH key: `git remote set-url origin git@github.com:sfpcshch/dotfiles.git`)*
 
 ---
 
