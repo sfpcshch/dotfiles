@@ -47,9 +47,37 @@
     </context>
   </mouse>
 
+  <!-- Quản lý màn hình ảo (Virtual Desktops) như Windows (mặc định 4 Desktop) -->
+  <desktops number="4">
+    <popupTime>1000</popupTime>
+  </desktops>
+
   <!-- Phím tắt chuẩn phong cách Windows -->
   <keyboard>
     <default />
+
+    <!-- Win + Tab: Mở Task View / Window Switcher của Noctalia -->
+    <keybind key="W-Tab">
+      <action name="Execute" command="noctalia msg window-switcher" />
+    </keybind>
+
+    <!-- Win + S: Mở Tìm kiếm (Windows Search) -->
+    <keybind key="W-s">
+      <action name="Execute" command="noctalia msg panel-toggle launcher" />
+    </keybind>
+
+    <!-- Win + R: Mở hộp thoại Run / App Launcher -->
+    <keybind key="W-r">
+      <action name="Execute" command="noctalia msg panel-toggle launcher" />
+    </keybind>
+
+    <!-- Ctrl + Win + Left / Right: Chuyển đổi Desktop ảo (chuẩn Windows 10/11) -->
+    <keybind key="C-W-Left">
+      <action name="Execute" command="noctalia msg workspace-switch prev" />
+    </keybind>
+    <keybind key="C-W-Right">
+      <action name="Execute" command="noctalia msg workspace-switch next" />
+    </keybind>
 
     <!-- Win + W: Chuyển sang hình nền tiếp theo (Next Wallpaper) -->
     <keybind key="W-w">
@@ -196,8 +224,8 @@
       <tapButtonMap>lrm</tapButtonMap>
       <!-- Phương thức click vật lý: góc dưới bên phải là chuột phải -->
       <clickMethod>buttonAreas</clickMethod>
-      <!-- Kéo 3 ngón tay để di chuyển cửa sổ (Window Dragging cực tiện lợi) -->
-      <threeFingerDrag>yes</threeFingerDrag>
+      <!-- Tắt kéo thả 3 ngón để dành trọn vẹn cử chỉ 3 ngón cho Multitasking chuẩn Windows (Task View, Hiện Desktop, Alt+Tab) -->
+      <threeFingerDrag>no</threeFingerDrag>
       <!-- Cuộn bằng 2 ngón tay -->
       <scrollMethod>twoFinger</scrollMethod>
       <!-- Tự động vô hiệu hóa touchpad khi đang gõ phím để tránh chạm nhầm mu bàn tay -->

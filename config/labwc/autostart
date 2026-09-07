@@ -17,3 +17,8 @@ fcitx5 -d --disable xim,xcb &
 
 # Tự động cập nhật hình nền Toplist (chạy ngầm rồi tự thoát, 0 MB RAM)
 ~/.config/labwc/wallpaper-auto.sh &
+
+# Khởi động dịch vụ cử chỉ Touchpad chuẩn Windows (libinput-gestures)
+systemctl --user restart libinput-gestures.service &
+
+

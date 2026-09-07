@@ -131,6 +131,13 @@ for profile in "$HOME/.config/mozilla/firefox/"*.default* "$HOME/.mozilla/firefo
     fi
 done
 
+# Deploy Touchpad Gestures config
+if [ -f "$DOTFILES_DIR/config/libinput-gestures.conf" ]; then
+    cp -a "$DOTFILES_DIR/config/libinput-gestures.conf" "$HOME/.config/libinput-gestures.conf"
+    systemctl --user restart libinput-gestures.service 2>/dev/null || true
+fi
+
+
 # Ensure executable permissions
 chmod +x "$HOME/.local/bin/"*.sh 2>/dev/null || true
 chmod +x "$HOME/.config/labwc/"*.sh 2>/dev/null || true
