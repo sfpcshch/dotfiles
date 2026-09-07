@@ -9,7 +9,7 @@ LOCK_FILE="/tmp/wallpaper-fetch.lock"
 
 mkdir -p "$CACHE_DIR" "$POOL_DIR"
 
-API_KEY="${WALLHAVEN_API_KEY:-}"
+API_KEY=""
 if [ -n "$API_KEY" ]; then
     PURITY="111"
     API_PARAM="&apikey=$API_KEY"

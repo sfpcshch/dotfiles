@@ -30,6 +30,10 @@ for arg in "$@"; do
             INSTALL_PACKAGES=false
             shift
             ;;
+        -y|--yes)
+            AUTO_YES=true
+            shift
+            ;;
     esac
 done
 
