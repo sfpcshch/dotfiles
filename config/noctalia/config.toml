@@ -26,7 +26,7 @@ radius_bottom_left = 0
 radius_bottom_right = 0
 radius_top_left = 0
 radius_top_right = 0
-start = [ "launcher", "session", "Spacer_2", "taskbar" ]
+start = [ "launcher", "Spacer_Power", "session", "Spacer_Power", "taskbar" ]
 thickness = 32
 
 [wallpaper.default]
@@ -145,3 +145,7 @@ left = "exec toggle-desktop.sh"
 
 
 
+
+[widget.Spacer_Power]
+length = 12
+type = "spacer"
