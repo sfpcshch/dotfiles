@@ -110,9 +110,7 @@
     <keybind key="Super_L" onRelease="yes">
       <action name="Execute" command="noctalia msg panel-toggle launcher" />
     </keybind>
-    <keybind key="W-space">
-      <action name="Execute" command="noctalia msg panel-toggle launcher" />
-    </keybind>
+    <!-- Win+Space: Dành cho Fcitx5 chuyển đổi bộ gõ (không can thiệp) -->
 
     <!-- Win + E: Mở File Explorer (Dolphin) -->
     <keybind key="W-e">

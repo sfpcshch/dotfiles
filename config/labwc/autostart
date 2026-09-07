@@ -1,6 +1,7 @@
 #!/bin/sh
 
-# Chuyển hướng toàn bộ log của autostart vào file cache để không văng ra màn hình TTY và dễ kiểm tra
+# Chuyển hướng toàn bộ log của autostart vào file cache (reset mỗi phiên login)
+: > "${XDG_CACHE_HOME:-$HOME/.cache}/labwc-autostart.log"
 exec >> "${XDG_CACHE_HOME:-$HOME/.cache}/labwc-autostart.log" 2>&1
 
 # Nạp thư mục chứa script cá nhân vào PATH
@@ -15,7 +16,7 @@ done
 noctalia &
 
 # Cập nhật môi trường cho systemd và D-Bus (bao gồm Qt theme, Fcitx5 và các biến dev/PATH)
-dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=labwc:wlroots QT_QPA_PLATFORMTHEME=qt6ct "QT_QPA_PLATFORM=wayland;xcb" XMODIFIERS QT_IM_MODULE PATH JAVA_HOME ANDROID_HOME &
+dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP QT_QPA_PLATFORMTHEME QT_QPA_PLATFORM XMODIFIERS QT_IM_MODULE PATH JAVA_HOME ANDROID_HOME &
 systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP QT_QPA_PLATFORMTHEME QT_QPA_PLATFORM XMODIFIERS QT_IM_MODULE PATH JAVA_HOME ANDROID_HOME &
 
 # Khởi động bộ gõ tiếng Việt Fcitx5 ở chế độ Pure Wayland

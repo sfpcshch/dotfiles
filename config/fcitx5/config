@@ -12,10 +12,9 @@ AltTriggerKeys=
 # Time limit in milliseconds for triggering modifier key shortcuts
 # ModifierOnlyKeyTimeout=250
 
-# [Hotkey/TriggerKeys]
-# 0=Control+space
-# 1=Zenkaku_Hankaku
-# 2=Hangul
+[Hotkey/TriggerKeys]
+0=Control+space
+1=Super+space
 
 # [Hotkey/ActivateKeys]
 # 0=Hangul_Hanja
