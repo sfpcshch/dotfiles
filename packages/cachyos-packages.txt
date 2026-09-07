@@ -23,3 +23,8 @@ imagemagick
 jq
 curl
 git
+
+# Trackpad Gestures
+libinput-gestures
+xdotool
+

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # ==============================================================================
 # Dotfiles Installer & System Setup
-# Labwc + Noctalia Shell + macOS Traffic Lights + Windows Shortcuts + Fcitx5
+# Labwc + Noctalia Shell + Modern Windows-style Desktop + Fcitx5
 # ==============================================================================
 
 set -e
@@ -18,7 +18,7 @@ NC='\033[0m' # No Color
 
 echo -e "${BLUE}====================================================${NC}"
 echo -e "${GREEN}  CachyOS / Linux Desktop Setup Installer           ${NC}"
-echo -e "${BLUE}  Labwc + Noctalia + macOS Titlebar + Windows Keys  ${NC}"
+echo -e "${BLUE}  Labwc + Noctalia + Modern Titlebar + Windows Keys ${NC}"
 echo -e "${BLUE}====================================================${NC}"
 echo ""
 
@@ -102,9 +102,11 @@ backup_if_exists() {
 
 backup_if_exists "$HOME/.config/labwc"
 backup_if_exists "$HOME/.config/noctalia"
-backup_if_exists "$HOME/.config/environment.d/im.conf"
+backup_if_exists "$HOME/.config/environment.d"
 backup_if_exists "$HOME/.config/fcitx5"
-backup_if_exists "$HOME/.local/share/themes/noctalia-macos"
+backup_if_exists "$HOME/.config/kdeglobals"
+backup_if_exists "$HOME/.config/dolphinrc"
+backup_if_exists "$HOME/.local/share/themes/noctalia-modern"
 
 # 4. Deploy Directories & Configurations
 echo -e "${BLUE}==>${NC} Đang triển khai các file cấu hình..."
@@ -121,7 +123,9 @@ cp -a "$DOTFILES_DIR/config/labwc/"* "$HOME/.config/labwc/"
 cp -a "$DOTFILES_DIR/config/noctalia/"* "$HOME/.config/noctalia/"
 cp -a "$DOTFILES_DIR/config/environment.d/"* "$HOME/.config/environment.d/"
 cp -a "$DOTFILES_DIR/config/fcitx5/"* "$HOME/.config/fcitx5/"
-cp -a "$DOTFILES_DIR/themes/noctalia-macos" "$HOME/.local/share/themes/"
+[ -f "$DOTFILES_DIR/config/kdeglobals" ] && cp -a "$DOTFILES_DIR/config/kdeglobals" "$HOME/.config/"
+[ -f "$DOTFILES_DIR/config/dolphinrc" ] && cp -a "$DOTFILES_DIR/config/dolphinrc" "$HOME/.config/"
+cp -a "$DOTFILES_DIR/themes/noctalia-modern" "$HOME/.local/share/themes/"
 cp -a "$DOTFILES_DIR/bin/"* "$HOME/.local/bin/"
 
 # Deploy Firefox Trackpad settings (user.js)
@@ -180,8 +184,9 @@ echo ""
 echo -e "${GREEN}====================================================${NC}"
 echo -e "${GREEN}✓ CÀI ĐẶT HOÀN TẤT THÀNH CÔNG!                     ${NC}"
 echo -e "${GREEN}====================================================${NC}"
-echo -e "• Nút traffic lights macOS: Đã kích hoạt 100% chuẩn nét."
+echo -e "• Giao diện thanh tiêu đề chuẩn Windows: Đã kích hoạt."
 echo -e "• Phím tắt Windows (Win+D, Win+E, Win+A, v.v.): Sẵn sàng."
+echo -e "• Cử chỉ Touchpad 3 ngón (Lên khôi phục, Xuống Desktop): Đã cấu hình."
 echo -e "• Bộ gõ tiếng Việt Fcitx5: Đã đồng bộ môi trường Wayland."
 echo -e "• Hình nền tự động Wallhaven (Win+W đổi ảnh): Đã cài đặt."
 echo ""
