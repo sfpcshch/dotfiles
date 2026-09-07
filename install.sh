@@ -75,8 +75,14 @@ if [ "$INSTALL_PACKAGES" = true ]; then
         else
             echo -e "${GREEN}✓ Tất cả các gói phần mềm cần thiết đã được cài đặt!${NC}"
         fi
+    elif [[ "$DISTRO_ID" == "fedora" || "$DISTRO_LIKE" =~ "fedora" ]]; then
+        echo -e "${BLUE}==>${NC} Phát hiện Fedora. Đang kiểm tra / cài đặt các gói cần thiết..."
+        sudo dnf install -y labwc alacritty dolphin fcitx5 fcitx5-autostart fcitx5-gtk fcitx5-qt grim slurp ImageMagick jq curl git wtype btop || true
+    elif [[ "$DISTRO_ID" =~ (ubuntu|debian|pop|mint) || "$DISTRO_LIKE" =~ (ubuntu|debian) ]]; then
+        echo -e "${BLUE}==>${NC} Phát hiện Debian / Ubuntu. Đang kiểm tra / cài đặt các gói cần thiết..."
+        sudo apt update && sudo apt install -y labwc alacritty dolphin fcitx5 fcitx5-frontend-gtk3 fcitx5-frontend-qt5 grim slurp imagemagick jq curl git wtype btop || true
     else
-        echo -e "${YELLOW}==> Bạn đang dùng bản phân phối không phải Arch ($DISTRO_ID).${NC}"
+        echo -e "${YELLOW}==> Bạn đang dùng bản phân phối ($DISTRO_ID).${NC}"
         echo -e "    Vui lòng tham khảo $DOTFILES_DIR/packages/generic-packages.txt để cài đặt thủ công các gói tương đương."
     fi
 fi
@@ -165,16 +171,21 @@ if [ -f "$HOME/.local/state/noctalia/settings.toml" ]; then
     sed -i 's/floating_offset = [0-9]\+/floating_offset = 0/g' "$HOME/.local/state/noctalia/settings.toml"
 fi
 
-# 5. Ensure ~/.local/bin is in PATH
+# Ensure Start button icon is available across all distributions
+if [ ! -f "/usr/share/icons/hicolor/scalable/apps/org.cachyos.hello.svg" ]; then
+    sed -i "s|/usr/share/icons/hicolor/scalable/apps/org.cachyos.hello.svg|$HOME/.local/share/themes/noctalia-modern/start-icon.svg|g" "$HOME/.config/noctalia/config.toml" 2>/dev/null || true
+fi
+
+# 5. Ensure ~/.local/bin is in PATH (Idempotent)
 if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
     echo -e "${YELLOW}==>${NC} Đang thêm ~/.local/bin vào biến PATH..."
-    if [ -f "$HOME/.bashrc" ]; then
+    if [ -f "$HOME/.bashrc" ] && ! grep -q '\.local/bin' "$HOME/.bashrc" 2>/dev/null; then
         echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$HOME/.bashrc"
     fi
-    if [ -f "$HOME/.zshrc" ]; then
+    if [ -f "$HOME/.zshrc" ] && ! grep -q '\.local/bin' "$HOME/.zshrc" 2>/dev/null; then
         echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$HOME/.zshrc"
     fi
-    if [ -f "$HOME/.config/fish/config.fish" ]; then
+    if [ -f "$HOME/.config/fish/config.fish" ] && ! grep -q '\.local/bin' "$HOME/.config/fish/config.fish" 2>/dev/null; then
         echo 'fish_add_path -a $HOME/.local/bin' >> "$HOME/.config/fish/config.fish"
     fi
 fi

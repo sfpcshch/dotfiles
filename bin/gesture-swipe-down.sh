@@ -6,6 +6,8 @@
 
 # Nếu chưa ở chế độ desktop thì thu nhỏ tất cả
 if [ ! -f /tmp/.labwc_desktop_mode ]; then
-    wtype -M logo -k d -m logo
-    touch /tmp/.labwc_desktop_mode
+    if command -v wtype >/dev/null 2>&1; then
+        wtype -M logo -k d -m logo
+        touch /tmp/.labwc_desktop_mode
+    fi
 fi

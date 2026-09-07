@@ -17,5 +17,7 @@ fi
 if [ -f /tmp/.labwc_desktop_mode ]; then
     # Khôi phục toàn bộ cửa sổ về vị trí cũ
     rm -f /tmp/.labwc_desktop_mode
-    wtype -M logo -k d -m logo
+    if command -v wtype >/dev/null 2>&1; then
+        wtype -M logo -k d -m logo
+    fi
 fi

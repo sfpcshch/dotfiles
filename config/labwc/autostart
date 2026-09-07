@@ -14,17 +14,20 @@ while [ ! -S "$XDG_RUNTIME_DIR/${WAYLAND_DISPLAY:-wayland-0}" ]; do
 done
 
 # Khởi động Noctalia Desktop Shell (Taskbar, Start Menu, Wallpaper, Notifications, Polkit Agent)
-noctalia &
+command -v noctalia >/dev/null 2>&1 && noctalia &
 
 # Cập nhật môi trường cho systemd và D-Bus (bao gồm Qt theme, Fcitx5 và các biến dev/PATH)
-dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP QT_QPA_PLATFORMTHEME QT_QPA_PLATFORM XMODIFIERS QT_IM_MODULE PATH JAVA_HOME ANDROID_HOME &
-systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP QT_QPA_PLATFORMTHEME QT_QPA_PLATFORM XMODIFIERS QT_IM_MODULE PATH JAVA_HOME ANDROID_HOME &
+command -v dbus-update-activation-environment >/dev/null 2>&1 && \
+    dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP QT_QPA_PLATFORMTHEME QT_QPA_PLATFORM XMODIFIERS QT_IM_MODULE PATH JAVA_HOME ANDROID_HOME &
+
+command -v systemctl >/dev/null 2>&1 && \
+    systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP QT_QPA_PLATFORMTHEME QT_QPA_PLATFORM XMODIFIERS QT_IM_MODULE PATH JAVA_HOME ANDROID_HOME &
 
 # Khởi động bộ gõ tiếng Việt Fcitx5 ở chế độ Pure Wayland
-fcitx5 -d --disable xim,xcb &
+command -v fcitx5 >/dev/null 2>&1 && fcitx5 -d --disable xim,xcb &
 
 # Tự động cập nhật hình nền (chạy ngầm rồi tự thoát)
-"$HOME/.local/bin/wallpaper-auto.sh" &
+[ -x "$HOME/.local/bin/wallpaper-auto.sh" ] && "$HOME/.local/bin/wallpaper-auto.sh" &
 
 # Đảm bảo dịch vụ cử chỉ Touchpad hoạt động trong phiên đồ họa
-systemctl --user start libinput-gestures.service &
+command -v systemctl >/dev/null 2>&1 && systemctl --user start libinput-gestures.service &
