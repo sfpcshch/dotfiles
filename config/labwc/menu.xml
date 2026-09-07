@@ -12,7 +12,7 @@
     </item>
     <separator />
     <item label="File Manager">
-      <action name="Execute" command="dolphin" />
+      <action name="Execute" command="env QT_QPA_PLATFORMTHEME=qt6ct dolphin" />
     </item>
     <item label="Terminal">
       <action name="Execute" command="alacritty" />

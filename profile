@@ -10,3 +10,11 @@ export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
 
 [ -d "$JAVA_HOME/bin" ] && export PATH="$JAVA_HOME/bin:$PATH"
 [ -d "$ANDROID_HOME/platform-tools" ] && export PATH="$ANDROID_HOME/platform-tools:$PATH"
+
+# Qt Theme & Wayland Integration (Dolphin, Qt apps)
+export QT_QPA_PLATFORMTHEME="qt6ct"
+export QT_QPA_PLATFORM="wayland;xcb"
+
+# Input Method (Fcitx5)
+export XMODIFIERS="@im=fcitx"
+export QT_IM_MODULE="fcitx"
