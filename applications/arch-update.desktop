@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Cachy-Update
+Comment=An interactive update notifier & applier for CachyOS
+Icon=cachy-update-blue
+Type=Application
+Terminal=false
+Exec=alacritty -e arch-update
+Categories=Utility;

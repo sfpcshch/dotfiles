@@ -115,6 +115,7 @@ mkdir -p "$HOME/.config/environment.d"
 mkdir -p "$HOME/.config/fcitx5/conf"
 mkdir -p "$HOME/.local/bin"
 mkdir -p "$HOME/.local/share/themes"
+mkdir -p "$HOME/.local/share/applications"
 
 # Copy configs
 cp -a "$DOTFILES_DIR/config/labwc/"* "$HOME/.config/labwc/"
@@ -123,6 +124,8 @@ cp -a "$DOTFILES_DIR/config/environment.d/"* "$HOME/.config/environment.d/"
 cp -a "$DOTFILES_DIR/config/fcitx5/"* "$HOME/.config/fcitx5/"
 cp -a "$DOTFILES_DIR/themes/noctalia-modern" "$HOME/.local/share/themes/"
 cp -a "$DOTFILES_DIR/bin/"* "$HOME/.local/bin/"
+cp -a "$DOTFILES_DIR/applications/"* "$HOME/.local/share/applications/" 2>/dev/null || true
+update-desktop-database "$HOME/.local/share/applications" 2>/dev/null || true
 
 # Deploy Firefox Trackpad settings (user.js)
 for profile in "$HOME/.config/mozilla/firefox/"*.default* "$HOME/.mozilla/firefox/"*.default*; do

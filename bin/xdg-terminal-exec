@@ -1,0 +1,16 @@
+#!/bin/sh
+# xdg-terminal-exec implementation for Alacritty
+
+if [ $# -eq 0 ]; then
+    exec alacritty
+fi
+
+if [ "$1" = "--" ] || [ "$1" = "-e" ]; then
+    shift
+fi
+
+if [ $# -gt 0 ]; then
+    exec alacritty -e "$@"
+else
+    exec alacritty
+fi
