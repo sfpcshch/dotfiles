@@ -52,13 +52,29 @@
     <popupTime>1000</popupTime>
   </desktops>
 
+  <!-- Trình chuyển đổi cửa sổ (Task View / Window Switcher OSD) chuẩn Thumbnail Windows -->
+  <windowSwitcher preview="yes" outlines="yes" order="focus">
+    <osd show="yes" style="thumbnail" output="focused" />
+  </windowSwitcher>
+
   <!-- Phím tắt chuẩn phong cách Windows -->
   <keyboard>
     <default />
 
-    <!-- Win + Tab: Mở Task View / Window Switcher của Noctalia -->
+    <!-- Win + Tab: Task View / Window Switcher dạng lưới Thumbnail OSD chuẩn Windows -->
     <keybind key="W-Tab">
-      <action name="Execute" command="noctalia msg window-switcher" />
+      <action name="NextWindow" />
+    </keybind>
+    <keybind key="W-S-Tab">
+      <action name="PreviousWindow" />
+    </keybind>
+
+    <!-- Alt + Tab / Shift + Alt + Tab: Chuyển đổi cửa sổ kèm Thumbnail OSD -->
+    <keybind key="A-Tab">
+      <action name="NextWindow" />
+    </keybind>
+    <keybind key="A-S-Tab">
+      <action name="PreviousWindow" />
     </keybind>
 
     <!-- Win + S: Mở Tìm kiếm (Windows Search) -->
