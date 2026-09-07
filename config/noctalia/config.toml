@@ -149,3 +149,9 @@ left = "exec toggle-desktop.sh"
 [widget.Spacer_Power]
 length = 12
 type = "spacer"
+
+[widget.battery]
+show_label = false
+
+[widget.volume]
+show_label = false
