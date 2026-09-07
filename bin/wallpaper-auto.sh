@@ -142,7 +142,8 @@ for i in {1..10}; do
 done
 
 # Gọi cycle next
-~/.config/labwc/wallpaper-cycle.sh next
+wallpaper-cycle.sh next
+
 
 # Dọn cache nếu quá 50 ảnh
 cleanup_cache

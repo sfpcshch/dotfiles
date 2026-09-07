@@ -148,7 +148,6 @@ fi
 
 # Ensure executable permissions
 chmod +x "$HOME/.local/bin/"*.sh 2>/dev/null || true
-chmod +x "$HOME/.config/labwc/"*.sh 2>/dev/null || true
 chmod +x "$HOME/.config/labwc/autostart" 2>/dev/null || true
 
 # Ensure Noctalia state overrides have square corners if settings.toml exists

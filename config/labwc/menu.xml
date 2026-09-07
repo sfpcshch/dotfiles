@@ -2,13 +2,13 @@
 <openbox_menu>
   <menu id="root-menu" label="Desktop">
     <item label="Next Wallpaper">
-      <action name="Execute" command="~/.config/labwc/wallpaper-cycle.sh next" />
+      <action name="Execute" command="wallpaper-cycle.sh next" />
     </item>
     <item label="Previous Wallpaper">
-      <action name="Execute" command="~/.config/labwc/wallpaper-cycle.sh prev" />
+      <action name="Execute" command="wallpaper-cycle.sh prev" />
     </item>
     <item label="Wallpaper Source">
-      <action name="Execute" command="~/.config/labwc/wallpaper-info.sh" />
+      <action name="Execute" command="wallpaper-info.sh" />
     </item>
     <separator />
     <item label="File Manager">

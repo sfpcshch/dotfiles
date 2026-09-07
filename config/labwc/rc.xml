@@ -99,11 +99,11 @@
 
     <!-- Win + W: Chuyển sang hình nền tiếp theo (Next Wallpaper) -->
     <keybind key="W-w">
-      <action name="Execute" command="~/.config/labwc/wallpaper-cycle.sh next" />
+      <action name="Execute" command="wallpaper-cycle.sh next" />
     </keybind>
     <!-- Win + Shift + W: Lùi lại hình nền trước đó (Previous Wallpaper) -->
     <keybind key="W-S-w">
-      <action name="Execute" command="~/.config/labwc/wallpaper-cycle.sh prev" />
+      <action name="Execute" command="wallpaper-cycle.sh prev" />
     </keybind>
 
     <!-- Nút Windows (Super) để bật/tắt Start Menu của Noctalia (chỉ mở khi nhả phím như Windows) -->
