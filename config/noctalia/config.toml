@@ -8,7 +8,6 @@ end = [
     "clipboard",
     "Spacer_2",
     "network",
-    "bluetooth",
     "volume",
     "battery",
     "Spacer_2",
