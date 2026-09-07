@@ -181,4 +181,30 @@
       <action name="Execute" command="noctalia msg media previous" />
     </keybind>
   </keyboard>
+
+  <!-- Cấu hình Trackpad / Touchpad chuẩn phong cách Windows -->
+  <libinput>
+    <device category="touchpad">
+      <!-- Cuộn tự nhiên chuẩn Windows (vuốt 2 ngón lên để cuộn trang xuống) -->
+      <naturalScroll>yes</naturalScroll>
+      <!-- Điều chỉnh tốc độ cuộn vừa phải, êm ái, chống trôi quá nhanh -->
+      <scrollFactor>0.45</scrollFactor>
+      <!-- Chạm 1 ngón = click trái, chạm đúp giữ = kéo thả (Drag) -->
+      <tap>yes</tap>
+      <tapAndDrag>yes</tapAndDrag>
+      <!-- Chạm 2 ngón = click chuột phải (Menu ngữ cảnh), 3 ngón = chuột giữa -->
+      <tapButtonMap>lrm</tapButtonMap>
+      <!-- Phương thức click vật lý: góc dưới bên phải là chuột phải -->
+      <clickMethod>buttonAreas</clickMethod>
+      <!-- Kéo 3 ngón tay để di chuyển cửa sổ (Window Dragging cực tiện lợi) -->
+      <threeFingerDrag>yes</threeFingerDrag>
+      <!-- Cuộn bằng 2 ngón tay -->
+      <scrollMethod>twoFinger</scrollMethod>
+      <!-- Tự động vô hiệu hóa touchpad khi đang gõ phím để tránh chạm nhầm mu bàn tay -->
+      <disableWhileTyping>yes</disableWhileTyping>
+      <!-- Gia tốc con trỏ mượt mà -->
+      <accelProfile>adaptive</accelProfile>
+      <pointerSpeed>0.0</pointerSpeed>
+    </device>
+  </libinput>
 </labwc_config>
