@@ -1,6 +1,6 @@
 # 🪟 Windows-Style Wayland Dotfiles
 
-> Cấu hình **Labwc + Noctalia** thuần Wayland mang lại trải nghiệm chuẩn Windows 10/11: nhẹ mượt (~500MB RAM DE), tự trích xuất màu Material You từ hình nền và thiết kế **Unbreakable** cho mọi bản phân phối Linux.
+> Trải nghiệm Windows 10/11 thuần Wayland (Labwc + Noctalia): siêu nhẹ (~500MB RAM) và unbreakable trên mọi distro.
 
 ---
 
