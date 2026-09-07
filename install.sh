@@ -112,7 +112,7 @@ echo -e "${BLUE}==>${NC} Đang triển khai các file cấu hình..."
 mkdir -p "$HOME/.config/labwc"
 mkdir -p "$HOME/.config/noctalia"
 mkdir -p "$HOME/.config/environment.d"
-mkdir -p "$HOME/.config/fcitx5/conf"
+mkdir -p "$HOME/.config/xdg-desktop-portal"
 mkdir -p "$HOME/.local/bin"
 mkdir -p "$HOME/.local/share/themes"
 mkdir -p "$HOME/.local/share/applications"
@@ -122,6 +122,7 @@ cp -a "$DOTFILES_DIR/config/labwc/"* "$HOME/.config/labwc/"
 cp -a "$DOTFILES_DIR/config/noctalia/"* "$HOME/.config/noctalia/"
 cp -a "$DOTFILES_DIR/config/environment.d/"* "$HOME/.config/environment.d/"
 cp -a "$DOTFILES_DIR/config/fcitx5/"* "$HOME/.config/fcitx5/"
+cp -a "$DOTFILES_DIR/config/xdg-desktop-portal/"* "$HOME/.config/xdg-desktop-portal/" 2>/dev/null || true
 cp -a "$DOTFILES_DIR/themes/noctalia-modern" "$HOME/.local/share/themes/"
 cp -a "$DOTFILES_DIR/bin/"* "$HOME/.local/bin/"
 cp -a "$DOTFILES_DIR/applications/"* "$HOME/.local/share/applications/" 2>/dev/null || true
@@ -137,7 +138,7 @@ done
 # Deploy Touchpad Gestures config
 if [ -f "$DOTFILES_DIR/config/libinput-gestures.conf" ]; then
     cp -a "$DOTFILES_DIR/config/libinput-gestures.conf" "$HOME/.config/libinput-gestures.conf"
-    systemctl --user restart libinput-gestures.service 2>/dev/null || true
+    systemctl --user enable --now libinput-gestures.service 2>/dev/null || true
 fi
 
 # Enable Fcitx5 Lotus Server (Uinput mode daemon)

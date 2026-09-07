@@ -37,7 +37,7 @@ path = "/usr/share/wallpapers/cachyos-wallpapers/cachysurf4.jpg"
 behavior_order = [ "lock", "screen-off", "lock-and-suspend" ]
 
     [idle.behavior.Screen-off]
-    action = "command"
+    action = "screen-off"
     enabled = true
     timeout = 300.0
 
