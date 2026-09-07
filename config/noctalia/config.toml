@@ -5,7 +5,6 @@ center = []
 end = [
     "tray",
     "Spacer_2",
-    "notifications",
     "clipboard",
     "Spacer_2",
     "network",
@@ -15,6 +14,8 @@ end = [
     "Spacer_2",
     "date",
     "clock",
+    "Spacer_2",
+    "notifications",
     "Spacer_2",
     "session",
     "Spacer",
