@@ -36,8 +36,12 @@
   <mouse>
     <default />
 
-    <!-- Thao tác trên màn hình nền Desktop: Bấm chuột phải hoặc chuột trái để mở Menu đổi hình nền -->
+    <!-- Tắt hoàn toàn tính năng cuộn chuột trên Desktop để đổi Workspace (tránh bị nhảy workspace lung tung khi vuốt trackpad) -->
     <context name="Root">
+      <mousebind direction="Up" action="Scroll" />
+      <mousebind direction="Down" action="Scroll" />
+      <mousebind direction="Left" action="Scroll" />
+      <mousebind direction="Right" action="Scroll" />
       <mousebind button="Right" action="Press">
         <action name="ShowMenu" menu="root-menu" />
       </mousebind>
@@ -45,12 +49,20 @@
         <action name="ShowMenu" menu="root-menu" />
       </mousebind>
     </context>
+    <context name="Desktop">
+      <mousebind direction="Up" action="Scroll" />
+      <mousebind direction="Down" action="Scroll" />
+      <mousebind direction="Left" action="Scroll" />
+      <mousebind direction="Right" action="Scroll" />
+    </context>
+    <context name="TitleBar">
+      <mousebind direction="Up" action="Scroll" />
+      <mousebind direction="Down" action="Scroll" />
+    </context>
   </mouse>
 
-  <!-- Quản lý màn hình ảo (Virtual Desktops) như Windows (mặc định 4 Desktop) -->
-  <desktops number="4">
-    <popupTime>1000</popupTime>
-  </desktops>
+  <!-- Cố định duy nhất 1 màn hình Workspace, không tự sinh nhiều desktop gây nhảy loạn -->
+  <desktops number="1" />
 
   <!-- Trình chuyển đổi cửa sổ (Task View / Window Switcher OSD) chuẩn Thumbnail Windows -->
   <windowSwitcher preview="yes" outlines="yes" order="focus">
@@ -85,14 +97,6 @@
     <!-- Win + R: Mở hộp thoại Run / App Launcher -->
     <keybind key="W-r">
       <action name="Execute" command="noctalia msg panel-toggle launcher" />
-    </keybind>
-
-    <!-- Ctrl + Win + Left / Right: Chuyển đổi Desktop ảo (chuẩn Windows 10/11) -->
-    <keybind key="C-W-Left">
-      <action name="Execute" command="noctalia msg workspace-switch prev" />
-    </keybind>
-    <keybind key="C-W-Right">
-      <action name="Execute" command="noctalia msg workspace-switch next" />
     </keybind>
 
     <!-- Win + W: Chuyển sang hình nền tiếp theo (Next Wallpaper) -->
