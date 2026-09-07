@@ -35,18 +35,3 @@ git clone git@github.com:sfpcshch/dotfiles.git ~/dotfiles && cd ~/dotfiles && ./
 | `Win + Mũi tên` | Aero Snap chia đôi màn hình / Phóng to cực đại |
 | `Win + Tab` | Task View Thumbnail OSD (duyệt thumbnail trực quan) |
 | `Win + W` / `Win + Shift + W` | Đổi hình nền tiếp theo / lùi lại (Wallhaven Toplist) |
-
----
-
-## 🖐️ Cử chỉ Touchpad 3 ngón
-
-- **Vuốt 3 ngón XUỐNG**: Thu nhỏ toàn bộ cửa sổ để **Hiện Desktop** (Show Desktop).
-- **Vuốt 3 ngón LÊN**: **Khôi phục** lại toàn bộ các cửa sổ về vị trí cũ.
-- *(Các thao tác cuộn tự nhiên 2 ngón, tap-to-click, pinch zoom hoạt động mặc định như Windows).*
-
----
-
-## 💎 Điểm nổi bật
-- **Zero Latency**: Aero Snap không độ trễ (`delay=0`), cuộn mượt 120Hz/VRR.
-- **Tự đồng bộ Theme**: Bảng màu hệ thống (GTK, Qt6, KDE, Titlebar) tự động trích xuất theo hình nền từ Wallhaven.
-- **Unbreakable**: Toàn bộ script bọc guard an toàn, không hardcode đường dẫn, tự động thích ứng khi chuyển distro.
