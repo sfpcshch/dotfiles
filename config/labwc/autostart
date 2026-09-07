@@ -23,3 +23,6 @@ fcitx5 -d --disable xim,xcb &
 
 # Tự động cập nhật hình nền (chạy ngầm rồi tự thoát)
 "$HOME/.local/bin/wallpaper-auto.sh" &
+
+# Đảm bảo dịch vụ cử chỉ Touchpad hoạt động trong phiên đồ họa
+systemctl --user start libinput-gestures.service &
