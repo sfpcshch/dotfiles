@@ -1,6 +1,6 @@
 # 🪟 Windows-Style Wayland Dotfiles
 
-> Trải nghiệm Windows 10/11 thuần Wayland (Labwc + Noctalia): siêu nhẹ (~500MB RAM) và unbreakable trên mọi distro.
+> Trải nghiệm Windows 10/11 thuần Wayland (Labwc + Noctalia).
 
 ---
 
