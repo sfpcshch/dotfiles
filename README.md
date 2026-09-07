@@ -6,8 +6,6 @@
 
 ## ⚡ Cài đặt nhanh
 
-Tương thích tự động: **Arch / CachyOS**, **Fedora**, **Debian / Ubuntu**.
-
 ```bash
 git clone git@github.com:sfpcshch/dotfiles.git ~/dotfiles && cd ~/dotfiles && ./install.sh
 ```
