@@ -124,6 +124,13 @@ cp -a "$DOTFILES_DIR/config/fcitx5/"* "$HOME/.config/fcitx5/"
 cp -a "$DOTFILES_DIR/themes/noctalia-macos" "$HOME/.local/share/themes/"
 cp -a "$DOTFILES_DIR/bin/"* "$HOME/.local/bin/"
 
+# Deploy Firefox Trackpad settings (user.js)
+for profile in "$HOME/.config/mozilla/firefox/"*.default* "$HOME/.mozilla/firefox/"*.default*; do
+    if [ -d "$profile" ]; then
+        cp -a "$DOTFILES_DIR/config/firefox/user.js" "$profile/" 2>/dev/null || true
+    fi
+done
+
 # Ensure executable permissions
 chmod +x "$HOME/.local/bin/"*.sh 2>/dev/null || true
 chmod +x "$HOME/.config/labwc/"*.sh 2>/dev/null || true

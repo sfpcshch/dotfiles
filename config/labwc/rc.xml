@@ -187,8 +187,8 @@
     <device category="touchpad">
       <!-- Cuộn tự nhiên chuẩn Windows (vuốt 2 ngón lên để cuộn trang xuống) -->
       <naturalScroll>yes</naturalScroll>
-      <!-- Điều chỉnh tốc độ cuộn vừa phải, êm ái, chống trôi quá nhanh -->
-      <scrollFactor>0.45</scrollFactor>
+      <!-- Tỷ lệ cuộn 1:1 giữ trọn vẹn gia tốc quán tính (vuốt nhanh lướt xa) -->
+      <scrollFactor>1.0</scrollFactor>
       <!-- Chạm 1 ngón = click trái, chạm đúp giữ = kéo thả (Drag) -->
       <tap>yes</tap>
       <tapAndDrag>yes</tapAndDrag>
