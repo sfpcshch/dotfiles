@@ -104,8 +104,6 @@ backup_if_exists "$HOME/.config/labwc"
 backup_if_exists "$HOME/.config/noctalia"
 backup_if_exists "$HOME/.config/environment.d"
 backup_if_exists "$HOME/.config/fcitx5"
-backup_if_exists "$HOME/.config/kdeglobals"
-backup_if_exists "$HOME/.config/dolphinrc"
 backup_if_exists "$HOME/.local/share/themes/noctalia-modern"
 
 # 4. Deploy Directories & Configurations
@@ -123,8 +121,6 @@ cp -a "$DOTFILES_DIR/config/labwc/"* "$HOME/.config/labwc/"
 cp -a "$DOTFILES_DIR/config/noctalia/"* "$HOME/.config/noctalia/"
 cp -a "$DOTFILES_DIR/config/environment.d/"* "$HOME/.config/environment.d/"
 cp -a "$DOTFILES_DIR/config/fcitx5/"* "$HOME/.config/fcitx5/"
-[ -f "$DOTFILES_DIR/config/kdeglobals" ] && cp -a "$DOTFILES_DIR/config/kdeglobals" "$HOME/.config/"
-[ -f "$DOTFILES_DIR/config/dolphinrc" ] && cp -a "$DOTFILES_DIR/config/dolphinrc" "$HOME/.config/"
 cp -a "$DOTFILES_DIR/themes/noctalia-modern" "$HOME/.local/share/themes/"
 cp -a "$DOTFILES_DIR/bin/"* "$HOME/.local/bin/"
 
