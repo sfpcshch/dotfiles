@@ -16,8 +16,6 @@ end = [
     "clock",
     "Spacer_2",
     "notifications",
-    "Spacer_2",
-    "session",
     "Spacer",
     "show_desktop"
 ]
@@ -86,12 +84,12 @@ control_center_position = "bottom_right"
 launcher_placement = "floating"
 launcher_position = "bottom_left"
 session_placement = "floating"
-session_position = "bottom_right"
+session_position = "bottom_left"
 clipboard_placement = "floating"
 clipboard_position = "bottom_right"
 open_near_click_control_center = false
 open_near_click_launcher = false
-open_near_click_session = false
+open_near_click_session = true
 open_near_click_clipboard = false
 
 [theme]
@@ -145,3 +143,6 @@ text = "│"
 [widget.show_desktop.actions]
 left = "exec toggle-desktop.sh"
 
+
+[widget.launcher.actions]
+right = "noctalia msg panel-toggle session"

@@ -151,6 +151,11 @@
       <action name="Execute" command="noctalia msg session lock" />
     </keybind>
 
+    <!-- Win + X: Mở bảng Nguồn / Tắt máy, Khởi động lại (chuẩn Windows Win+X) -->
+    <keybind key="W-x">
+      <action name="Execute" command="noctalia msg panel-toggle session" />
+    </keybind>
+
     <!-- Win + A: Mở Trung tâm điều khiển Control Center / Quick Settings (chuẩn Windows) -->
     <keybind key="W-a">
       <action name="Execute" command="noctalia msg panel-toggle control-center" />
