@@ -1,8 +1,9 @@
 #!/bin/sh
 
-# Chuyển hướng toàn bộ log của autostart vào file cache (reset mỗi phiên login)
-: > "${XDG_CACHE_HOME:-$HOME/.cache}/labwc-autostart.log"
-exec >> "${XDG_CACHE_HOME:-$HOME/.cache}/labwc-autostart.log" 2>&1
+# Chuyển hướng log autostart vào cache (giữ lại 1 bản .old của lần khởi động trước để debug)
+_log="${XDG_CACHE_HOME:-$HOME/.cache}/labwc-autostart.log"
+[ -f "$_log" ] && mv -f "$_log" "${_log}.old"
+exec > "$_log" 2>&1
 
 # Nạp thư mục chứa script cá nhân vào PATH
 export PATH="$HOME/.local/bin:$PATH"

@@ -30,10 +30,6 @@ for arg in "$@"; do
             INSTALL_PACKAGES=false
             shift
             ;;
-        -y|--yes)
-            AUTO_YES=true
-            shift
-            ;;
     esac
 done
 
@@ -104,8 +100,6 @@ backup_if_exists "$HOME/.config/labwc"
 backup_if_exists "$HOME/.config/noctalia"
 backup_if_exists "$HOME/.config/environment.d"
 backup_if_exists "$HOME/.config/fcitx5"
-backup_if_exists "$HOME/.config/fish"
-backup_if_exists "$HOME/.config/alacritty"
 backup_if_exists "$HOME/.local/share/themes/noctalia-modern"
 backup_if_exists "$HOME/.profile"
 
@@ -116,8 +110,6 @@ mkdir -p "$HOME/.config/labwc"
 mkdir -p "$HOME/.config/noctalia"
 mkdir -p "$HOME/.config/environment.d"
 mkdir -p "$HOME/.config/xdg-desktop-portal"
-mkdir -p "$HOME/.config/fish"
-mkdir -p "$HOME/.config/alacritty"
 mkdir -p "$HOME/.local/bin"
 mkdir -p "$HOME/.local/share/themes"
 mkdir -p "$HOME/.local/share/applications"
@@ -127,8 +119,6 @@ cp -a "$DOTFILES_DIR/config/labwc/"* "$HOME/.config/labwc/"
 cp -a "$DOTFILES_DIR/config/noctalia/"* "$HOME/.config/noctalia/"
 cp -a "$DOTFILES_DIR/config/environment.d/"* "$HOME/.config/environment.d/"
 cp -a "$DOTFILES_DIR/config/fcitx5/"* "$HOME/.config/fcitx5/"
-cp -a "$DOTFILES_DIR/config/fish/"* "$HOME/.config/fish/" 2>/dev/null || true
-cp -a "$DOTFILES_DIR/config/alacritty/"* "$HOME/.config/alacritty/" 2>/dev/null || true
 cp -a "$DOTFILES_DIR/config/xdg-desktop-portal/"* "$HOME/.config/xdg-desktop-portal/" 2>/dev/null || true
 cp -a "$DOTFILES_DIR/themes/noctalia-modern" "$HOME/.local/share/themes/"
 cp -a "$DOTFILES_DIR/bin/"* "$HOME/.local/bin/"

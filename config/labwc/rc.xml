@@ -106,11 +106,13 @@
       <action name="Execute" command="wallpaper-cycle.sh prev" />
     </keybind>
 
-    <!-- Nút Windows (Super) để bật/tắt Start Menu của Noctalia (chỉ mở khi nhả phím như Windows) -->
+    <!-- Nút Windows (Super) hoặc Win + Space để bật/tắt Start Menu của Noctalia -->
     <keybind key="Super_L" onRelease="yes">
       <action name="Execute" command="noctalia msg panel-toggle launcher" />
     </keybind>
-    <!-- Win+Space: Dành cho Fcitx5 chuyển đổi bộ gõ (không can thiệp) -->
+    <keybind key="W-space">
+      <action name="Execute" command="noctalia msg panel-toggle launcher" />
+    </keybind>
 
     <!-- Win + E: Mở File Explorer (Dolphin) -->
     <keybind key="W-e">
