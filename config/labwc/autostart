@@ -1,5 +1,11 @@
 #!/bin/sh
 
+# Chuyển hướng toàn bộ log của autostart vào file cache để không văng ra màn hình TTY và dễ kiểm tra
+exec >> "${XDG_CACHE_HOME:-$HOME/.cache}/labwc-autostart.log" 2>&1
+
+# Nạp thư mục chứa script cá nhân vào PATH
+export PATH="$HOME/.local/bin:$PATH"
+
 # Đợi Wayland socket sẵn sàng
 while [ ! -S "$XDG_RUNTIME_DIR/${WAYLAND_DISPLAY:-wayland-0}" ]; do
     sleep 0.1
@@ -16,9 +22,4 @@ systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP QT_QPA_P
 fcitx5 -d --disable xim,xcb &
 
 # Tự động cập nhật hình nền (chạy ngầm rồi tự thoát)
-wallpaper-auto.sh &
-
-# Đảm bảo dịch vụ cử chỉ Touchpad hoạt động
-systemctl --user start libinput-gestures.service &
-
-
+"$HOME/.local/bin/wallpaper-auto.sh" &

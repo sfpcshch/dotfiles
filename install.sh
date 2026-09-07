@@ -105,6 +105,7 @@ backup_if_exists "$HOME/.config/noctalia"
 backup_if_exists "$HOME/.config/environment.d"
 backup_if_exists "$HOME/.config/fcitx5"
 backup_if_exists "$HOME/.local/share/themes/noctalia-modern"
+backup_if_exists "$HOME/.profile"
 
 # 4. Deploy Directories & Configurations
 echo -e "${BLUE}==>${NC} Đang triển khai các file cấu hình..."
@@ -128,6 +129,11 @@ cp -a "$DOTFILES_DIR/bin/"* "$HOME/.local/bin/"
 cp -a "$DOTFILES_DIR/applications/"* "$HOME/.local/share/applications/" 2>/dev/null || true
 update-desktop-database "$HOME/.local/share/applications" 2>/dev/null || true
 
+# Deploy ~/.profile (Login shell / Ly display manager environment)
+if [ -f "$DOTFILES_DIR/profile" ]; then
+    cp -a "$DOTFILES_DIR/profile" "$HOME/.profile"
+fi
+
 # Deploy Firefox Trackpad settings (user.js)
 for profile in "$HOME/.config/mozilla/firefox/"*.default* "$HOME/.mozilla/firefox/"*.default*; do
     if [ -d "$profile" ]; then
@@ -140,6 +146,7 @@ if [ -f "$DOTFILES_DIR/config/libinput-gestures.conf" ]; then
     cp -a "$DOTFILES_DIR/config/libinput-gestures.conf" "$HOME/.config/libinput-gestures.conf"
     systemctl --user enable --now libinput-gestures.service 2>/dev/null || true
 fi
+
 
 # Enable Fcitx5 Lotus Server (Uinput mode daemon)
 if [ -f "/usr/lib/systemd/system/fcitx5-lotus-server@.service" ]; then

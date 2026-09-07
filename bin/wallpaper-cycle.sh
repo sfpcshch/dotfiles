@@ -96,7 +96,7 @@ elif [ "$ACTION" = "next" ]; then
         else
             # Pool tạm thời rỗng (do click liên tục vượt quá 5 ảnh dự trữ)
             # Tải đồng bộ 1 ảnh ngay lập tức
-            dest=$(~/.config/labwc/wallpaper-auto.sh --download-one 201>&-)
+            dest=$(~/.local/bin/wallpaper-auto.sh --download-one 201>&-)
             if [ -n "$dest" ] && [ -f "$dest" ]; then
                 echo "$dest" >> "$HISTORY_FILE"
                 NEW_POS=$(( TOTAL + 1 ))
@@ -121,7 +121,7 @@ fi
 
 # Tự động nạp bù ảnh vào pool nếu vừa tiêu thụ
 if [ "$NEED_REFILL" = true ]; then
-    ~/.config/labwc/wallpaper-auto.sh --refill >/dev/null 2>&1 &
+    ~/.local/bin/wallpaper-auto.sh --refill >/dev/null 2>&1 &
 fi
 
 exit 0

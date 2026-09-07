@@ -1,16 +1,17 @@
 #!/bin/sh
 # xdg-terminal-exec implementation for Alacritty
-
-if [ $# -eq 0 ]; then
-    exec alacritty
-fi
+# Launch detached in user app.slice so temporary scopes (like notification handlers) cannot kill it
 
 if [ "$1" = "--" ] || [ "$1" = "-e" ]; then
     shift
 fi
 
+export WAYLAND_DISPLAY="${WAYLAND_DISPLAY:-wayland-0}"
+export DISPLAY="${DISPLAY:-:0}"
+
 if [ $# -gt 0 ]; then
-    exec alacritty -e "$@"
+    systemd-run --user --slice=app.slice /usr/bin/alacritty -e "$@" >/dev/null 2>&1
 else
-    exec alacritty
+    systemd-run --user --slice=app.slice /usr/bin/alacritty >/dev/null 2>&1
 fi
+
