@@ -137,6 +137,14 @@ if [ -f "$DOTFILES_DIR/config/libinput-gestures.conf" ]; then
     systemctl --user restart libinput-gestures.service 2>/dev/null || true
 fi
 
+# Enable Fcitx5 Lotus Server (Uinput mode daemon)
+if [ -f "/usr/lib/systemd/system/fcitx5-lotus-server@.service" ]; then
+    if ! systemctl is-active --quiet "fcitx5-lotus-server@$USER.service"; then
+        echo -e "${YELLOW}==>${NC} Đang kích hoạt fcitx5-lotus-server cho $USER..."
+        sudo systemctl enable --now "fcitx5-lotus-server@$USER.service" 2>/dev/null || true
+    fi
+fi
+
 
 # Ensure executable permissions
 chmod +x "$HOME/.local/bin/"*.sh 2>/dev/null || true
