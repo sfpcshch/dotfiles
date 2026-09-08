@@ -1,0 +1,21 @@
+# Tự động đồng bộ màu với Noctalia Material You Theme
+menu.border.width: 1
+menu.border.color: #ffffff1f
+menu.items.bg.color: #20201d
+menu.items.text.color: #e5e2de
+menu.items.active.bg.color: #c1cba7
+menu.items.active.text.color: #2c331a
+menu.items.padding.x: 12
+menu.items.padding.y: 6
+menu.separator.width: 1
+menu.separator.padding.width: 6
+menu.separator.padding.height: 4
+menu.separator.color: #ffffff14
+menu.title.bg.color: #20201d
+menu.title.text.color: #e5e2de
+
+osd.bg.color: #20201d
+osd.border.color: #ffffff1f
+osd.border.width: 1
+osd.label.text.color: #e5e2de
+osd.window-switcher.style-classic.item.active.border.color: #c1cba7

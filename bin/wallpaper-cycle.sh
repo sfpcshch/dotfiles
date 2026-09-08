@@ -117,6 +117,7 @@ exec 201>&-
 # Áp dụng hình nền
 if [ -n "$TARGET_WALLPAPER" ]; then
     noctalia msg wallpaper-set "$TARGET_WALLPAPER" >/dev/null 2>&1
+    (sleep 0.3 && "$HOME/.local/bin/sync-labwc-theme.sh") >/dev/null 2>&1 &
 fi
 
 # Tự động nạp bù ảnh vào pool nếu vừa tiêu thụ

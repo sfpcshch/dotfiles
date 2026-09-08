@@ -31,3 +31,6 @@ command -v fcitx5 >/dev/null 2>&1 && fcitx5 -d --disable xim,xcb &
 
 # Đảm bảo dịch vụ cử chỉ Touchpad hoạt động trong phiên đồ họa
 command -v systemctl >/dev/null 2>&1 && systemctl --user start libinput-gestures.service &
+
+# Đồng bộ màu Labwc menu với Noctalia theme
+[ -x "$HOME/.local/bin/sync-labwc-theme.sh" ] && "$HOME/.local/bin/sync-labwc-theme.sh" &
