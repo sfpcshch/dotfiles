@@ -1,7 +1,7 @@
 [bar.default]
 position = "bottom"
 background_opacity = 0.75
-center = [ "launcher", "taskbar" ]
+center = [ "launcher", "Spacer_Launch", "taskbar" ]
 end = [
     "tray",
     "Spacer_2",
@@ -118,6 +118,7 @@ show_label = false
 
 [widget.taskbar]
 group_by_workspace = false
+item_spacing = 14
 icon_scale = 1.35
 active_opacity = 1.0
 inactive_opacity = 1.0
@@ -154,3 +155,7 @@ show_label = false
 
 [widget.volume]
 show_label = false
+
+[widget.Spacer_Launch]
+length = 16
+type = "spacer"
