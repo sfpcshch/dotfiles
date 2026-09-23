@@ -1,7 +1,7 @@
 [bar.default]
 position = "bottom"
 background_opacity = 0.75
-center = []
+center = [ "launcher", "taskbar" ]
 end = [
     "tray",
     "Spacer_2",
@@ -25,7 +25,7 @@ radius_bottom_left = 0
 radius_bottom_right = 0
 radius_top_left = 0
 radius_top_right = 0
-start = [ "launcher", "Spacer_Power", "session", "Spacer_Power", "taskbar" ]
+start = [ "session" ]
 thickness = 32
 
 [wallpaper.default]
@@ -81,7 +81,7 @@ floating_offset = 0
 control_center_placement = "floating"
 control_center_position = "bottom_right"
 launcher_placement = "floating"
-launcher_position = "bottom_left"
+launcher_position = "bottom_center"
 session_placement = "floating"
 session_position = "bottom_left"
 clipboard_placement = "floating"
