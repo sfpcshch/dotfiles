@@ -16,7 +16,7 @@
     "separator": "  ",
     "color": {
       "keys": "cyan",
-      "title": "green"
+      "title": "blue"
     }
   },
   "modules": [
@@ -26,74 +26,73 @@
       "string": "─"
     },
     {
-      "type": "custom",
-      "format": "{#36}┌──────────┐{#}"
-    },
-    {
       "type": "os",
-      "key": "│ OS       │",
-      "format": "󰣇 {3}"
+      "key": "󰣇 OS      ",
+      "format": "{3}"
     },
     {
       "type": "host",
-      "key": "│ Host     │",
-      "format": "󰌢 {2}"
+      "key": "󰌢 HOST    ",
+      "format": "{2}"
     },
     {
       "type": "kernel",
-      "key": "│ Kernel   │",
-      "format": " {1} {2}"
+      "key": " KERNEL  ",
+      "format": "{1} {2}"
     },
     {
       "type": "uptime",
-      "key": "│ Uptime   │",
-      "format": "󰅐 {2}h {3}m"
+      "key": "󰅐 UPTIME  "
     },
     {
       "type": "packages",
-      "key": "│ Packages │",
-      "format": "󰏖 {all} (pacman)"
+      "key": "󰏖 PACKAGES"
     },
     {
       "type": "shell",
-      "key": "│ Shell    │",
-      "format": " {1} {4}"
+      "key": " SHELL   "
     },
     {
       "type": "wm",
-      "key": "│ Desktop  │",
-      "format": "󱂬 {1} ({3})"
+      "key": "󱂬 DESKTOP ",
+      "format": "{1} ({3})"
     },
     {
       "type": "cpu",
-      "key": "│ CPU      │",
-      "format": "󰍛 {1} ({4})"
+      "key": "󰍛 CPU     ",
+      "format": "{1} ({4}) @ {7}"
     },
     {
       "type": "gpu",
-      "key": "│ GPU      │",
-      "format": "󰾲 {2}",
+      "key": "󰾲 GPU 1   ",
+      "format": "{2}",
       "hideType": "integrated"
     },
     {
+      "type": "gpu",
+      "key": "󰾲 GPU 2   ",
+      "format": "Radeon Vega Mobile",
+      "hideType": "discrete"
+    },
+    {
       "type": "memory",
-      "key": "│ Memory   │",
-      "format": " {1} / {2} ({3})"
+      "key": " MEMORY  "
     },
     {
       "type": "disk",
-      "key": "│ Disk     │",
+      "key": "󰋊 STORAGE ",
       "folders": "/",
-      "format": "󰋊 {1} / {2} ({3})"
+      "format": "{1} / {2} ({3})"
     },
     {
       "type": "battery",
-      "key": "│ Battery  │",
-      "format": " {4} [{5}]"
+      "key": " BATTERY ",
+      "format": "{4} [{5}]"
     },
+    "break",
     {
-      "type": "custom",
-      "format": "{#36}└──────────┘{#}  {#31}● {#32}● {#33}● {#34}● {#35}● {#36}● {#37}●"
+      "type": "colors",
+      "symbol": "square"
     }
   ]
 }
