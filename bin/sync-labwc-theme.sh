@@ -21,9 +21,9 @@ cat << THEME_EOF > "$THEMERC"
 # Tự động đồng bộ màu với Noctalia Material You Theme
 
 # Kích thước nút và thanh tiêu đề chữ nhật chuẩn Windows 10 (44x20, không hở cạnh)
-window.button.width: 40
+window.button.width: 22
 window.button.height: 20
-window.button.spacing: 0
+window.button.spacing: 6
 window.titlebar.padding.width: 0
 
 # Căn lề tên cửa sổ sang bên trái sát icon ứng dụng (chuẩn Windows)
