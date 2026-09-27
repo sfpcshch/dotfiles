@@ -58,16 +58,17 @@
       "key": "󱂬"
     },
     {
-      "type": "lm",
-      "key": "󰧨"
+      "type": "localip",
+      "key": "󰩟",
+      "format": "{ipv4}"
     },
     {
       "type": "theme",
       "key": "󰉼"
     },
     {
-      "type": "icons",
-      "key": "󰀻"
+      "type": "processes",
+      "key": "󰒋"
     },
     {
       "type": "terminal",
