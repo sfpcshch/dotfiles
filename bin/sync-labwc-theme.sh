@@ -26,6 +26,18 @@ window.button.height: 20
 window.button.spacing: 0
 window.titlebar.padding.width: 0
 
+# Căn lề tên cửa sổ sang bên trái sát icon ứng dụng (chuẩn Windows)
+window.label.text.justify: left
+
+# Cửa sổ Alt+Tab (OSD - màu xám đen trung tính cố định, không chớp nháy)
+osd.bg.color: #1a1a1e
+osd.border.color: #ffffff20
+osd.border.width: 1
+osd.label.text.color: #e5e5e5
+osd.window-switcher.style-thumbnail.item.active.border.color: #ffffff40
+osd.window-switcher.style-thumbnail.item.active.bg.color: #ffffff15
+osd.window-switcher.preview.border.color: #ffffff30
+
 menu.border.width: 1
 menu.border.color: #ffffff1f
 menu.items.bg.color: $bg
