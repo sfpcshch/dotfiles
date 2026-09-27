@@ -1,37 +1,45 @@
 # window border
-window.active.border.color: #c3c5d8
-window.inactive.border.color: #c7c5ce
+window.active.border.color: #a1cfd3
+window.inactive.border.color: #b8cacb
 
 # ToggleKeybinds status indicator
 window.active.indicator.toggled-keybind.color: #ffb4ab
 
 # window titlebar background
-window.active.title.bg.color: #c3c5d8
-window.inactive.title.bg.color: #c7c5ce
+window.active.title.bg.color: #a1cfd3
+window.inactive.title.bg.color: #b8cacb
 
-window.active.label.text.color: #2d303e
-window.inactive.label.text.color: #2f3036
+window.active.label.text.color: #01363a
+window.inactive.label.text.color: #233335
 window.label.text.justify: center
 
 # window button hover overlay
-window.button.hover.bg.color: #2a2a2b
+window.button.hover.bg.color: #282a2a
 
 # window buttons
-window.active.button.unpressed.image.color: #2d303e
-window.inactive.button.unpressed.image.color: #2d303e
+window.active.button.unpressed.image.color: #01363a
+window.inactive.button.unpressed.image.color: #01363a
 
 # menu
-menu.border.color: #2d303e
-menu.items.bg.color: #c3c5d8
-menu.items.text.color: #2d303e
-menu.items.active.bg.color: #c7c5ce
-menu.items.active.text.color: #2f3036
-menu.separator.color: #2d303e
-menu.title.bg.color: #c3c5d8
-menu.title.text.color: #2d303e
+menu.border.color: #01363a
+menu.items.bg.color: #a1cfd3
+menu.items.text.color: #01363a
+menu.items.active.bg.color: #b8cacb
+menu.items.active.text.color: #233335
+menu.separator.color: #01363a
+menu.title.bg.color: #a1cfd3
+menu.title.text.color: #01363a
 
-# on screen display (window-cycle dialog)
-osd.bg.color: #c3c5d8
-osd.border.color: #2d303e
-osd.label.text.color: #2d303e
-osd.window-switcher.preview.border.color: #919096
+# window buttons & titlebar height (compact & slim)
+window.button.width: 22
+window.button.height: 20
+window.button.spacing: 4
+
+# on screen display (Alt+Tab window-cycle dialog - fixed neutral dark)
+osd.bg.color: #1a1a1e
+osd.border.color: #ffffff20
+osd.border.width: 1
+osd.label.text.color: #e5e5e5
+osd.window-switcher.style-thumbnail.item.active.border.color: #ffffff40
+osd.window-switcher.style-thumbnail.item.active.bg.color: #ffffff15
+osd.window-switcher.preview.border.color: #ffffff30

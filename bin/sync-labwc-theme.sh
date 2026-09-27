@@ -20,10 +20,10 @@ accent_fg="${accent_fg:-#2c331a}"
 cat << THEME_EOF > "$THEMERC"
 # Tự động đồng bộ màu với Noctalia Material You Theme
 
-# Khoảng cách và kích thước nút tránh bấm nhầm (chuẩn Win 10)
-window.button.width: 24
-window.button.height: 24
-window.button.spacing: 6
+# Kích thước nút và thanh tiêu đề mỏng gọn (chuẩn Win 10 tối giản)
+window.button.width: 22
+window.button.height: 20
+window.button.spacing: 4
 
 menu.border.width: 1
 menu.border.color: #ffffff1f
@@ -39,12 +39,6 @@ menu.separator.padding.height: 4
 menu.separator.color: #ffffff14
 menu.title.bg.color: $bg
 menu.title.text.color: $fg
-
-osd.bg.color: $bg
-osd.border.color: #ffffff1f
-osd.border.width: 1
-osd.label.text.color: $fg
-osd.window-switcher.style-classic.item.active.border.color: $accent_bg
 THEME_EOF
 
 labwc --reconfigure 2>/dev/null

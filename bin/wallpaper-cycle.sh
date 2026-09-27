@@ -117,7 +117,20 @@ exec 201>&-
 # Áp dụng hình nền
 if [ -n "$TARGET_WALLPAPER" ]; then
     noctalia msg wallpaper-set "$TARGET_WALLPAPER" >/dev/null 2>&1
-    (sleep 0.3 && "$HOME/.local/bin/sync-labwc-theme.sh") >/dev/null 2>&1 &
+    (
+        CSS="$HOME/.config/gtk-3.0/noctalia.css"
+        OLD_M=$(stat -c %Y "$CSS" 2>/dev/null || echo 0)
+        # Chờ Noctalia tạo xong bảng màu mới (tối đa 1.5s, kiểm tra mỗi 50ms)
+        for i in $(seq 1 30); do
+            NEW_M=$(stat -c %Y "$CSS" 2>/dev/null || echo 0)
+            if [ "$NEW_M" != "$OLD_M" ]; then
+                break
+            fi
+            sleep 0.05
+        done
+        sleep 0.05
+        "$HOME/.local/bin/sync-labwc-theme.sh"
+    ) >/dev/null 2>&1 &
 fi
 
 # Tự động nạp bù ảnh vào pool nếu vừa tiêu thụ
