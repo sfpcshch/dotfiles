@@ -8,7 +8,6 @@ WINIT_X11_SCALE_FACTOR = "1.0"
 
 [window]
 dimensions = { columns = 100, lines = 30 }
-padding = { x = 12, y = 12 }
 dynamic_padding = true
 decorations = "Full"
 opacity = 0.8
@@ -21,10 +20,10 @@ history = 10000
 multiplier = 3
 
 [font]
-normal = { family = "monospace", style = "Regular" }
-bold = { family = "monospace", style = "Bold" }
-italic = { family = "monospace", style = "Italic" }
-bold_italic = { family = "monospace", style = "Bold Italic" }
+normal = { family = "MesloLGS Nerd Font", style = "Regular" }
+bold = { family = "MesloLGS Nerd Font", style = "Bold" }
+italic = { family = "MesloLGS Nerd Font", style = "Italic" }
+bold_italic = { family = "MesloLGS Nerd Font", style = "Bold Italic" }
 size = 12.0
 
 [colors]
