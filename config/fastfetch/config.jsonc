@@ -18,12 +18,17 @@
   "modules": [
     {
       "type": "custom",
-      "format": "{#36}┌─── System ─────────────────────────────{#}"
+      "format": "{#36}┌─── tung@cachyos-x8664 ─────────────────{#}"
     },
     {
       "type": "os",
       "key": "│ 󰣇 OS",
       "format": "{3}"
+    },
+    {
+      "type": "host",
+      "key": "│ 󰌢 Model",
+      "format": "{2}"
     },
     {
       "type": "kernel",
@@ -43,34 +48,29 @@
       "key": "│  Shell"
     },
     {
-      "type": "custom",
-      "format": "{#36}├─── Desktop ────────────────────────────{#}"
+      "type": "display",
+      "key": "│ 󰍹 Display",
+      "format": "{1}x{2} @ {3}Hz"
     },
     {
       "type": "wm",
       "key": "│ 󱂬 WM"
     },
     {
+      "type": "lm",
+      "key": "│ 󰧨 DM"
+    },
+    {
       "type": "theme",
       "key": "│ 󰉼 Theme"
     },
     {
-      "type": "display",
-      "key": "│ 󰍹 Display",
-      "format": "{1}x{2} @ {3}Hz"
+      "type": "icons",
+      "key": "│ 󰀻 Icons"
     },
     {
       "type": "terminal",
       "key": "│  Terminal"
-    },
-    {
-      "type": "custom",
-      "format": "{#36}├─── Hardware ───────────────────────────{#}"
-    },
-    {
-      "type": "host",
-      "key": "│ 󰌢 Model",
-      "format": "{2}"
     },
     {
       "type": "cpu",
@@ -109,12 +109,13 @@
       "format": "{4} [{5}]"
     },
     {
-      "type": "custom",
-      "format": "{#36}└─── Colors ─────────────────────────────{#}"
+      "type": "colors",
+      "key": "│ 󰏘 Colors",
+      "symbol": "circle"
     },
     {
-      "type": "colors",
-      "symbol": "square"
+      "type": "custom",
+      "format": "{#36}└────────────────────────────────────────{#}"
     }
   ]
 }
