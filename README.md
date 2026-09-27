@@ -12,6 +12,10 @@ git clone https://github.com/sfpcshch/dotfiles.git ~/dotfiles && cd ~/dotfiles &
   ```bash
   ./install.sh --no-pkg
   ```
+- **Lưu cấu hình thực tế từ máy ngược vào repo:**
+  ```bash
+  ./install.sh --save
+  ```
 
 ---
 

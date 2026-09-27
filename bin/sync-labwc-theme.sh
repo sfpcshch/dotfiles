@@ -17,9 +17,9 @@ bg="${bg:-#20201d}"
 fg="${fg:-#e5e2de}"
 accent_bg="${accent_bg:-#c1cba7}"
 accent_fg="${accent_fg:-#2c331a}"
-
 cat << THEME_EOF > "$THEMERC"
 # Tự động đồng bộ màu với Noctalia Material You Theme
+
 menu.border.width: 1
 menu.border.color: #ffffff1f
 menu.items.bg.color: $bg

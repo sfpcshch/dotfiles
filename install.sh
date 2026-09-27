@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 # ==============================================================================
-# Dotfiles Installer & System Setup
-# Labwc + Noctalia Shell + Modern Windows-style Desktop + Fcitx5
+# Dotfiles Installer & Configuration Sync
+# Labwc + Noctalia Shell + Windows-style Desktop + Fcitx5 (Arch / CachyOS)
 # ==============================================================================
 
 set -e
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-BACKUP_DIR="$HOME/.config_backup_$(date +%Y%m%d_%H%M%S)"
+CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}"
+BACKUP_DIR="$CACHE_DIR/dotfiles-backup/$(date +%Y%m%d_%H%M%S)"
 
 # Colors
 GREEN='\033[0;32m'
@@ -16,24 +17,130 @@ YELLOW='\033[1;33m'
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
-echo -e "${BLUE}====================================================${NC}"
-echo -e "${GREEN}  CachyOS / Linux Desktop Setup Installer           ${NC}"
-echo -e "${BLUE}  Labwc + Noctalia + Modern Titlebar + Windows Keys ${NC}"
-echo -e "${BLUE}====================================================${NC}"
-echo ""
+print_banner() {
+    echo -e "${BLUE}====================================================${NC}"
+    echo -e "${GREEN}  CachyOS / Arch Linux Desktop Setup & Dotfiles     ${NC}"
+    echo -e "${BLUE}  Labwc + Noctalia + Modern Titlebar + Windows Keys ${NC}"
+    echo -e "${BLUE}====================================================${NC}"
+    echo ""
+}
+
+print_help() {
+    print_banner
+    echo -e "Cách sử dụng:"
+    echo -e "  ${GREEN}./install.sh${NC}              Cài đặt/triển khai cấu hình từ dotfiles vào máy"
+    echo -e "  ${GREEN}./install.sh --no-pkg${NC}     Triển khai cấu hình, bỏ qua bước kiểm tra cài đặt gói"
+    echo -e "  ${GREEN}./install.sh --save${NC}       Lưu cấu hình thực tế từ ~/.config ngược vào repo dotfiles"
+    echo -e "  ${GREEN}./install.sh --help${NC}       Hiển thị trợ giúp này"
+    echo ""
+}
 
 # 1. Parse Arguments
 INSTALL_PACKAGES=true
+SAVE_MODE=false
+
 for arg in "$@"; do
     case $arg in
         --no-pkg|--no-packages)
             INSTALL_PACKAGES=false
-            shift
+            ;;
+        --save|-s)
+            SAVE_MODE=true
+            ;;
+        --help|-h)
+            print_help
+            exit 0
+            ;;
+        *)
+            echo -e "${RED}Tùy chọn không hợp lệ:${NC} $arg"
+            print_help
+            exit 1
             ;;
     esac
 done
 
-# 2. Distro Detection & Package Installation
+print_banner
+
+# ==============================================================================
+# SAVE MODE: Lưu cấu hình đang chạy trên máy vào repo Git
+# ==============================================================================
+if [ "$SAVE_MODE" = true ]; then
+    echo -e "${BLUE}==>${NC} Đang sao chép cấu hình từ hệ thống vào repo dotfiles..."
+
+    # Labwc (bỏ qua file themerc-override vì file này tự sinh theo hình nền)
+    if [ -d "$HOME/.config/labwc" ]; then
+        mkdir -p "$DOTFILES_DIR/config/labwc"
+        for f in "$HOME/.config/labwc/"*; do
+            [ -f "$f" ] || continue
+            [ "$(basename "$f")" = "themerc-override" ] && continue
+            cp -a "$f" "$DOTFILES_DIR/config/labwc/"
+        done
+    fi
+
+    # Noctalia
+    if [ -d "$HOME/.config/noctalia" ]; then
+        mkdir -p "$DOTFILES_DIR/config/noctalia"
+        [ -f "$HOME/.config/noctalia/config.toml" ] && cp -a "$HOME/.config/noctalia/config.toml" "$DOTFILES_DIR/config/noctalia/"
+    fi
+
+    # Fcitx5
+    if [ -d "$HOME/.config/fcitx5" ]; then
+        mkdir -p "$DOTFILES_DIR/config/fcitx5"
+        cp -a "$HOME/.config/fcitx5/"* "$DOTFILES_DIR/config/fcitx5/" 2>/dev/null || true
+    fi
+
+    # Alacritty
+    if [ -d "$HOME/.config/alacritty" ]; then
+        mkdir -p "$DOTFILES_DIR/config/alacritty"
+        cp -a "$HOME/.config/alacritty/"* "$DOTFILES_DIR/config/alacritty/" 2>/dev/null || true
+    fi
+
+    # Environment.d
+    if [ -d "$HOME/.config/environment.d" ]; then
+        mkdir -p "$DOTFILES_DIR/config/environment.d"
+        cp -a "$HOME/.config/environment.d/"* "$DOTFILES_DIR/config/environment.d/" 2>/dev/null || true
+    fi
+
+    # XDG Desktop Portal
+    if [ -d "$HOME/.config/xdg-desktop-portal" ]; then
+        mkdir -p "$DOTFILES_DIR/config/xdg-desktop-portal"
+        cp -a "$HOME/.config/xdg-desktop-portal/"* "$DOTFILES_DIR/config/xdg-desktop-portal/" 2>/dev/null || true
+    fi
+
+    # Libinput Gestures
+    if [ -f "$HOME/.config/libinput-gestures.conf" ]; then
+        cp -a "$HOME/.config/libinput-gestures.conf" "$DOTFILES_DIR/config/libinput-gestures.conf"
+    fi
+
+    # Scripts cá nhân trong ~/.local/bin
+    if [ -d "$HOME/.local/bin" ]; then
+        mkdir -p "$DOTFILES_DIR/bin"
+        for s in "$HOME/.local/bin/"*.sh "$HOME/.local/bin/xdg-terminal-exec"; do
+            [ -f "$s" ] && cp -a "$s" "$DOTFILES_DIR/bin/"
+        done
+    fi
+
+    # ~/.profile
+    if [ -f "$HOME/.profile" ]; then
+        cp -a "$HOME/.profile" "$DOTFILES_DIR/profile"
+    fi
+
+    echo -e "${GREEN}✓ Đã cập nhật xong vào repo dotfiles!${NC}"
+    echo ""
+    echo -e "${BLUE}==>${NC} Trạng thái thay đổi trong Git:"
+    git -C "$DOTFILES_DIR" status --short
+    echo ""
+    echo -e "${YELLOW}Gợi ý:${NC} Hãy kiểm tra 'git diff' trong thư mục dotfiles, sau đó commit và push khi bạn đã ưng ý:"
+    echo -e "  cd ~/dotfiles && git diff"
+    echo -e "  git commit -am 'update config' && git push"
+    exit 0
+fi
+
+# ==============================================================================
+# INSTALL MODE: Triển khai cấu hình từ dotfiles vào máy
+# ==============================================================================
+
+# 2. Package Installation (Dành cho Arch / CachyOS)
 if [ "$INSTALL_PACKAGES" = true ]; then
     if [ -f /etc/os-release ]; then
         . /etc/os-release
@@ -48,7 +155,7 @@ if [ "$INSTALL_PACKAGES" = true ]; then
 
     if [[ "$DISTRO_ID" == "cachyos" || "$DISTRO_ID" == "arch" || "$DISTRO_LIKE" =~ "arch" ]]; then
         echo -e "${BLUE}==>${NC} Đang kiểm tra các gói phần mềm cho Arch / CachyOS..."
-        
+
         PKGS=()
         while IFS= read -r pkg || [ -n "$pkg" ]; do
             [[ "$pkg" =~ ^#.* ]] && continue
@@ -75,19 +182,13 @@ if [ "$INSTALL_PACKAGES" = true ]; then
         else
             echo -e "${GREEN}✓ Tất cả các gói phần mềm cần thiết đã được cài đặt!${NC}"
         fi
-    elif [[ "$DISTRO_ID" == "fedora" || "$DISTRO_LIKE" =~ "fedora" ]]; then
-        echo -e "${BLUE}==>${NC} Phát hiện Fedora. Đang kiểm tra / cài đặt các gói cần thiết..."
-        sudo dnf install -y labwc alacritty dolphin fcitx5 fcitx5-autostart fcitx5-gtk fcitx5-qt grim slurp ImageMagick jq curl git wtype btop || true
-    elif [[ "$DISTRO_ID" =~ (ubuntu|debian|pop|mint) || "$DISTRO_LIKE" =~ (ubuntu|debian) ]]; then
-        echo -e "${BLUE}==>${NC} Phát hiện Debian / Ubuntu. Đang kiểm tra / cài đặt các gói cần thiết..."
-        sudo apt update && sudo apt install -y labwc alacritty dolphin fcitx5 fcitx5-frontend-gtk3 fcitx5-frontend-qt5 grim slurp imagemagick jq curl git wtype btop || true
     else
-        echo -e "${YELLOW}==> Bạn đang dùng bản phân phối ($DISTRO_ID).${NC}"
-        echo -e "    Vui lòng tham khảo $DOTFILES_DIR/packages/generic-packages.txt để cài đặt thủ công các gói tương đương."
+        echo -e "${YELLOW}==> Bạn đang dùng ($DISTRO_ID).${NC}"
+        echo -e "    Vui lòng tham khảo $DOTFILES_DIR/packages/cachyos-packages.txt để cài đặt thủ công các gói tương đương."
     fi
 fi
 
-# 3. Backup Existing Configs (An toàn 100%)
+# 3. Backup Existing Configs (An toàn vào cache)
 echo ""
 echo -e "${BLUE}==>${NC} Đang sao lưu cấu hình cũ (nếu có) vào: ${YELLOW}$BACKUP_DIR${NC}"
 mkdir -p "$BACKUP_DIR"
@@ -149,15 +250,13 @@ if [ -f "$DOTFILES_DIR/config/libinput-gestures.conf" ]; then
     systemctl --user enable --now libinput-gestures.service 2>/dev/null || true
 fi
 
-
-# Enable Fcitx5 Lotus Server (Uinput mode daemon)
+# Enable Fcitx5 Lotus Server (Uinput mode daemon) if available
 if [ -f "/usr/lib/systemd/system/fcitx5-lotus-server@.service" ]; then
     if ! systemctl is-active --quiet "fcitx5-lotus-server@$USER.service"; then
         echo -e "${YELLOW}==>${NC} Đang kích hoạt fcitx5-lotus-server cho $USER..."
         sudo systemctl enable --now "fcitx5-lotus-server@$USER.service" 2>/dev/null || true
     fi
 fi
-
 
 # Ensure executable permissions
 chmod +x "$HOME/.local/bin/"*.sh 2>/dev/null || true
@@ -171,7 +270,7 @@ if [ -f "$HOME/.local/state/noctalia/settings.toml" ]; then
     sed -i 's/floating_offset = [0-9]\+/floating_offset = 0/g' "$HOME/.local/state/noctalia/settings.toml"
 fi
 
-# Ensure Start button icon is available across all distributions
+# Ensure Start button icon fallback is valid
 if [ ! -f "/usr/share/icons/hicolor/scalable/apps/org.cachyos.hello.svg" ]; then
     sed -i "s|/usr/share/icons/hicolor/scalable/apps/org.cachyos.hello.svg|$HOME/.local/share/themes/noctalia-modern/start-icon.svg|g" "$HOME/.config/noctalia/config.toml" 2>/dev/null || true
 fi
@@ -179,15 +278,9 @@ fi
 # 5. Ensure ~/.local/bin is in PATH (Idempotent)
 if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
     echo -e "${YELLOW}==>${NC} Đang thêm ~/.local/bin vào biến PATH..."
-    if [ -f "$HOME/.bashrc" ] && ! grep -q '\.local/bin' "$HOME/.bashrc" 2>/dev/null; then
-        echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$HOME/.bashrc"
-    fi
-    if [ -f "$HOME/.zshrc" ] && ! grep -q '\.local/bin' "$HOME/.zshrc" 2>/dev/null; then
-        echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$HOME/.zshrc"
-    fi
-    if [ -f "$HOME/.config/fish/config.fish" ] && ! grep -q '\.local/bin' "$HOME/.config/fish/config.fish" 2>/dev/null; then
-        echo 'fish_add_path -a $HOME/.local/bin' >> "$HOME/.config/fish/config.fish"
-    fi
+    [ -f "$HOME/.bashrc" ] && ! grep -q '\.local/bin' "$HOME/.bashrc" 2>/dev/null && echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$HOME/.bashrc"
+    [ -f "$HOME/.zshrc" ] && ! grep -q '\.local/bin' "$HOME/.zshrc" 2>/dev/null && echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$HOME/.zshrc"
+    [ -f "$HOME/.config/fish/config.fish" ] && ! grep -q '\.local/bin' "$HOME/.config/fish/config.fish" 2>/dev/null && echo 'fish_add_path -a $HOME/.local/bin' >> "$HOME/.config/fish/config.fish"
 fi
 
 # 6. Live Reconfigure

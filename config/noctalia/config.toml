@@ -1,6 +1,6 @@
 [bar.default]
 position = "bottom"
-background_opacity = 0.75
+background_opacity = 0.80
 center = [ "launcher", "Spacer_Launch", "taskbar" ]
 end = [
     "tray",
@@ -75,7 +75,7 @@ sort_by_usage = true
 [shell.panel]
 borders = true
 shadow = true
-transparency_mode = "soft"
+transparency_mode = "glass"
 floating_layer = "overlay"
 floating_offset = 0
 control_center_placement = "floating"
