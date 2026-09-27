@@ -107,6 +107,12 @@ if [ "$SAVE_MODE" = true ]; then
         cp -a "$HOME/.config/xdg-desktop-portal/"* "$DOTFILES_DIR/config/xdg-desktop-portal/" 2>/dev/null || true
     fi
 
+    # Fastfetch
+    if [ -d "$HOME/.config/fastfetch" ]; then
+        mkdir -p "$DOTFILES_DIR/config/fastfetch"
+        cp -a "$HOME/.config/fastfetch/"* "$DOTFILES_DIR/config/fastfetch/" 2>/dev/null || true
+    fi
+
     # Libinput Gestures
     if [ -f "$HOME/.config/libinput-gestures.conf" ]; then
         cp -a "$HOME/.config/libinput-gestures.conf" "$DOTFILES_DIR/config/libinput-gestures.conf"
@@ -207,6 +213,7 @@ backup_if_exists "$HOME/.config/labwc"
 backup_if_exists "$HOME/.config/noctalia"
 backup_if_exists "$HOME/.config/environment.d"
 backup_if_exists "$HOME/.config/fcitx5"
+backup_if_exists "$HOME/.config/fastfetch"
 backup_if_exists "$HOME/.local/share/themes/noctalia-modern"
 backup_if_exists "$HOME/.profile"
 
@@ -217,6 +224,7 @@ mkdir -p "$HOME/.config/labwc"
 mkdir -p "$HOME/.config/noctalia"
 mkdir -p "$HOME/.config/environment.d"
 mkdir -p "$HOME/.config/xdg-desktop-portal"
+mkdir -p "$HOME/.config/fastfetch"
 mkdir -p "$HOME/.local/bin"
 mkdir -p "$HOME/.local/share/themes"
 mkdir -p "$HOME/.local/share/applications"
@@ -227,6 +235,7 @@ cp -a "$DOTFILES_DIR/config/noctalia/"* "$HOME/.config/noctalia/"
 cp -a "$DOTFILES_DIR/config/environment.d/"* "$HOME/.config/environment.d/"
 cp -a "$DOTFILES_DIR/config/fcitx5/"* "$HOME/.config/fcitx5/"
 cp -a "$DOTFILES_DIR/config/xdg-desktop-portal/"* "$HOME/.config/xdg-desktop-portal/" 2>/dev/null || true
+[ -d "$DOTFILES_DIR/config/fastfetch" ] && cp -a "$DOTFILES_DIR/config/fastfetch/"* "$HOME/.config/fastfetch/" 2>/dev/null || true
 cp -a "$DOTFILES_DIR/themes/noctalia-modern" "$HOME/.local/share/themes/"
 cp -a "$DOTFILES_DIR/bin/"* "$HOME/.local/bin/"
 cp -a "$DOTFILES_DIR/applications/"* "$HOME/.local/share/applications/" 2>/dev/null || true
