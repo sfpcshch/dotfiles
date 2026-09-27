@@ -30,10 +30,11 @@ menu.separator.color: #01363a
 menu.title.bg.color: #a1cfd3
 menu.title.text.color: #01363a
 
-# window buttons & titlebar height (compact & slim)
-window.button.width: 22
+# window buttons & titlebar height (Windows 10 rectangular style)
+window.button.width: 44
 window.button.height: 20
-window.button.spacing: 4
+window.button.spacing: 0
+window.titlebar.padding.width: 0
 
 # on screen display (Alt+Tab window-cycle dialog - fixed neutral dark)
 osd.bg.color: #1a1a1e
