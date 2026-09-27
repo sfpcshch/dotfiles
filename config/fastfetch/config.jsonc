@@ -2,10 +2,10 @@
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
   "logo": {
     "type": "builtin",
-    "source": "cachyos",
+    "source": "cachyos_old_small",
     "padding": {
-      "right": 2,
-      "left": 0
+      "right": 3,
+      "left": 1
     }
   },
   "display": {
@@ -18,104 +18,73 @@
   "modules": [
     {
       "type": "custom",
-      "format": "{#36}┌──────────────┐{#}"
+      "format": "{#36}┌──────────┐{#}"
     },
     {
       "type": "os",
-      "key": "│ 󰣇 OS       │",
-      "format": "{3}"
+      "key": "│ OS       │",
+      "format": "󰣇 {3}"
     },
     {
       "type": "host",
-      "key": "│ 󰌢 Model    │",
-      "format": "{2}"
+      "key": "│ Host     │",
+      "format": "󰌢 {2}"
     },
     {
       "type": "kernel",
-      "key": "│  Kernel   │",
-      "format": "{1} {2}"
+      "key": "│ Kernel   │",
+      "format": " {1} {2}"
     },
     {
       "type": "uptime",
-      "key": "│ 󰅐 Uptime   │"
+      "key": "│ Uptime   │",
+      "format": "󰅐 {2}h {3}m"
     },
     {
       "type": "packages",
-      "key": "│ 󰏖 Packages │"
+      "key": "│ Packages │",
+      "format": "󰏖 {all} (pacman)"
     },
     {
       "type": "shell",
-      "key": "│  Shell    │"
-    },
-    {
-      "type": "display",
-      "key": "│ 󰍹 Display  │",
-      "format": "{1}x{2} @ {3}Hz"
+      "key": "│ Shell    │",
+      "format": " {1} {4}"
     },
     {
       "type": "wm",
-      "key": "│ 󱂬 WM       │"
-    },
-    {
-      "type": "lm",
-      "key": "│ 󰧨 DM       │"
-    },
-    {
-      "type": "theme",
-      "key": "│ 󰉼 Theme    │"
-    },
-    {
-      "type": "icons",
-      "key": "│ 󰀻 Icons    │"
-    },
-    {
-      "type": "terminal",
-      "key": "│  Terminal │"
+      "key": "│ Desktop  │",
+      "format": "󱂬 {1} ({3})"
     },
     {
       "type": "cpu",
-      "key": "│ 󰍛 CPU      │",
-      "format": "{1} ({4}) @ {7}"
+      "key": "│ CPU      │",
+      "format": "󰍛 {1} ({4})"
     },
     {
       "type": "gpu",
-      "key": "│ 󰾲 GPU 1    │",
-      "format": "{2}",
+      "key": "│ GPU      │",
+      "format": "󰾲 {2}",
       "hideType": "integrated"
     },
     {
-      "type": "gpu",
-      "key": "│ 󰾲 GPU 2    │",
-      "format": "Radeon Vega Mobile",
-      "hideType": "discrete"
-    },
-    {
       "type": "memory",
-      "key": "│  Memory   │"
-    },
-    {
-      "type": "swap",
-      "key": "│ 󰓡 Swap     │"
+      "key": "│ Memory   │",
+      "format": " {1} / {2} ({3})"
     },
     {
       "type": "disk",
-      "key": "│ 󰋊 Disk     │",
+      "key": "│ Disk     │",
       "folders": "/",
-      "format": "{1} / {2} ({3})"
+      "format": "󰋊 {1} / {2} ({3})"
     },
     {
       "type": "battery",
-      "key": "│  Battery  │",
-      "format": "{4} [{5}]"
-    },
-    {
-      "type": "colors",
-      "key": "│ 󰏘 Colors   │",
-      "symbol": "circle"
+      "key": "│ Battery  │",
+      "format": " {4} [{5}]"
     },
     {
       "type": "custom",
-      "format": "{#36}└──────────────┘{#}"
+      "format": "{#36}└──────────┘{#}  {#31}● {#32}● {#33}● {#34}● {#35}● {#36}● {#37}●"
     }
   ]
 }
