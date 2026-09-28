@@ -23,7 +23,7 @@ CATEGORIES="${WALLHAVEN_CATEGORIES:-100}"
 
 download_single_to() {
     local target_dir="$1"
-    local max_attempts=5
+    local max_attempts=3
     
     for attempt in $(seq 1 $max_attempts); do
         local page=$(( RANDOM % 50 + 1 ))
@@ -31,24 +31,32 @@ download_single_to() {
         local response
         response=$(curl -s --max-time 8 "$api_url")
         
-        local img_url
-        img_url=$(echo "$response" | jq -r '.data[].path' 2>/dev/null | shuf -n 1)
+        local all_paths
+        all_paths=$(echo "$response" | jq -r '.data[].path' 2>/dev/null)
+        [ -z "$all_paths" ] && continue
         
-        if [ -n "$img_url" ] && [ "$img_url" != "null" ]; then
-            local img_name
-            img_name=$(basename "$img_url")
+        local candidates=()
+        while IFS= read -r url; do
+            [ -z "$url" ] || [ "$url" = "null" ] && continue
+            local name=$(basename "$url")
+            if [ ! -f "$CACHE_DIR/$name" ] && [ ! -f "$POOL_DIR/$name" ]; then
+                candidates+=("$url")
+            fi
+        done <<< "$all_paths"
+        
+        if [ ${#candidates[@]} -gt 0 ]; then
+            local chosen_idx=$(( RANDOM % ${#candidates[@]} ))
+            local img_url="${candidates[$chosen_idx]}"
+            local img_name=$(basename "$img_url")
             local dest="$target_dir/$img_name"
+            local tmp_dest="${dest}.tmp.$$"
             
-            # Chỉ tải nếu chưa có trong cache và chưa có trong pool
-            if [ ! -f "$CACHE_DIR/$img_name" ] && [ ! -f "$POOL_DIR/$img_name" ]; then
-                local tmp_dest="${dest}.tmp.$$"
-                if curl -s --max-time 25 -o "$tmp_dest" "$img_url" && [ -s "$tmp_dest" ]; then
-                    mv "$tmp_dest" "$dest"
-                    echo "$dest"
-                    return 0
-                else
-                    rm -f "$tmp_dest"
-                fi
+            if curl -s --max-time 25 -o "$tmp_dest" "$img_url" && [ -s "$tmp_dest" ]; then
+                mv "$tmp_dest" "$dest"
+                echo "$dest"
+                return 0
+            else
+                rm -f "$tmp_dest"
             fi
         fi
         sleep 0.5
@@ -76,6 +84,8 @@ refill_pool() {
             fi
             sleep 0.5
         done
+        
+        cleanup_cache
     ) 200>"$LOCK_FILE"
 }
 
