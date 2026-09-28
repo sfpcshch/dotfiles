@@ -25,7 +25,7 @@
       <action name="Execute" command="noctalia msg settings-open" />
     </item>
     <item label="Reconfigure">
-      <action name="Reconfigure" />
+      <action name="Execute" command="sync-labwc-theme.sh" />
     </item>
   </menu>
 </openbox_menu>

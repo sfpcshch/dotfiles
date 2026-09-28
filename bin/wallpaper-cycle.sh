@@ -124,13 +124,16 @@ if [ -n "$TARGET_WALLPAPER" ]; then
     noctalia msg wallpaper-set "$TARGET_WALLPAPER" >/dev/null 2>&1
     (
         CSS="$HOME/.config/gtk-3.0/noctalia.css"
-        # Chờ Noctalia cập nhật bảng màu (tối đa 1.5s, pure bash 0 subprocess)
-        for ((i = 0; i < 30; i++)); do
-            [ "$CSS" -nt "$REF" ] && break
+        # Chờ Noctalia cập nhật bảng màu (tối đa 2.5s, pure bash 0 subprocess)
+        for ((i = 0; i < 50; i++)); do
+            if [ "$CSS" -nt "$REF" ]; then
+                rm -f "$REF"
+                "$HOME/.local/bin/sync-labwc-theme.sh"
+                exit 0
+            fi
             sleep 0.05
         done
         rm -f "$REF"
-        "$HOME/.local/bin/sync-labwc-theme.sh"
     ) >/dev/null 2>&1 &
 fi
 
