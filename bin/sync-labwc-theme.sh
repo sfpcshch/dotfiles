@@ -25,15 +25,17 @@ fg="${fg:-#e5e2de}"
 accent_bg="${accent_bg:-#c1cba7}"
 accent_fg="${accent_fg:-#2c331a}"
 
-# Kiểm tra nếu màu menu không thay đổi thì thoát ngay, tránh ghi đĩa và reload labwc vô ích
+# Chỉ ghi đĩa khi màu menu có thay đổi
+need_write=true
 if [ -f "$THEMERC" ]; then
     cur=$(<"$THEMERC")
     if [[ "$cur" == *"menu.items.bg.color: $bg"* ]] && \
        [[ "$cur" == *"menu.items.active.bg.color: $accent_bg"* ]]; then
-        exit 0
+        need_write=false
     fi
 fi
 
+if [ "$need_write" = true ]; then
 cat << THEME_EOF > "$THEMERC"
 # Tự động đồng bộ màu với Noctalia Material You Theme
 
@@ -70,5 +72,6 @@ menu.separator.color: #ffffff14
 menu.title.bg.color: $bg
 menu.title.text.color: $fg
 THEME_EOF
+fi
 
 labwc --reconfigure 2>/dev/null

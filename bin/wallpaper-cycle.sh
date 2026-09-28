@@ -123,10 +123,11 @@ if [ -n "$TARGET_WALLPAPER" ]; then
     touch "$REF"
     noctalia msg wallpaper-set "$TARGET_WALLPAPER" >/dev/null 2>&1
     (
+        THEME="$HOME/.local/share/themes/noctalia/openbox-3/themerc"
         CSS="$HOME/.config/gtk-3.0/noctalia.css"
-        # Chờ Noctalia cập nhật bảng màu (tối đa 2.5s, pure bash 0 subprocess)
-        for ((i = 0; i < 50; i++)); do
-            if [ "$CSS" -nt "$REF" ]; then
+        # Chờ Noctalia cập nhật bảng màu cả Theme Labwc và GTK (tối đa 8s cho ảnh dung lượng lớn, pure bash 0 subprocess)
+        for ((i = 0; i < 160; i++)); do
+            if [ "$THEME" -nt "$REF" ] && [ "$CSS" -nt "$REF" ]; then
                 rm -f "$REF"
                 "$HOME/.local/bin/sync-labwc-theme.sh"
                 exit 0
