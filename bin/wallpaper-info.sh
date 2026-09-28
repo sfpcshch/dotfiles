@@ -4,7 +4,7 @@
 # ==============================================================================
 
 CURRENT_IMG=$(noctalia msg wallpaper-get 2>/dev/null)
-BASENAME=$(basename "$CURRENT_IMG" 2>/dev/null)
+BASENAME="${CURRENT_IMG##*/}"
 
 if [[ "$BASENAME" =~ wallhaven-([a-zA-Z0-9]+) ]]; then
     ID="${BASH_REMATCH[1]}"

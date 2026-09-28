@@ -25,7 +25,7 @@ download_single_to() {
     local target_dir="$1"
     local max_attempts=3
     
-    for attempt in $(seq 1 $max_attempts); do
+    for ((attempt = 1; attempt <= max_attempts; attempt++)); do
         local page=$(( RANDOM % 50 + 1 ))
         local api_url="https://wallhaven.cc/api/v1/search?sorting=toplist&topRange=1y&atleast=1600x900&ratios=16x9,16x10,21x9&categories=${CATEGORIES}&purity=${PURITY}&page=${page}${API_PARAM}"
         local response
@@ -38,7 +38,7 @@ download_single_to() {
         local candidates=()
         while IFS= read -r url; do
             [ -z "$url" ] || [ "$url" = "null" ] && continue
-            local name=$(basename "$url")
+            local name="${url##*/}"
             if [ ! -f "$CACHE_DIR/$name" ] && [ ! -f "$POOL_DIR/$name" ]; then
                 candidates+=("$url")
             fi
@@ -47,7 +47,7 @@ download_single_to() {
         if [ ${#candidates[@]} -gt 0 ]; then
             local chosen_idx=$(( RANDOM % ${#candidates[@]} ))
             local img_url="${candidates[$chosen_idx]}"
-            local img_name=$(basename "$img_url")
+            local img_name="${img_url##*/}"
             local dest="$target_dir/$img_name"
             local tmp_dest="${dest}.tmp.$$"
             

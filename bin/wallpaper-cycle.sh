@@ -41,7 +41,7 @@ fi
 
 # 2. Đọc tổng số ảnh trong lịch sử và vị trí hiện tại
 TOTAL=$(wc -l < "$HISTORY_FILE" 2>/dev/null || echo 0)
-POS=$(cat "$POS_FILE" 2>/dev/null)
+read -r POS < "$POS_FILE" 2>/dev/null || POS=""
 
 if ! [[ "$POS" =~ ^[0-9]+$ ]] || [ "$POS" -lt 1 ]; then
     POS=$TOTAL
@@ -84,7 +84,7 @@ elif [ "$ACTION" = "next" ]; then
 
         if [ ${#pool_files[@]} -gt 0 ]; then
             new_img="${pool_files[0]}"
-            img_name=$(basename "$new_img")
+            img_name="${new_img##*/}"
             dest="$CACHE_DIR/$img_name"
             mv "$new_img" "$dest"
             
