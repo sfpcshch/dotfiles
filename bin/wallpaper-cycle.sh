@@ -119,19 +119,17 @@ exec 201>&-
 
 # Áp dụng hình nền
 if [ -n "$TARGET_WALLPAPER" ]; then
+    REF="${XDG_RUNTIME_DIR:-/tmp}/.wall_time_$$"
+    touch "$REF"
     noctalia msg wallpaper-set "$TARGET_WALLPAPER" >/dev/null 2>&1
     (
         CSS="$HOME/.config/gtk-3.0/noctalia.css"
-        OLD_M=$(stat -c %Y "$CSS" 2>/dev/null || echo 0)
-        # Chờ Noctalia tạo xong bảng màu mới (tối đa 1.5s, kiểm tra mỗi 50ms)
-        for i in $(seq 1 30); do
-            NEW_M=$(stat -c %Y "$CSS" 2>/dev/null || echo 0)
-            if [ "$NEW_M" != "$OLD_M" ]; then
-                break
-            fi
+        # Chờ Noctalia cập nhật bảng màu (tối đa 1.5s, pure bash 0 subprocess)
+        for ((i = 0; i < 30; i++)); do
+            [ "$CSS" -nt "$REF" ] && break
             sleep 0.05
         done
-        sleep 0.05
+        rm -f "$REF"
         "$HOME/.local/bin/sync-labwc-theme.sh"
     ) >/dev/null 2>&1 &
 fi

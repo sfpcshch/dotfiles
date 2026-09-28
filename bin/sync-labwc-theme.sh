@@ -1,22 +1,37 @@
 #!/bin/bash
 # ==============================================================================
 # Đồng bộ màu Labwc Menu & OSD với bảng màu Noctalia (Material You)
+# Tối ưu: 100% bash built-in (0 tiến trình ngoài), chỉ reload khi đổi màu thực sự
 # ==============================================================================
 
 CSS="$HOME/.config/gtk-3.0/noctalia.css"
 THEMERC="$HOME/.config/labwc/themerc-override"
 
+bg="" fg="" accent_bg="" accent_fg=""
 if [ -f "$CSS" ]; then
-    bg=$(grep "@define-color popover_bg_color" "$CSS" | awk '{print $3}' | tr -d ';')
-    fg=$(grep "@define-color popover_fg_color" "$CSS" | awk '{print $3}' | tr -d ';')
-    accent_bg=$(grep "@define-color accent_bg_color" "$CSS" | awk '{print $3}' | tr -d ';')
-    accent_fg=$(grep "@define-color accent_fg_color" "$CSS" | awk '{print $3}' | tr -d ';')
+    while read -r a b c rest; do
+        case "$b" in
+            popover_bg_color) bg="${c%;}" ;;
+            popover_fg_color) fg="${c%;}" ;;
+            accent_bg_color)  accent_bg="${c%;}" ;;
+            accent_fg_color)  accent_fg="${c%;}" ;;
+        esac
+        [ -n "$bg" ] && [ -n "$fg" ] && [ -n "$accent_bg" ] && [ -n "$accent_fg" ] && break
+    done < "$CSS"
 fi
 
 bg="${bg:-#20201d}"
 fg="${fg:-#e5e2de}"
 accent_bg="${accent_bg:-#c1cba7}"
 accent_fg="${accent_fg:-#2c331a}"
+
+# Kiểm tra nếu màu menu không thay đổi thì thoát ngay, tránh ghi đĩa và reload labwc vô ích
+if [ -f "$THEMERC" ] && \
+   grep -Fq "menu.items.bg.color: $bg" "$THEMERC" 2>/dev/null && \
+   grep -Fq "menu.items.active.bg.color: $accent_bg" "$THEMERC" 2>/dev/null; then
+    exit 0
+fi
+
 cat << THEME_EOF > "$THEMERC"
 # Tự động đồng bộ màu với Noctalia Material You Theme
 
