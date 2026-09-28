@@ -26,7 +26,7 @@ download_single_to() {
     local max_attempts=5
     
     for attempt in $(seq 1 $max_attempts); do
-        local page=$(( RANDOM % 5 + 1 ))
+        local page=$(( RANDOM % 50 + 1 ))
         local api_url="https://wallhaven.cc/api/v1/search?sorting=toplist&topRange=1y&atleast=1600x900&ratios=16x9,16x10,21x9&categories=${CATEGORIES}&purity=${PURITY}&page=${page}${API_PARAM}"
         local response
         response=$(curl -s --max-time 8 "$api_url")

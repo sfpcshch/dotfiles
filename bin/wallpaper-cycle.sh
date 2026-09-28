@@ -104,7 +104,10 @@ elif [ "$ACTION" = "next" ]; then
                 TARGET_WALLPAPER="$dest"
                 NEED_REFILL=true
             else
-                notify-send "Wallpaper" "No internet connection or failed to download image." >/dev/null 2>&1 &
+                fallback_img=$(find "$CACHE_DIR" -maxdepth 1 -type f \( -iname "*.jpg" -o -iname "*.png" \) 2>/dev/null | shuf -n 1)
+                if [ -n "$fallback_img" ] && [ -f "$fallback_img" ]; then
+                    TARGET_WALLPAPER="$fallback_img"
+                fi
             fi
         fi
     fi
