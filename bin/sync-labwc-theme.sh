@@ -26,10 +26,12 @@ accent_bg="${accent_bg:-#c1cba7}"
 accent_fg="${accent_fg:-#2c331a}"
 
 # Kiểm tra nếu màu menu không thay đổi thì thoát ngay, tránh ghi đĩa và reload labwc vô ích
-if [ -f "$THEMERC" ] && \
-   grep -Fq "menu.items.bg.color: $bg" "$THEMERC" 2>/dev/null && \
-   grep -Fq "menu.items.active.bg.color: $accent_bg" "$THEMERC" 2>/dev/null; then
-    exit 0
+if [ -f "$THEMERC" ]; then
+    cur=$(<"$THEMERC")
+    if [[ "$cur" == *"menu.items.bg.color: $bg"* ]] && \
+       [[ "$cur" == *"menu.items.active.bg.color: $accent_bg"* ]]; then
+        exit 0
+    fi
 fi
 
 cat << THEME_EOF > "$THEMERC"
