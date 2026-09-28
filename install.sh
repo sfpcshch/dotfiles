@@ -214,7 +214,7 @@ backup_if_exists "$HOME/.config/noctalia"
 backup_if_exists "$HOME/.config/environment.d"
 backup_if_exists "$HOME/.config/fcitx5"
 backup_if_exists "$HOME/.config/fastfetch"
-backup_if_exists "$HOME/.local/share/themes/noctalia-modern"
+backup_if_exists "$HOME/.local/share/themes/noctalia"
 backup_if_exists "$HOME/.profile"
 
 # 4. Deploy Directories & Configurations
@@ -236,7 +236,7 @@ cp -a "$DOTFILES_DIR/config/environment.d/"* "$HOME/.config/environment.d/"
 cp -a "$DOTFILES_DIR/config/fcitx5/"* "$HOME/.config/fcitx5/"
 cp -a "$DOTFILES_DIR/config/xdg-desktop-portal/"* "$HOME/.config/xdg-desktop-portal/" 2>/dev/null || true
 [ -d "$DOTFILES_DIR/config/fastfetch" ] && cp -a "$DOTFILES_DIR/config/fastfetch/"* "$HOME/.config/fastfetch/" 2>/dev/null || true
-cp -a "$DOTFILES_DIR/themes/noctalia-modern" "$HOME/.local/share/themes/"
+cp -a "$DOTFILES_DIR/themes/noctalia" "$HOME/.local/share/themes/"
 cp -a "$DOTFILES_DIR/bin/"* "$HOME/.local/bin/"
 cp -a "$DOTFILES_DIR/applications/"* "$HOME/.local/share/applications/" 2>/dev/null || true
 update-desktop-database "$HOME/.local/share/applications" 2>/dev/null || true
@@ -277,11 +277,6 @@ if [ -f "$HOME/.local/state/noctalia/settings.toml" ]; then
     sed -i 's/background_radius = [0-9.]\+/background_radius = 0.0/g' "$HOME/.local/state/noctalia/settings.toml"
     sed -i 's/input_radius = [0-9.]\+/input_radius = 0.0/g' "$HOME/.local/state/noctalia/settings.toml"
     sed -i 's/floating_offset = [0-9]\+/floating_offset = 0/g' "$HOME/.local/state/noctalia/settings.toml"
-fi
-
-# Ensure Start button icon fallback is valid
-if [ ! -f "/usr/share/icons/hicolor/scalable/apps/org.cachyos.hello.svg" ]; then
-    sed -i "s|/usr/share/icons/hicolor/scalable/apps/org.cachyos.hello.svg|$HOME/.local/share/themes/noctalia-modern/start-icon.svg|g" "$HOME/.config/noctalia/config.toml" 2>/dev/null || true
 fi
 
 # 5. Ensure ~/.local/bin is in PATH (Idempotent)

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <labwc_config>
   <theme>
-    <!-- Sử dụng theme noctalia-modern với nút điều khiển hiện đại chuẩn nét -->
-    <name>noctalia-modern</name>
+    <!-- Sử dụng theme noctalia với nút điều khiển hiện đại chuẩn nét -->
+    <name>noctalia</name>
     <cornerRadius>0</cornerRadius>
     <titlebar>
       <!-- Bố cục kiểu Windows: Icon bên trái; 3 nút Thu nhỏ, Phóng to, Đóng ở bên phải góc trên -->
@@ -266,4 +266,6 @@
       <scrollFactor>1.0</scrollFactor>
     </device>
   </libinput>
+
+
 </labwc_config>
