@@ -45,6 +45,17 @@
       "key": "󰏖"
     },
     {
+      "type": "break"
+    },
+    {
+      "type": "wm",
+      "key": "󱂬"
+    },
+    {
+      "type": "terminal",
+      "key": ""
+    },
+    {
       "type": "shell",
       "key": ""
     },
@@ -54,25 +65,11 @@
       "format": "{1}x{2} @ {3}Hz"
     },
     {
-      "type": "wm",
-      "key": "󱂬"
-    },
-    {
-      "type": "localip",
-      "key": "󰩟",
-      "format": "{ipv4}"
-    },
-    {
       "type": "theme",
       "key": "󰉼"
     },
     {
-      "type": "processes",
-      "key": "󰒋"
-    },
-    {
-      "type": "terminal",
-      "key": ""
+      "type": "break"
     },
     {
       "type": "cpu",
@@ -96,10 +93,6 @@
       "key": ""
     },
     {
-      "type": "swap",
-      "key": "󰓡"
-    },
-    {
       "type": "disk",
       "key": "󰋊",
       "folders": "/",
@@ -109,6 +102,11 @@
       "type": "battery",
       "key": "",
       "format": "{4} [{5}]"
+    },
+    {
+      "type": "localip",
+      "key": "󰩟",
+      "format": "{ipv4}"
     },
     {
       "type": "colors",
