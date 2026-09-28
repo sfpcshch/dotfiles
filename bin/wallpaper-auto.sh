@@ -64,44 +64,6 @@ download_single_to() {
     return 1
 }
 
-refill_pool() {
-    (
-        flock -n 200 || exit 0
-        local target_count=5
-        
-        while true; do
-            shopt -s nullglob
-            local pool_files=("$POOL_DIR"/*.jpg "$POOL_DIR"/*.png)
-            shopt -u nullglob
-            local count=${#pool_files[@]}
-            if [ "$count" -ge "$target_count" ]; then
-                break
-            fi
-            
-            if ! download_single_to "$POOL_DIR" >/dev/null 2>&1; then
-                sleep 2
-                break
-            fi
-            sleep 0.5
-        done
-        
-        cleanup_cache
-    ) 200>"$LOCK_FILE"
-}
-
-# 1. Tải 1 ảnh duy nhất (đồng bộ vào CACHE_DIR)
-if [ "$1" = "--download-one" ]; then
-    download_single_to "$CACHE_DIR"
-    exit 0
-fi
-
-# 2. Nạp bù hàng đợi POOL
-if [ "$1" = "--refill" ]; then
-    refill_pool
-    exit 0
-fi
-
-# 3. Tự động dọn dẹp cache khi quá 50 ảnh
 cleanup_cache() {
     local max_files=50
     local history_file="$CACHE_DIR/history.log"
@@ -145,6 +107,43 @@ cleanup_cache() {
         fi
     fi
 }
+
+refill_pool() {
+    (
+        flock -n 200 || exit 0
+        local target_count=5
+        
+        while true; do
+            shopt -s nullglob
+            local pool_files=("$POOL_DIR"/*.jpg "$POOL_DIR"/*.png)
+            shopt -u nullglob
+            local count=${#pool_files[@]}
+            if [ "$count" -ge "$target_count" ]; then
+                break
+            fi
+            
+            if ! download_single_to "$POOL_DIR" >/dev/null 2>&1; then
+                sleep 2
+                break
+            fi
+            sleep 0.5
+        done
+        
+        cleanup_cache
+    ) 200>"$LOCK_FILE"
+}
+
+# 1. Tải 1 ảnh duy nhất (đồng bộ vào CACHE_DIR)
+if [ "$1" = "--download-one" ]; then
+    download_single_to "$CACHE_DIR"
+    exit 0
+fi
+
+# 2. Nạp bù hàng đợi POOL
+if [ "$1" = "--refill" ]; then
+    refill_pool
+    exit 0
+fi
 
 # 4. Chạy mặc định khi login hoặc qua timer:
 for i in {1..10}; do
