@@ -86,12 +86,6 @@ git clone https://github.com/sfpcshch/dotfiles.git ~/dotfiles && cd ~/dotfiles &
 # Nạp lại cấu hình Labwc ngay lập tức:
 labwc --reconfigure
 
-# Khởi động lại dịch vụ nhận diện cử chỉ bàn rê:
-systemctl --user restart libinput-gestures.service
-
-# Xem trạng thái dịch vụ cử chỉ bàn rê:
-systemctl --user status libinput-gestures.service
-
 # Chuyển đổi giao diện Dark Mode / Light Mode:
 noctalia msg theme-mode-toggle
 

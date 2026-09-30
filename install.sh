@@ -113,11 +113,6 @@ if [ "$SAVE_MODE" = true ]; then
         cp -a "$HOME/.config/fastfetch/"* "$DOTFILES_DIR/config/fastfetch/" 2>/dev/null || true
     fi
 
-    # Libinput Gestures
-    if [ -f "$HOME/.config/libinput-gestures.conf" ]; then
-        cp -a "$HOME/.config/libinput-gestures.conf" "$DOTFILES_DIR/config/libinput-gestures.conf"
-    fi
-
     # Scripts cá nhân trong ~/.local/bin
     if [ -d "$HOME/.local/bin" ]; then
         mkdir -p "$DOTFILES_DIR/bin"
@@ -252,12 +247,6 @@ for profile in "$HOME/.config/mozilla/firefox/"*.default* "$HOME/.mozilla/firefo
         cp -a "$DOTFILES_DIR/config/firefox/user.js" "$profile/" 2>/dev/null || true
     fi
 done
-
-# Deploy Touchpad Gestures config
-if [ -f "$DOTFILES_DIR/config/libinput-gestures.conf" ]; then
-    cp -a "$DOTFILES_DIR/config/libinput-gestures.conf" "$HOME/.config/libinput-gestures.conf"
-    systemctl --user enable --now libinput-gestures.service 2>/dev/null || true
-fi
 
 # Enable Fcitx5 Lotus Server (Uinput mode daemon) if available
 if [ -f "/usr/lib/systemd/system/fcitx5-lotus-server@.service" ]; then
