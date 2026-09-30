@@ -17,24 +17,6 @@ git clone https://github.com/sfpcshch/dotfiles.git ~/dotfiles && cd ~/dotfiles &
   ./install.sh --save
   ```
 
----
-
-## 🖐️ Cử chỉ Bàn rê cảm ứng (Trackpad Gestures)
-
-| Thao tác | Tác vụ | Chi tiết thực thi |
-|---|---|---|
-| **Vuốt 3 ngón XUỐNG** | **Về Desktop** | Thu nhỏ tất cả cửa sổ để hiện Desktop. Vuốt tiếp xuống vẫn giữ nguyên ở Desktop. |
-| **Vuốt 3 ngón LÊN** | **Khôi phục cửa sổ** | Kéo lại toàn bộ các cửa sổ về màn hình khi vừa vuốt xuống. Khi cửa sổ đã mở sẵn, vuốt lên giữ nguyên hiện trạng. |
-| **Cuộn 2 ngón** | **Cuộn trang tự nhiên** | Cuộn tự nhiên chuẩn Windows (vuốt 2 ngón lên thì nội dung cuộn xuống). |
-| **Chạm 1 ngón** | **Click trái** | Chọn / kích hoạt (Tap-to-click). |
-| **Chạm 2 ngón** | **Click phải** | Mở Menu ngữ cảnh chuột phải. |
-| **Chạm 3 ngón** | **Chuột giữa** | Mở link tab mới trên trình duyệt, đóng tab nhanh. |
-| **Chạm đúp giữ 1 ngón** | **Kéo thả (Drag)** | Kéo di chuyển cửa sổ hoặc bôi đen văn bản. |
-| **Chụm 2 ngón (Pinch)** | **Zoom in / out** | Phóng to / thu nhỏ tài liệu, ảnh, trang web. |
-| **Chống chạm nhầm** | **Tự khóa khi gõ** | Vô hiệu hóa bàn rê khi gõ phím. |
-
-> [!NOTE]
-> Đã tắt toàn bộ cử chỉ 4 ngón và vuốt ngang 3 ngón để chống chạm nhầm và nhảy workspace.
 
 ---
 
