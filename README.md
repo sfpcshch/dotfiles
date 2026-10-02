@@ -40,7 +40,7 @@ git clone https://github.com/sfpcshch/dotfiles.git ~/dotfiles && cd ~/dotfiles &
 ### 2. Ứng dụng & Tiện ích
 | Phím tắt | Chức năng |
 |---|---|
-| `Win + B` | Mở Trình duyệt Web (Brave Browser) |
+| `Win + B` | Mở Trình duyệt Web mặc định hệ thống (Default Browser) |
 | `Win + E` | Mở File Manager (Dolphin) |
 | `Win + Enter` hoặc `Win + T` | Mở Terminal (Alacritty) |
 | `Win + S` hoặc `Win + I` | Mở Cài đặt hệ thống & Giao diện (Noctalia Settings) |
