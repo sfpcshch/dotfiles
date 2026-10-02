@@ -87,9 +87,9 @@
       <action name="PreviousWindow" />
     </keybind>
 
-    <!-- Win + S: Mở Tìm kiếm (Windows Search) -->
+    <!-- Win + S: Bật / Tắt Cài đặt Shell (Noctalia Settings) -->
     <keybind key="W-s">
-      <action name="Execute" command="noctalia msg panel-toggle launcher" />
+      <action name="Execute" command="noctalia msg settings-toggle" />
     </keybind>
 
     <!-- Win + R: Mở hộp thoại Run / App Launcher -->
@@ -117,6 +117,11 @@
     <!-- Win + E: Mở File Explorer (Dolphin) -->
     <keybind key="W-e">
       <action name="Execute" command="env QT_QPA_PLATFORMTHEME=qt6ct dolphin" />
+    </keybind>
+
+    <!-- Win + B: Mở Trình duyệt Web (Brave Browser) -->
+    <keybind key="W-b">
+      <action name="Execute" command="brave-origin" />
     </keybind>
 
     <!-- Win + Enter hoặc Win + T: Mở Terminal (Alacritty) -->
@@ -181,14 +186,22 @@
       <action name="Execute" command="alacritty -e btop" />
     </keybind>
 
-    <!-- Win + I: Mở Cài đặt hệ thống Settings -->
+    <!-- Win + I: Bật / Tắt Cài đặt hệ thống Settings (chuẩn Windows) -->
     <keybind key="W-i">
-      <action name="Execute" command="noctalia msg settings-open" />
+      <action name="Execute" command="noctalia msg settings-toggle" />
     </keybind>
 
-    <!-- Alt + F4: Đóng cửa sổ hiện tại -->
+    <!-- Win + Q hoặc Alt + F4: Đóng cửa sổ hiện tại (chuẩn Linux / Windows) -->
+    <keybind key="W-q">
+      <action name="Close" />
+    </keybind>
     <keybind key="A-F4">
       <action name="Close" />
+    </keybind>
+
+    <!-- Win + F: Bật / Tắt chế độ Toàn màn hình (Fullscreen) -->
+    <keybind key="W-f">
+      <action name="ToggleFullscreen" />
     </keybind>
 
     <!-- Print Screen: Chụp ảnh màn hình một vùng hoặc toàn màn hình -->

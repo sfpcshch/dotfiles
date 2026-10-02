@@ -25,28 +25,31 @@ git clone https://github.com/sfpcshch/dotfiles.git ~/dotfiles && cd ~/dotfiles &
 ### 1. Quản lý Cửa sổ & Đa nhiệm
 | Phím tắt | Chức năng |
 |---|---|
-| `Win` (Super) | Bật / tắt Start Menu (Launcher) |
+| `Win` (Super) / `Win + Space` | Bật / tắt Start Menu (Launcher kèm ô tìm kiếm) |
 | `Win + Tab` | Mở **Task View Thumbnail OSD** (giữ `Win` và bấm `Tab` để duyệt thumbnail, nhả `Win` để vào app) |
 | `Alt + Tab` | Chuyển đổi ứng dụng qua lại dạng Thumbnail OSD |
 | `Shift + Alt + Tab` | Chuyển lùi về ứng dụng trước đó |
 | `Win + D` | Thu nhỏ tất cả cửa sổ để Hiện Desktop (bấm lần nữa để hoàn tác) |
+| `Win + F` | Bật / tắt chế độ Toàn màn hình (Fullscreen) |
+| `Win + Q` hoặc `Alt + F4` | Đóng cửa sổ hiện tại nhanh bằng tay trái |
 | `Win + Mũi tên Lên` | Phóng to cực đại cửa sổ (Maximize) |
 | `Win + Mũi tên Xuống` | Thu nhỏ cửa sổ xuống Taskbar (Iconify) |
 | `Win + Mũi tên Trái` | Snap chia nửa màn hình sang bên Trái |
 | `Win + Mũi tên Phải` | Snap chia nửa màn hình sang bên Phải |
-| `Alt + F4` | Đóng cửa sổ hiện tại |
 
 ### 2. Ứng dụng & Tiện ích
 | Phím tắt | Chức năng |
 |---|---|
+| `Win + B` | Mở Trình duyệt Web (Brave Browser) |
 | `Win + E` | Mở File Manager (Dolphin) |
 | `Win + Enter` hoặc `Win + T` | Mở Terminal (Alacritty) |
-| `Win + S` hoặc `Win + R` | Mở thanh tìm kiếm / Chạy lệnh nhanh (Launcher) |
-| `Win + I` | Mở Cài đặt hệ thống (Settings) |
+| `Win + S` hoặc `Win + I` | Mở Cài đặt hệ thống & Giao diện (Noctalia Settings) |
+| `Win + R` | Mở hộp thoại chạy lệnh / Launcher |
 | `Win + A` | Mở Action Center / Cài đặt nhanh (Wifi, Bluetooth, Âm lượng...) |
 | `Win + N` | Mở Trung tâm Thông báo (Notification Center) |
 | `Win + V` | Mở Bảng lịch sử Clipboard |
 | `Win + L` | Khóa màn hình (Lock screen) |
+| `Win + X` | Mở Bảng Nguồn điện (Tắt máy, Khởi động lại...) |
 | `Ctrl + Shift + Esc` | Mở Trình quản lý tác vụ Task Manager (`btop`) |
 | `Print` hoặc `Win + Shift + S` | Chụp ảnh màn hình vùng chọn (Snipping Tool) |
 | `Shift + Print` | Chụp toàn màn hình |
