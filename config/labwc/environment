@@ -1,4 +1,4 @@
-# Biến môi trường cho Labwc Wayland Session
+# Environment variables for Labwc Wayland Session
 XDG_CURRENT_DESKTOP=labwc:wlroots
 XDG_SESSION_DESKTOP=labwc
 QT_QPA_PLATFORM=wayland;xcb
@@ -7,6 +7,6 @@ GDK_BACKEND=wayland,x11,*
 MOZ_ENABLE_WAYLAND=1
 _JAVA_AWT_WM_NONREPARENTING=1
 
-# Cấu hình bộ gõ tiếng Việt Fcitx5 (Lotus)
+# Fcitx5 Vietnamese Input Method configuration
 XMODIFIERS=@im=fcitx
 QT_IM_MODULE=fcitx

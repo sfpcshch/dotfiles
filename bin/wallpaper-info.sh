@@ -1,6 +1,6 @@
 #!/bin/bash
 # ==============================================================================
-# Mở trang nguồn của hình nền hiện tại trên trình duyệt (0% tài nguyên)
+# Open current wallpaper source URL in default browser (zero overhead)
 # ==============================================================================
 
 CURRENT_IMG=$(noctalia msg wallpaper-get 2>/dev/null)

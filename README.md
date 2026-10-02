@@ -1,79 +1,107 @@
-# CachyOS & Linux Dotfiles (Labwc + Noctalia)
+# CachyOS & Arch Linux Dotfiles
 
-## 🚀 Cài đặt nhanh
+A minimalist, high-performance Wayland desktop configuration featuring **Labwc**, **Noctalia Shell**, and **Starship Prompt**.
 
-Mở Terminal và chạy 1 dòng lệnh duy nhất:
+Designed with a sharp geometric aesthetic (`radius = 0`), Windows-style ergonomic keybindings, and dynamic Material You color palette extraction directly from wallpapers.
+
+---
+
+## 🚀 Quick Start
+
+Run this one-liner in your terminal to clone and install:
 
 ```bash
 git clone https://github.com/sfpcshch/dotfiles.git ~/dotfiles && cd ~/dotfiles && ./install.sh
 ```
 
-- **Chỉ triển khai cấu hình (không cài lại gói phần mềm):**
+### Installation Options
+
+* **Deploy configurations only (skip package manager checks):**
   ```bash
   ./install.sh --no-pkg
   ```
-- **Lưu cấu hình thực tế từ máy ngược vào repo:**
+
+* **Save running system configs back into the repository:**
   ```bash
   ./install.sh --save
   ```
 
+---
+
+## ⌨️ Keybindings
+
+### 1. Window Management & Multitasking
+
+| Shortcut | Action |
+| :--- | :--- |
+| `Win` / `Win + Space` | Toggle Start Menu & App Launcher |
+| `Win + Tab` | Task View (Interactive thumbnail window switcher OSD) |
+| `Alt + Tab` | Switch windows with thumbnail preview |
+| `Shift + Alt + Tab` | Switch to previous window |
+| `Win + Q` / `Alt + F4` | Close active window |
+| `Win + F` | Toggle true fullscreen |
+| `Win + D` | Minimize all windows / Show Desktop |
+| `Win + Up` | Maximize window |
+| `Win + Down` | Minimize window to taskbar (Iconify) |
+| `Win + Left` | Snap window to left half |
+| `Win + Right` | Snap window to right half |
+
+### 2. Applications & Tools
+
+| Shortcut | Action |
+| :--- | :--- |
+| `Win + B` | Launch default web browser (`gtk-launch $(xdg-settings get default-web-browser)`) |
+| `Win + E` | Open File Manager (Dolphin) |
+| `Win + Enter` / `Win + T` | Open Terminal (Alacritty) |
+| `Win + R` | Quick command launcher |
+| `Ctrl + Shift + Esc` | Open Process Manager (btop) |
+| `Win + Shift + S` / `Print` | Interactive region screenshot (Snipping Tool) |
+| `Shift + Print` | Fullscreen screenshot |
+
+### 3. System & Shell (Noctalia)
+
+| Shortcut | Action |
+| :--- | :--- |
+| `Win + I` / `Win + S` | Toggle System Settings & Theme configuration |
+| `Win + A` | Quick Settings & Control Center (Wi-Fi, Bluetooth, Audio) |
+| `Win + N` | Notification Center |
+| `Win + V` | Clipboard History Manager |
+| `Win + L` | Lock screen |
+| `Win + X` | Power & Session Menu (Shutdown, Reboot, Logout) |
+| `Win + W` | Next Wallpaper (Wallhaven automated cycling) |
+| `Win + Shift + W` | Previous Wallpaper |
+
+### 4. Function & Media Keys
+
+| Key | Action |
+| :--- | :--- |
+| `Fn + Brightness Up/Down` | Adjust screen brightness with Noctalia OSD |
+| `Fn + Volume Up/Down/Mute` | Adjust speaker volume with Noctalia OSD |
+| `Fn + Mic Mute` | Toggle microphone mute |
+| `Fn + Play / Next / Prev` | Control active media playback |
 
 ---
 
-## ⌨️ Bảng Phím tắt Hệ thống (Keybindings)
-
-### 1. Quản lý Cửa sổ & Đa nhiệm
-| Phím tắt | Chức năng |
-|---|---|
-| `Win` (Super) / `Win + Space` | Bật / tắt Start Menu (Launcher kèm ô tìm kiếm) |
-| `Win + Tab` | Mở **Task View Thumbnail OSD** (giữ `Win` và bấm `Tab` để duyệt thumbnail, nhả `Win` để vào app) |
-| `Alt + Tab` | Chuyển đổi ứng dụng qua lại dạng Thumbnail OSD |
-| `Shift + Alt + Tab` | Chuyển lùi về ứng dụng trước đó |
-| `Win + D` | Thu nhỏ tất cả cửa sổ để Hiện Desktop (bấm lần nữa để hoàn tác) |
-| `Win + F` | Bật / tắt chế độ Toàn màn hình (Fullscreen) |
-| `Win + Q` hoặc `Alt + F4` | Đóng cửa sổ hiện tại nhanh bằng tay trái |
-| `Win + Mũi tên Lên` | Phóng to cực đại cửa sổ (Maximize) |
-| `Win + Mũi tên Xuống` | Thu nhỏ cửa sổ xuống Taskbar (Iconify) |
-| `Win + Mũi tên Trái` | Snap chia nửa màn hình sang bên Trái |
-| `Win + Mũi tên Phải` | Snap chia nửa màn hình sang bên Phải |
-
-### 2. Ứng dụng & Tiện ích
-| Phím tắt | Chức năng |
-|---|---|
-| `Win + B` | Mở Trình duyệt Web mặc định hệ thống (Default Browser) |
-| `Win + E` | Mở File Manager (Dolphin) |
-| `Win + Enter` hoặc `Win + T` | Mở Terminal (Alacritty) |
-| `Win + S` hoặc `Win + I` | Mở Cài đặt hệ thống & Giao diện (Noctalia Settings) |
-| `Win + R` | Mở hộp thoại chạy lệnh / Launcher |
-| `Win + A` | Mở Action Center / Cài đặt nhanh (Wifi, Bluetooth, Âm lượng...) |
-| `Win + N` | Mở Trung tâm Thông báo (Notification Center) |
-| `Win + V` | Mở Bảng lịch sử Clipboard |
-| `Win + L` | Khóa màn hình (Lock screen) |
-| `Win + X` | Mở Bảng Nguồn điện (Tắt máy, Khởi động lại...) |
-| `Ctrl + Shift + Esc` | Mở Trình quản lý tác vụ Task Manager (`btop`) |
-| `Print` hoặc `Win + Shift + S` | Chụp ảnh màn hình vùng chọn (Snipping Tool) |
-| `Shift + Print` | Chụp toàn màn hình |
-
-### 3. Hình nền & Phím chức năng Fn
-| Phím tắt | Chức năng |
-|---|---|
-| `Win + W` | Chuyển sang hình nền tiếp theo (Wallhaven Toplist tự động) |
-| `Win + Shift + W` | Lùi về hình nền trước đó |
-| `Fn + F1/F2...` (Âm lượng) | Tăng, giảm, ngắt âm lượng, mic (đồng bộ OSD hiển thị) |
-| `Fn + F...` (Độ sáng) | Tăng, giảm độ sáng màn hình (đồng bộ OSD hiển thị) |
-| `Fn + Media` | Dừng/Phát nhạc, chuyển bài tiếp theo / bài trước |
-
----
-
-## 🛠️ Lệnh Tiện ích & Quản trị nhanh
+## 🛠️ Management & Handy Commands
 
 ```bash
-# Nạp lại cấu hình Labwc ngay lập tức:
+# Reload Labwc compositor configuration live:
 labwc --reconfigure
 
-# Chuyển đổi giao diện Dark Mode / Light Mode:
+# Toggle Dark / Light theme mode:
 noctalia msg theme-mode-toggle
 
-# Đổi hình nền tiếp theo bằng dòng lệnh:
+# Cycle to the next wallpaper:
 wallpaper-cycle.sh next
+
+# Open settings:
+noctalia msg settings-toggle
 ```
+
+---
+
+## 🎨 Design Principles
+
+* **Sharp Aesthetics**: Flat surfaces, crisp rectangular geometry (`cornerRadius = 0`).
+* **Dynamic Palette**: System accent colors, prompt colors, and borders automatically regenerate upon wallpaper change via Noctalia.
+* **Zero Overhead**: Under 2.5ms prompt render time, native Wayland protocols, direct memory variable lookups.

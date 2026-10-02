@@ -1,31 +1,30 @@
 #!/bin/sh
 
-# Chuyển hướng log autostart vào cache (giữ lại 1 bản .old của lần khởi động trước để debug)
+# Redirect autostart logs to cache (preserve previous session log as .old)
 _log="${XDG_CACHE_HOME:-$HOME/.cache}/labwc-autostart.log"
 [ -f "$_log" ] && mv -f "$_log" "${_log}.old"
 exec > "$_log" 2>&1
 
-# Nạp thư mục chứa script cá nhân vào PATH
+# Ensure user scripts directory is in PATH
 export PATH="$HOME/.local/bin:$PATH"
 
-# Đợi Wayland socket sẵn sàng
+# Wait until Wayland socket is ready
 while [ ! -S "$XDG_RUNTIME_DIR/${WAYLAND_DISPLAY:-wayland-0}" ]; do
     sleep 0.1
 done
 
-# Khởi động Noctalia Desktop Shell (Taskbar, Start Menu, Wallpaper, Notifications, Polkit Agent)
+# Start Noctalia Desktop Shell (Taskbar, Launcher, Wallpaper, Notifications, Polkit Agent)
 command -v noctalia >/dev/null 2>&1 && noctalia &
 
-# Cập nhật môi trường cho systemd và D-Bus (bao gồm Qt theme, Fcitx5 và các biến dev/PATH)
+# Update systemd and D-Bus activation environments
 command -v dbus-update-activation-environment >/dev/null 2>&1 && \
     dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP QT_QPA_PLATFORMTHEME QT_QPA_PLATFORM XMODIFIERS QT_IM_MODULE PATH JAVA_HOME ANDROID_HOME &
 
-# Khởi động bộ gõ tiếng Việt Fcitx5 ở chế độ Pure Wayland
+# Launch Fcitx5 input method in pure Wayland mode
 command -v fcitx5 >/dev/null 2>&1 && fcitx5 -d --disable xim,xcb &
 
-# Tự động cập nhật hình nền (chạy ngầm rồi tự thoát)
+# Auto-sync wallpaper in background
 [ -x "$HOME/.local/bin/wallpaper-auto.sh" ] && "$HOME/.local/bin/wallpaper-auto.sh" &
 
-# Đồng bộ màu Labwc menu với Noctalia theme
+# Sync Labwc menu colors with Noctalia theme
 [ -x "$HOME/.local/bin/sync-labwc-theme.sh" ] && "$HOME/.local/bin/sync-labwc-theme.sh" &
-

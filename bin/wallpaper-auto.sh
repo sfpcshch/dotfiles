@@ -1,6 +1,6 @@
 #!/bin/bash
 # ==============================================================================
-# Bộ tải hình nền Wallhaven Toplist (Hỗ trợ hàng đợi & tải gối đầu)
+# Wallhaven Toplist Wallpaper Fetcher (Queue & Prefetch support)
 # ==============================================================================
 
 CACHE_DIR="$HOME/.cache/auto-wallpapers"
@@ -18,7 +18,7 @@ else
     API_PARAM=""
 fi
 
-# Bộ lọc thể loại: General/Anime/People (100 = chỉ chọn General, bỏ anime và people)
+# Category filter: General/Anime/People (100 = General only, exclude anime & people)
 CATEGORIES="${WALLHAVEN_CATEGORIES:-100}"
 
 download_single_to() {
@@ -78,11 +78,11 @@ cleanup_cache() {
         return 0
     fi
     
-    # Xác định ảnh đang hiển thị hiện tại (bảo vệ, không xóa)
+    # Identify currently displayed wallpaper (protect from deletion)
     local current_img
     current_img=$(noctalia msg wallpaper-get 2>/dev/null)
     
-    # Lấy danh sách ảnh cũ nhất (theo thời gian modify) để xóa
+    # Get oldest images by modification time for pruning
     local to_remove=$(( count - max_files ))
     local removed=0
     
@@ -90,7 +90,7 @@ cleanup_cache() {
         [ "$removed" -ge "$to_remove" ] && break
         [ "$old_file" = "$current_img" ] && continue
         rm -f "$old_file"
-        # Xóa entry tương ứng khỏi history.log
+        # Remove corresponding entry from history.log
         if [ -f "$history_file" ]; then
             grep -vxF "$old_file" "$history_file" > "${history_file}.tmp" && \
                 mv "${history_file}.tmp" "$history_file"
@@ -98,7 +98,7 @@ cleanup_cache() {
         removed=$(( removed + 1 ))
     done < <(ls -t "$CACHE_DIR"/*.jpg "$CACHE_DIR"/*.png 2>/dev/null | tail -n "$to_remove")
     
-    # Cập nhật lại history.pos cho đúng vị trí ảnh hiện tại
+    # Update history.pos for current image position
     if [ -f "$history_file" ] && [ -n "$current_img" ]; then
         local new_pos
         new_pos=$(grep -nxF "$current_img" "$history_file" | cut -d: -f1 | head -n 1)
@@ -133,19 +133,19 @@ refill_pool() {
     ) 200>"$LOCK_FILE"
 }
 
-# 1. Tải 1 ảnh duy nhất (đồng bộ vào CACHE_DIR)
+# 1. Download a single wallpaper directly into CACHE_DIR
 if [ "$1" = "--download-one" ]; then
     download_single_to "$CACHE_DIR"
     exit 0
 fi
 
-# 2. Nạp bù hàng đợi POOL
+# 2. Refill the prefetch queue (POOL)
 if [ "$1" = "--refill" ]; then
     refill_pool
     exit 0
 fi
 
-# 4. Chạy mặc định khi login hoặc qua timer:
+# 3. Default execution on login or via systemd timer
 for i in {1..10}; do
     if noctalia msg status >/dev/null 2>&1; then
         break
@@ -153,11 +153,10 @@ for i in {1..10}; do
     sleep 1
 done
 
-# Gọi cycle next
+# Cycle to next wallpaper
 wallpaper-cycle.sh next
 
-
-# Dọn cache nếu quá 50 ảnh
+# Clean cache if exceeding file limit
 cleanup_cache
 
 exit 0

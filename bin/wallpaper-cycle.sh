@@ -1,6 +1,6 @@
 #!/bin/bash
 # ==============================================================================
-# Chuyển đổi hình nền tức thì (Deterministic Linear Queue / Playlist)
+# Instant Wallpaper Cycling (Deterministic Linear Queue / Playlist)
 # ==============================================================================
 
 CACHE_DIR="$HOME/.cache/auto-wallpapers"
@@ -11,13 +11,13 @@ CYCLE_LOCK="/tmp/wallpaper-cycle.lock"
 
 mkdir -p "$CACHE_DIR" "$POOL_DIR"
 
-# Khóa xử lý để đảm bảo khi click liên tục không bị race condition
+# Lock file descriptor to prevent race conditions on rapid hotkey presses
 exec 201>"$CYCLE_LOCK"
 flock 201 || exit 1
 
 ACTION="${1:-next}"
 
-# 1. Khởi tạo history.log nếu chưa có
+# 1. Initialize history.log if missing
 if [ ! -s "$HISTORY_FILE" ]; then
     find "$CACHE_DIR" -maxdepth 1 -type f \( -iname "*.jpg" -o -iname "*.png" \) -printf "%T@ %p\n" | \
         sort -n | cut -d' ' -f2- > "$HISTORY_FILE"
@@ -39,7 +39,7 @@ if [ ! -s "$HISTORY_FILE" ]; then
     fi
 fi
 
-# 2. Đọc tổng số ảnh trong lịch sử và vị trí hiện tại
+# 2. Read history entry count and current cursor position
 TOTAL=$(wc -l < "$HISTORY_FILE" 2>/dev/null || echo 0)
 read -r POS < "$POS_FILE" 2>/dev/null || POS=""
 
@@ -53,7 +53,7 @@ fi
 TARGET_WALLPAPER=""
 NEED_REFILL=false
 
-# 3. Xử lý PREV (Lùi về ảnh cũ hơn)
+# 3. Handle PREV action (Step backwards in history)
 if [ "$ACTION" = "prev" ]; then
     if [ "$POS" -gt 1 ]; then
         NEW_POS=$(( POS - 1 ))
@@ -66,9 +66,9 @@ if [ "$ACTION" = "prev" ]; then
         notify-send "Wallpaper" "Already at the oldest wallpaper." >/dev/null 2>&1 &
     fi
 
-# 4. Xử lý NEXT
+# 4. Handle NEXT action
 elif [ "$ACTION" = "next" ]; then
-    # Trường hợp 4A: Đang xem lại ảnh cũ -> Tiến dần về ảnh mới hơn trong lịch sử
+    # Case 4A: Browsing back in history -> Advance forward towards newest
     if [ "$POS" -lt "$TOTAL" ]; then
         NEW_POS=$(( POS + 1 ))
         TARGET_IMG=$(sed -n "${NEW_POS}p" "$HISTORY_FILE")
@@ -77,7 +77,7 @@ elif [ "$ACTION" = "next" ]; then
             TARGET_WALLPAPER="$TARGET_IMG"
         fi
     else
-        # Trường hợp 4B: Đang ở ảnh mới nhất -> Lấy ảnh MỚI
+        # Case 4B: At newest wallpaper -> Fetch NEW image from prefetch pool
         shopt -s nullglob
         pool_files=("$POOL_DIR"/*.jpg "$POOL_DIR"/*.png)
         shopt -u nullglob
@@ -94,8 +94,7 @@ elif [ "$ACTION" = "next" ]; then
             TARGET_WALLPAPER="$dest"
             NEED_REFILL=true
         else
-            # Pool tạm thời rỗng (do click liên tục vượt quá 5 ảnh dự trữ)
-            # Tải đồng bộ 1 ảnh ngay lập tức
+            # Pool temporarily empty -> Download single image synchronously
             dest=$(~/.local/bin/wallpaper-auto.sh --download-one 201>&-)
             if [ -n "$dest" ] && [ -f "$dest" ]; then
                 echo "$dest" >> "$HISTORY_FILE"
@@ -113,11 +112,11 @@ elif [ "$ACTION" = "next" ]; then
     fi
 fi
 
-# Mở khóa và đóng file descriptor trước khi set hình nền và chạy tác vụ nền
+# Unlock and close file descriptor before setting wallpaper and triggering background tasks
 flock -u 201 2>/dev/null
 exec 201>&-
 
-# Áp dụng hình nền
+# Apply wallpaper
 if [ -n "$TARGET_WALLPAPER" ]; then
     REF="${XDG_RUNTIME_DIR:-/tmp}/.wall_time_$$"
     touch "$REF"
@@ -125,7 +124,7 @@ if [ -n "$TARGET_WALLPAPER" ]; then
     (
         THEME="$HOME/.local/share/themes/noctalia/openbox-3/themerc"
         CSS="$HOME/.config/gtk-3.0/noctalia.css"
-        # Chờ Noctalia cập nhật bảng màu cả Theme Labwc và GTK (tối đa 8s cho ảnh dung lượng lớn, pure bash 0 subprocess)
+        # Wait for Noctalia to update palette for both Labwc and GTK
         for ((i = 0; i < 160; i++)); do
             if [ "$THEME" -nt "$REF" ] && [ "$CSS" -nt "$REF" ]; then
                 rm -f "$REF"
@@ -138,7 +137,7 @@ if [ -n "$TARGET_WALLPAPER" ]; then
     ) >/dev/null 2>&1 &
 fi
 
-# Tự động nạp bù ảnh vào pool nếu vừa tiêu thụ
+# Automatically refill pool in background
 if [ "$NEED_REFILL" = true ]; then
     ~/.local/bin/wallpaper-auto.sh --refill >/dev/null 2>&1 &
 fi

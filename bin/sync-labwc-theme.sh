@@ -1,7 +1,7 @@
 #!/bin/bash
 # ==============================================================================
-# Đồng bộ màu Labwc Menu & OSD với bảng màu Noctalia (Material You)
-# Tối ưu: 100% bash built-in (0 tiến trình ngoài), chỉ reload khi đổi màu thực sự
+# Sync Labwc Menu & OSD colors with Noctalia palette (Material You)
+# Optimized: 100% bash built-in (0 external subshells), write only on color changes
 # ==============================================================================
 
 CSS="$HOME/.config/gtk-3.0/noctalia.css"
@@ -25,7 +25,7 @@ fg="${fg:-#e5e2de}"
 accent_bg="${accent_bg:-#c1cba7}"
 accent_fg="${accent_fg:-#2c331a}"
 
-# Chỉ ghi đĩa khi màu menu có thay đổi
+# Only write to disk when menu colors change
 need_write=true
 if [ -f "$THEMERC" ]; then
     cur=$(<"$THEMERC")
@@ -37,18 +37,18 @@ fi
 
 if [ "$need_write" = true ]; then
 cat << THEME_EOF > "$THEMERC"
-# Tự động đồng bộ màu với Noctalia Material You Theme
+# Automatically synchronized with Noctalia Material You Theme
 
-# Kích thước nút và thanh tiêu đề chữ nhật chuẩn Windows 10 (44x20, không hở cạnh)
+# Windows 10 style rectangular titlebar buttons (44x20 flush dimensions)
 window.button.width: 22
 window.button.height: 20
 window.button.spacing: 6
 window.titlebar.padding.width: 0
 
-# Căn lề tên cửa sổ sang bên trái sát icon ứng dụng (chuẩn Windows)
+# Left-align window title label next to app icon
 window.label.text.justify: left
 
-# Cửa sổ Alt+Tab (OSD - màu xám đen trung tính cố định, không chớp nháy)
+# Alt+Tab window switcher OSD (neutral dark tone)
 osd.bg.color: #1a1a1e
 osd.border.color: #ffffff20
 osd.border.width: 1

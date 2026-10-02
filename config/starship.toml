@@ -3,8 +3,8 @@
 palette = "noctalia"
 add_newline = true
 
-# Khối 1 thay thế OS: Dùng module username (0ms overhead, đọc trực tiếp từ RAM, không quét đĩa)
-# Giữ vững bố cục 3-4 khối Powerline cân đối, tự động đổi màu đỏ cảnh báo nếu là root
+# Block 1: Fast username/session module (<1ms, direct memory lookup, root warning)
+# Powerline multi-color segments with prev_bg transitions for dynamic git/duration handling
 format = '''
 [┌─](green)$username[](fg:green bg:blue)$directory$git_branch$git_status$cmd_duration[](fg:prev_bg bg:surface1)$time[](fg:prev_bg)
 $character'''
@@ -35,14 +35,14 @@ min_time = 2_000
 style = "bg:surface0 fg:yellow bold"
 format = "[](fg:prev_bg bg:surface0)[ 󰅐 $duration ]($style)"
 
-# Mốc thời gian là 1 khối Powerline riêng biệt, nối mượt mà từ khối trước
+# Timestamp marker segment
 [time]
 disabled = false
 time_format = "%R"
 style = "bg:surface1 fg:white bold"
 format = "[  $time ]($style)"
 
-# Dòng dưới đồng nhất màu green với dòng trên, ký hiệu ⚡ nối liền mạch không gap với đường kẻ ─
+# Input prompt line, seamless gapless ⚡ symbol matching the frame connector
 [character]
 success_symbol = "[└─⚡](bold green) "
 error_symbol = "[└─⚡](bold red) "

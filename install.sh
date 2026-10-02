@@ -20,18 +20,18 @@ NC='\033[0m' # No Color
 print_banner() {
     echo -e "${BLUE}====================================================${NC}"
     echo -e "${GREEN}  CachyOS / Arch Linux Desktop Setup & Dotfiles     ${NC}"
-    echo -e "${BLUE}  Labwc + Noctalia + Modern Titlebar + Windows Keys ${NC}"
+    echo -e "${BLUE}  Labwc + Noctalia + Starship + Windows-style Keys  ${NC}"
     echo -e "${BLUE}====================================================${NC}"
     echo ""
 }
 
 print_help() {
     print_banner
-    echo -e "Cách sử dụng:"
-    echo -e "  ${GREEN}./install.sh${NC}              Cài đặt/triển khai cấu hình từ dotfiles vào máy"
-    echo -e "  ${GREEN}./install.sh --no-pkg${NC}     Triển khai cấu hình, bỏ qua bước kiểm tra cài đặt gói"
-    echo -e "  ${GREEN}./install.sh --save${NC}       Lưu cấu hình thực tế từ ~/.config ngược vào repo dotfiles"
-    echo -e "  ${GREEN}./install.sh --help${NC}       Hiển thị trợ giúp này"
+    echo -e "Usage:"
+    echo -e "  ${GREEN}./install.sh${NC}              Deploy dotfiles configuration to the system"
+    echo -e "  ${GREEN}./install.sh --no-pkg${NC}     Deploy configuration, skip package verification"
+    echo -e "  ${GREEN}./install.sh --save${NC}       Save active configs from ~/.config into dotfiles repo"
+    echo -e "  ${GREEN}./install.sh --help${NC}       Show this help message"
     echo ""
 }
 
@@ -52,7 +52,7 @@ for arg in "$@"; do
             exit 0
             ;;
         *)
-            echo -e "${RED}Tùy chọn không hợp lệ:${NC} $arg"
+            echo -e "${RED}Invalid option:${NC} $arg"
             print_help
             exit 1
             ;;
@@ -62,17 +62,19 @@ done
 print_banner
 
 # ==============================================================================
-# SAVE MODE: Lưu cấu hình đang chạy trên máy vào repo Git
+# SAVE MODE: Save running system configs back into Git repository
 # ==============================================================================
 if [ "$SAVE_MODE" = true ]; then
-    echo -e "${BLUE}==>${NC} Đang sao chép cấu hình từ hệ thống vào repo dotfiles..."
+    echo -e "${BLUE}==>${NC} Saving active configurations into dotfiles repository..."
 
-    # Labwc (bỏ qua file themerc-override vì file này tự sinh theo hình nền)
+    # Labwc (skip themerc-override & noctalia.conf as they are auto-generated from wallpaper)
     if [ -d "$HOME/.config/labwc" ]; then
         mkdir -p "$DOTFILES_DIR/config/labwc"
         for f in "$HOME/.config/labwc/"*; do
             [ -f "$f" ] || continue
-            [ "$(basename "$f")" = "themerc-override" ] && continue
+            case "$(basename "$f")" in
+                themerc-override|noctalia.conf) continue ;;
+            esac
             cp -a "$f" "$DOTFILES_DIR/config/labwc/"
         done
     fi
@@ -92,7 +94,11 @@ if [ "$SAVE_MODE" = true ]; then
     # Alacritty
     if [ -d "$HOME/.config/alacritty" ]; then
         mkdir -p "$DOTFILES_DIR/config/alacritty"
-        cp -a "$HOME/.config/alacritty/"* "$DOTFILES_DIR/config/alacritty/" 2>/dev/null || true
+        for f in "$HOME/.config/alacritty/"*; do
+            [ -e "$f" ] || continue
+            [ "$(basename "$f")" = "themes" ] && continue
+            cp -a "$f" "$DOTFILES_DIR/config/alacritty/"
+        done
     fi
 
     # Environment.d
@@ -110,7 +116,11 @@ if [ "$SAVE_MODE" = true ]; then
     # Fastfetch
     if [ -d "$HOME/.config/fastfetch" ]; then
         mkdir -p "$DOTFILES_DIR/config/fastfetch"
-        cp -a "$HOME/.config/fastfetch/"* "$DOTFILES_DIR/config/fastfetch/" 2>/dev/null || true
+        for f in "$HOME/.config/fastfetch/"*; do
+            [ -e "$f" ] || continue
+            [ "$(basename "$f")" = "themes" ] && continue
+            cp -a "$f" "$DOTFILES_DIR/config/fastfetch/"
+        done
     fi
 
     # Starship Prompt
@@ -124,7 +134,7 @@ if [ "$SAVE_MODE" = true ]; then
         [ -f "$HOME/.config/fish/config.fish" ] && cp -a "$HOME/.config/fish/config.fish" "$DOTFILES_DIR/config/fish/"
     fi
 
-    # Scripts cá nhân trong ~/.local/bin
+    # Personal user scripts in ~/.local/bin
     if [ -d "$HOME/.local/bin" ]; then
         mkdir -p "$DOTFILES_DIR/bin"
         for s in "$HOME/.local/bin/"*.sh "$HOME/.local/bin/xdg-terminal-exec"; do
@@ -137,22 +147,22 @@ if [ "$SAVE_MODE" = true ]; then
         cp -a "$HOME/.profile" "$DOTFILES_DIR/profile"
     fi
 
-    echo -e "${GREEN}✓ Đã cập nhật xong vào repo dotfiles!${NC}"
+    echo -e "${GREEN}✓ Dotfiles repository successfully updated!${NC}"
     echo ""
-    echo -e "${BLUE}==>${NC} Trạng thái thay đổi trong Git:"
+    echo -e "${BLUE}==>${NC} Git working tree status:"
     git -C "$DOTFILES_DIR" status --short
     echo ""
-    echo -e "${YELLOW}Gợi ý:${NC} Hãy kiểm tra 'git diff' trong thư mục dotfiles, sau đó commit và push khi bạn đã ưng ý:"
+    echo -e "${YELLOW}Hint:${NC} Review changes with 'git diff', then commit and push:"
     echo -e "  cd ~/dotfiles && git diff"
     echo -e "  git commit -am 'update config' && git push"
     exit 0
 fi
 
 # ==============================================================================
-# INSTALL MODE: Triển khai cấu hình từ dotfiles vào máy
+# INSTALL MODE: Deploy configuration files to system
 # ==============================================================================
 
-# 2. Package Installation (Dành cho Arch / CachyOS)
+# 2. Package Installation (Arch / CachyOS)
 if [ "$INSTALL_PACKAGES" = true ]; then
     if [ -f /etc/os-release ]; then
         . /etc/os-release
@@ -163,10 +173,10 @@ if [ "$INSTALL_PACKAGES" = true ]; then
         DISTRO_LIKE="unknown"
     fi
 
-    echo -e "${BLUE}==>${NC} Phát hiện hệ điều hành: ${GREEN}${NAME:-$DISTRO_ID}${NC}"
+    echo -e "${BLUE}==>${NC} Detected operating system: ${GREEN}${NAME:-$DISTRO_ID}${NC}"
 
     if [[ "$DISTRO_ID" == "cachyos" || "$DISTRO_ID" == "arch" || "$DISTRO_LIKE" =~ "arch" ]]; then
-        echo -e "${BLUE}==>${NC} Đang kiểm tra các gói phần mềm cho Arch / CachyOS..."
+        echo -e "${BLUE}==>${NC} Verifying package dependencies for Arch / CachyOS..."
 
         PKGS=()
         while IFS= read -r pkg || [ -n "$pkg" ]; do
@@ -183,7 +193,7 @@ if [ "$INSTALL_PACKAGES" = true ]; then
         done
 
         if [ ${#MISSING_PKGS[@]} -gt 0 ]; then
-            echo -e "${YELLOW}Cần cài đặt thêm các gói sau:${NC} ${MISSING_PKGS[*]}"
+            echo -e "${YELLOW}Packages to install:${NC} ${MISSING_PKGS[*]}"
             if command -v paru >/dev/null 2>&1; then
                 paru -S --needed --noconfirm "${MISSING_PKGS[@]}"
             elif command -v yay >/dev/null 2>&1; then
@@ -192,17 +202,17 @@ if [ "$INSTALL_PACKAGES" = true ]; then
                 sudo pacman -S --needed --noconfirm "${MISSING_PKGS[@]}"
             fi
         else
-            echo -e "${GREEN}✓ Tất cả các gói phần mềm cần thiết đã được cài đặt!${NC}"
+            echo -e "${GREEN}✓ All required software packages are installed!${NC}"
         fi
     else
-        echo -e "${YELLOW}==> Bạn đang dùng ($DISTRO_ID).${NC}"
-        echo -e "    Vui lòng tham khảo $DOTFILES_DIR/packages/cachyos-packages.txt để cài đặt thủ công các gói tương đương."
+        echo -e "${YELLOW}==> Running on ($DISTRO_ID).${NC}"
+        echo -e "    Please refer to $DOTFILES_DIR/packages/cachyos-packages.txt for equivalent packages."
     fi
 fi
 
-# 3. Backup Existing Configs (An toàn vào cache)
+# 3. Backup Existing Configs safely to cache
 echo ""
-echo -e "${BLUE}==>${NC} Đang sao lưu cấu hình cũ (nếu có) vào: ${YELLOW}$BACKUP_DIR${NC}"
+echo -e "${BLUE}==>${NC} Backing up existing configurations to: ${YELLOW}$BACKUP_DIR${NC}"
 mkdir -p "$BACKUP_DIR"
 
 backup_if_exists() {
@@ -226,7 +236,7 @@ backup_if_exists "$HOME/.local/share/themes/noctalia"
 backup_if_exists "$HOME/.profile"
 
 # 4. Deploy Directories & Configurations
-echo -e "${BLUE}==>${NC} Đang triển khai các file cấu hình..."
+echo -e "${BLUE}==>${NC} Deploying configuration files..."
 
 mkdir -p "$HOME/.config/labwc"
 mkdir -p "$HOME/.config/noctalia"
@@ -267,7 +277,7 @@ done
 # Enable Fcitx5 Lotus Server (Uinput mode daemon) if available
 if [ -f "/usr/lib/systemd/system/fcitx5-lotus-server@.service" ]; then
     if ! systemctl is-active --quiet "fcitx5-lotus-server@$USER.service"; then
-        echo -e "${YELLOW}==>${NC} Đang kích hoạt fcitx5-lotus-server cho $USER..."
+        echo -e "${YELLOW}==>${NC} Enabling fcitx5-lotus-server for $USER..."
         sudo systemctl enable --now "fcitx5-lotus-server@$USER.service" 2>/dev/null || true
     fi
 fi
@@ -286,31 +296,31 @@ fi
 
 # 5. Ensure ~/.local/bin is in PATH (Idempotent)
 if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
-    echo -e "${YELLOW}==>${NC} Đang thêm ~/.local/bin vào biến PATH..."
+    echo -e "${YELLOW}==>${NC} Adding ~/.local/bin to PATH variable..."
     [ -f "$HOME/.bashrc" ] && ! grep -q '\.local/bin' "$HOME/.bashrc" 2>/dev/null && echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$HOME/.bashrc"
     [ -f "$HOME/.zshrc" ] && ! grep -q '\.local/bin' "$HOME/.zshrc" 2>/dev/null && echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$HOME/.zshrc"
     [ -f "$HOME/.config/fish/config.fish" ] && ! grep -q '\.local/bin' "$HOME/.config/fish/config.fish" 2>/dev/null && echo 'fish_add_path -a $HOME/.local/bin' >> "$HOME/.config/fish/config.fish"
 fi
 
 # 6. Live Reconfigure
-echo -e "${BLUE}==>${NC} Đang kiểm tra và tải cấu hình mới..."
+echo -e "${BLUE}==>${NC} Validating and reloading configuration..."
 if command -v noctalia >/dev/null 2>&1; then
-    noctalia config validate >/dev/null 2>&1 && echo -e "${GREEN}✓ Cấu hình Noctalia hợp lệ!${NC}"
+    noctalia config validate >/dev/null 2>&1 && echo -e "${GREEN}✓ Noctalia configuration is valid!${NC}"
 fi
 
 if [ -n "$WAYLAND_DISPLAY" ] && command -v labwc >/dev/null 2>&1; then
     labwc --reconfigure 2>/dev/null || true
-    echo -e "${GREEN}✓ Đã nạp lại cấu hình Labwc thành công!${NC}"
+    echo -e "${GREEN}✓ Labwc configuration reloaded successfully!${NC}"
 fi
 
 echo ""
 echo -e "${GREEN}====================================================${NC}"
-echo -e "${GREEN}✓ CÀI ĐẶT HOÀN TẤT THÀNH CÔNG!                     ${NC}"
+echo -e "${GREEN}✓ INSTALLATION COMPLETED SUCCESSFULLY!              ${NC}"
 echo -e "${GREEN}====================================================${NC}"
-echo -e "• Giao diện thanh tiêu đề chuẩn Windows: Đã kích hoạt."
-echo -e "• Phím tắt Windows (Win+D, Win+E, Win+A, v.v.): Sẵn sàng."
-echo -e "• Cử chỉ Touchpad 3 ngón (Lên khôi phục, Xuống Desktop): Đã cấu hình."
-echo -e "• Bộ gõ tiếng Việt Fcitx5: Đã đồng bộ môi trường Wayland."
-echo -e "• Hình nền tự động Wallhaven (Win+W đổi ảnh): Đã cài đặt."
+echo -e "• Sharp titlebar theme: Active."
+echo -e "• Windows-style shortcuts (Win+D, Win+E, Win+A, etc.): Ready."
+echo -e "• Natural touchpad gestures: Configured."
+echo -e "• Starship Powerline prompt with Noctalia palette: Ready."
+echo -e "• Automated Wallhaven wallpaper cycling (Win+W): Installed."
 echo ""
-echo -e "Bản sao lưu cấu hình cũ được lưu tại: ${YELLOW}$BACKUP_DIR${NC}"
+echo -e "Configuration backup saved at: ${YELLOW}$BACKUP_DIR${NC}"
