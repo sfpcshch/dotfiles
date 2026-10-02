@@ -6,13 +6,24 @@
     "padding": {
       "right": 3,
       "left": 0
+    },
+    "color": {
+      "1": "#b1d163",
+      "2": "#becc63"
     }
   },
   "display": {
     "separator": "  ",
     "color": {
-      "keys": "cyan",
-      "title": "blue"
+      "keys": "#b1d183",
+      "title": "#becca6"
+    },
+    "percent": {
+      "color": {
+        "green": "#83d7b5",
+        "yellow": "#b1d183",
+        "red": "#ffb4ab"
+      }
     }
   },
   "modules": [

@@ -1,5 +1,8 @@
 # Dynamic generated theme overrides (created automatically on wallpaper change)
 config/labwc/themerc-override
+config/labwc/noctalia.conf
+config/alacritty/themes/
+config/fastfetch/themes/
 
 # Dynamic cached layouts from Fcitx5
 config/fcitx5/conf/cached_layouts
