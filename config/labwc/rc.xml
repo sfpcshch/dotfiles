@@ -204,6 +204,17 @@
       <action name="ToggleFullscreen" />
     </keybind>
 
+    <!-- Win + / hoặc Win + ? hoặc Win + F1: Xem nhanh bảng phím tắt hệ thống (Shortcuts Cheat Sheet) -->
+    <keybind key="W-slash">
+      <action name="Execute" command="keybinds-help.sh" />
+    </keybind>
+    <keybind key="W-question">
+      <action name="Execute" command="keybinds-help.sh" />
+    </keybind>
+    <keybind key="W-F1">
+      <action name="Execute" command="keybinds-help.sh" />
+    </keybind>
+
     <!-- Print Screen: Chụp ảnh màn hình một vùng hoặc toàn màn hình -->
     <keybind key="Print">
       <action name="Execute" command="noctalia msg screenshot-region" />

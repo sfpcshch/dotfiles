@@ -18,9 +18,12 @@
       <action name="Execute" command="alacritty" />
     </item>
     <item label="Web Browser">
-      <action name="Execute" command="firefox" />
+      <action name="Execute" command="brave-origin" />
     </item>
     <separator />
+    <item label="Keyboard Shortcuts">
+      <action name="Execute" command="keybinds-help.sh" />
+    </item>
     <item label="Settings">
       <action name="Execute" command="noctalia msg settings-open" />
     </item>
