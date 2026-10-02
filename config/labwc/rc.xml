@@ -121,7 +121,7 @@
 
     <!-- Win + B: Launch system default web browser -->
     <keybind key="W-b">
-      <action name="Execute" command="gtk-launch $(xdg-settings get default-web-browser)" />
+      <action name="Execute" command="sh -c 'gtk-launch $(xdg-settings get default-web-browser)'" />
     </keybind>
 
     <!-- Win + Enter or Win + T: Open Terminal (Alacritty) -->
