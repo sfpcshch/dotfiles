@@ -119,9 +119,9 @@
       <action name="Execute" command="env QT_QPA_PLATFORMTHEME=qt6ct dolphin" />
     </keybind>
 
-    <!-- Win + B: Launch system default web browser -->
+    <!-- Win + B: Launch Web Browser (Brave) -->
     <keybind key="W-b">
-      <action name="Execute" command="sh -c 'gtk-launch $(xdg-settings get default-web-browser)'" />
+      <action name="Execute" command="brave-origin" />
     </keybind>
 
     <!-- Win + Enter or Win + T: Open Terminal (Alacritty) -->
