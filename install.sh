@@ -113,6 +113,17 @@ if [ "$SAVE_MODE" = true ]; then
         cp -a "$HOME/.config/fastfetch/"* "$DOTFILES_DIR/config/fastfetch/" 2>/dev/null || true
     fi
 
+    # Starship Prompt
+    if [ -f "$HOME/.config/starship.toml" ]; then
+        cp -a "$HOME/.config/starship.toml" "$DOTFILES_DIR/config/starship.toml"
+    fi
+
+    # Fish Shell
+    if [ -d "$HOME/.config/fish" ]; then
+        mkdir -p "$DOTFILES_DIR/config/fish"
+        [ -f "$HOME/.config/fish/config.fish" ] && cp -a "$HOME/.config/fish/config.fish" "$DOTFILES_DIR/config/fish/"
+    fi
+
     # Scripts cá nhân trong ~/.local/bin
     if [ -d "$HOME/.local/bin" ]; then
         mkdir -p "$DOTFILES_DIR/bin"
@@ -209,6 +220,8 @@ backup_if_exists "$HOME/.config/noctalia"
 backup_if_exists "$HOME/.config/environment.d"
 backup_if_exists "$HOME/.config/fcitx5"
 backup_if_exists "$HOME/.config/fastfetch"
+backup_if_exists "$HOME/.config/starship.toml"
+backup_if_exists "$HOME/.config/fish/config.fish"
 backup_if_exists "$HOME/.local/share/themes/noctalia"
 backup_if_exists "$HOME/.profile"
 
@@ -220,6 +233,7 @@ mkdir -p "$HOME/.config/noctalia"
 mkdir -p "$HOME/.config/environment.d"
 mkdir -p "$HOME/.config/xdg-desktop-portal"
 mkdir -p "$HOME/.config/fastfetch"
+mkdir -p "$HOME/.config/fish"
 mkdir -p "$HOME/.local/bin"
 mkdir -p "$HOME/.local/share/themes"
 mkdir -p "$HOME/.local/share/applications"
@@ -231,6 +245,8 @@ cp -a "$DOTFILES_DIR/config/environment.d/"* "$HOME/.config/environment.d/"
 cp -a "$DOTFILES_DIR/config/fcitx5/"* "$HOME/.config/fcitx5/"
 cp -a "$DOTFILES_DIR/config/xdg-desktop-portal/"* "$HOME/.config/xdg-desktop-portal/" 2>/dev/null || true
 [ -d "$DOTFILES_DIR/config/fastfetch" ] && cp -a "$DOTFILES_DIR/config/fastfetch/"* "$HOME/.config/fastfetch/" 2>/dev/null || true
+[ -f "$DOTFILES_DIR/config/starship.toml" ] && cp -a "$DOTFILES_DIR/config/starship.toml" "$HOME/.config/starship.toml"
+[ -f "$DOTFILES_DIR/config/fish/config.fish" ] && cp -a "$DOTFILES_DIR/config/fish/config.fish" "$HOME/.config/fish/config.fish"
 cp -a "$DOTFILES_DIR/themes/noctalia" "$HOME/.local/share/themes/"
 cp -a "$DOTFILES_DIR/bin/"* "$HOME/.local/bin/"
 cp -a "$DOTFILES_DIR/applications/"* "$HOME/.local/share/applications/" 2>/dev/null || true

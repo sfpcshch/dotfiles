@@ -15,6 +15,10 @@ fcitx5-gtk
 fcitx5-qt
 fcitx5-lotus-bin
 
+# Shell & Prompt
+fish
+starship
+
 # Wayland Utilities & Media
 wtype
 grim
