@@ -19,3 +19,21 @@ set -gx QT_QPA_PLATFORM "wayland;xcb"
 set -gx XMODIFIERS "@im=fcitx"
 set -gx QT_IM_MODULE fcitx
 starship init fish | source
+
+# --- Modern Unix Tools (Zero Overhead) ---
+# System Monitor: btop thay thế top/htop
+alias top="btop"
+alias htop="btop"
+
+# File Viewer: bat thay thế cat
+alias cat="bat --style=plain"
+alias bcat="bat"
+
+# Default Editor: micro thay thế nano
+set -gx EDITOR micro
+set -gx VISUAL micro
+
+# Fuzzy Finder: fzf tích hợp phím tắt (Ctrl+R tìm lệnh, Ctrl+T tìm file)
+if type -q fzf
+    fzf --fish | source
+end

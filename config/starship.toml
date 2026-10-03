@@ -1,6 +1,6 @@
 "$schema" = 'https://starship.rs/config-schema.json'
-
 palette = "noctalia"
+
 add_newline = true
 
 # Block 1: Fast username/session module (<1ms, direct memory lookup, root warning)
@@ -53,40 +53,40 @@ error_symbol = "[└─⚡](bold red) "
 
 [palettes.noctalia]
 # Standard colors
-blue      = "#83d7b5"
+blue      = "#48e186"
 red       = "#ffb4ab"
-green     = "#b1d183"
-yellow    = "#becca6"
-cyan      = "#becca6"
-magenta   = "#b1d183"
-white     = "#e3e3da"
-black     = "#44483c"
+green     = "#a7d63b"
+yellow    = "#b8cf86"
+cyan      = "#b8cf86"
+magenta   = "#a7d63b"
+white     = "#e2e4d3"
+black     = "#444936"
 
 # Extended palette (Catppuccin-compatible names)
-rosewater = "#becca6"
+rosewater = "#b8cf86"
 flamingo  = "#ffb4ab"
-pink      = "#b1d183"
-mauve     = "#b1d183"
+pink      = "#a7d63b"
+mauve     = "#a7d63b"
 maroon    = "#ffb4ab"
-peach     = "#becca6"
-teal      = "#becca6"
-sky       = "#becca6"
-sapphire  = "#83d7b5"
-lavender  = "#b1d183"
+peach     = "#b8cf86"
+teal      = "#b8cf86"
+sky       = "#b8cf86"
+sapphire  = "#48e186"
+lavender  = "#a7d63b"
 
 # Text shades
-text      = "#e3e3da"
-subtext1  = "#e3e3da"
-subtext0  = "#8e9284"
+text      = "#e2e4d3"
+subtext1  = "#e2e4d3"
+subtext0  = "#8e937d"
 
 # Surface shades
-overlay2  = "#8e9284"
-overlay1  = "#8e9284"
-overlay0  = "#44483c"
-surface2  = "#44483c"
-surface1  = "#44483c"
-surface0  = "#22251d"
-base      = "#12140f"
-mantle    = "#12140f"
-crust     = "#12140f"
+overlay2  = "#8e937d"
+overlay1  = "#8e937d"
+overlay0  = "#444936"
+surface2  = "#444936"
+surface1  = "#444936"
+surface0  = "#12140b"
+base      = "#12140b"
+mantle    = "#12140b"
+crust     = "#12140b"
 # <<< NOCTALIA STARSHIP PALETTE <<<
