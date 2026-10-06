@@ -98,10 +98,3 @@ wallpaper-cycle.sh next
 noctalia msg settings-toggle
 ```
 
----
-
-## 🎨 Design Principles
-
-* **Sharp Aesthetics**: Flat surfaces, crisp rectangular geometry (`cornerRadius = 0`).
-* **Dynamic Palette**: System accent colors, prompt colors, and borders automatically regenerate upon wallpaper change via Noctalia.
-* **Zero Overhead**: Under 2.5ms prompt render time, native Wayland protocols, direct memory variable lookups.
