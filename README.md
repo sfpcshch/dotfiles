@@ -35,14 +35,14 @@ git clone https://github.com/sfpcshch/dotfiles.git ~/dotfiles && cd ~/dotfiles &
 | Shortcut | Action |
 | :--- | :--- |
 | `Win` / `Win + Space` | Toggle Start Menu & App Launcher |
-| `Win + Tab` | Task View (Interactive thumbnail window switcher OSD) |
-| `Alt + Tab` | Switch windows with thumbnail preview |
+| `Win + Tab` / `Alt + Tab` | Switch windows with thumbnail preview |
 | `Shift + Alt + Tab` | Switch to previous window |
 | `Win + Q` / `Alt + F4` | Close active window |
 | `Win + F` | Toggle true fullscreen |
+| `Win + P` | Pin active window (Toggle Always On Top) |
 | `Win + D` | Minimize all windows / Show Desktop |
 | `Win + Up` | Maximize window |
-| `Win + Down` | Minimize window to taskbar (Iconify) |
+| `Win + Down` | Restore window (if maximized) / Minimize window |
 | `Win + Left` | Snap window to left half |
 | `Win + Right` | Snap window to right half |
 
@@ -50,10 +50,10 @@ git clone https://github.com/sfpcshch/dotfiles.git ~/dotfiles && cd ~/dotfiles &
 
 | Shortcut | Action |
 | :--- | :--- |
-| `Win + B` | Launch default web browser (`gtk-launch $(xdg-settings get default-web-browser)`) |
+| `Win + B` | Launch Web Browser (Brave) |
 | `Win + E` | Open File Manager (Dolphin) |
-| `Win + Enter` / `Win + T` | Open Terminal (Alacritty) |
-| `Win + R` | Quick command launcher |
+| `Win + Enter` / `Win + T` / `Ctrl + Alt + T` | Open Terminal (Alacritty) |
+| `Win + .` (Period) | Emoji Picker |
 | `Ctrl + Shift + Esc` | Open Process Manager (btop) |
 | `Win + Shift + S` / `Print` | Interactive region screenshot (Snipping Tool) |
 | `Shift + Print` | Fullscreen screenshot |
@@ -62,14 +62,17 @@ git clone https://github.com/sfpcshch/dotfiles.git ~/dotfiles && cd ~/dotfiles &
 
 | Shortcut | Action |
 | :--- | :--- |
-| `Win + I` / `Win + S` | Toggle System Settings & Theme configuration |
-| `Win + A` | Quick Settings & Control Center (Wi-Fi, Bluetooth, Audio) |
+| `Win + S` | Quick Audio & Sound Output switcher |
+| `Win + R` | Reload Compositor & Desktop Shell live |
+| `Win + C` | Toggle Caffeine (Keep screen awake) |
+| `Win + I` | Toggle System Settings & Theme configuration |
+| `Win + A` | Quick Settings & Control Center (Wi-Fi, Bluetooth) |
 | `Win + N` | Notification Center |
 | `Win + V` | Clipboard History Manager |
 | `Win + L` | Lock screen |
 | `Win + X` | Power & Session Menu (Shutdown, Reboot, Logout) |
-| `Win + W` | Next Wallpaper (Wallhaven automated cycling) |
-| `Win + Shift + W` | Previous Wallpaper |
+| `Win + W` / `Win + Shift + W` | Next / Previous Wallpaper (Wallhaven automated cycling) |
+| `Win + Ctrl + W` | Open current wallpaper source on Wallhaven |
 
 ### 4. Function & Media Keys
 
