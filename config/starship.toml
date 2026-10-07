@@ -6,7 +6,7 @@ add_newline = true
 # Block 1: Fast username/session module (<1ms, direct memory lookup, root warning)
 # Powerline multi-color segments with prev_bg transitions for dynamic git/duration handling
 format = '''
-[┌─](green)$username[](fg:green bg:blue)$directory$git_branch$git_status$cmd_duration[](fg:prev_bg bg:surface1)$time[](fg:prev_bg)
+[┌─](green)$username[](fg:green bg:blue)$directory$git_branch$git_status$cmd_duration[](fg:prev_bg bg:surface1)$time[](fg:prev_bg)
 $character'''
 
 [username]
@@ -53,40 +53,40 @@ error_symbol = "[└─⚡](bold red) "
 
 [palettes.noctalia]
 # Standard colors
-blue      = "#48e186"
+blue      = "#ffb956"
 red       = "#ffb4ab"
-green     = "#a7d63b"
-yellow    = "#b8cf86"
-cyan      = "#b8cf86"
-magenta   = "#a7d63b"
-white     = "#e2e4d3"
-black     = "#444936"
+green     = "#ffb4a9"
+yellow    = "#ffb4a9"
+cyan      = "#ffb4a9"
+magenta   = "#ffb4a9"
+white     = "#ffdad5"
+black     = "#5f3f3a"
 
 # Extended palette (Catppuccin-compatible names)
-rosewater = "#b8cf86"
+rosewater = "#ffb4a9"
 flamingo  = "#ffb4ab"
-pink      = "#a7d63b"
-mauve     = "#a7d63b"
+pink      = "#ffb4a9"
+mauve     = "#ffb4a9"
 maroon    = "#ffb4ab"
-peach     = "#b8cf86"
-teal      = "#b8cf86"
-sky       = "#b8cf86"
-sapphire  = "#48e186"
-lavender  = "#a7d63b"
+peach     = "#ffb4a9"
+teal      = "#ffb4a9"
+sky       = "#ffb4a9"
+sapphire  = "#ffb956"
+lavender  = "#ffb4a9"
 
 # Text shades
-text      = "#e2e4d3"
-subtext1  = "#e2e4d3"
-subtext0  = "#8e937d"
+text      = "#ffdad5"
+subtext1  = "#ffdad5"
+subtext0  = "#b08781"
 
 # Surface shades
-overlay2  = "#8e937d"
-overlay1  = "#8e937d"
-overlay0  = "#444936"
-surface2  = "#444936"
-surface1  = "#444936"
-surface0  = "#12140b"
-base      = "#12140b"
-mantle    = "#12140b"
-crust     = "#12140b"
+overlay2  = "#b08781"
+overlay1  = "#b08781"
+overlay0  = "#5f3f3a"
+surface2  = "#5f3f3a"
+surface1  = "#5f3f3a"
+surface0  = "#210e0c"
+base      = "#210e0c"
+mantle    = "#210e0c"
+crust     = "#210e0c"
 # <<< NOCTALIA STARSHIP PALETTE <<<

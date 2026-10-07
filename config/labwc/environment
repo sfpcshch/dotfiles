@@ -6,8 +6,8 @@ QT_QPA_PLATFORMTHEME=qt6ct
 GDK_BACKEND=wayland,x11,*
 _JAVA_AWT_WM_NONREPARENTING=1
 
-# Cursor Theme & Size (Matching GTK capitaine-cursors)
-XCURSOR_THEME=capitaine-cursors
+# Cursor Theme & Size (Adwaita system-wide consistent)
+XCURSOR_THEME=breeze_cursors
 XCURSOR_SIZE=24
 
 # Fcitx5 Vietnamese Input Method configuration
