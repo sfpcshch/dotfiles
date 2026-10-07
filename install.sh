@@ -147,6 +147,15 @@ if [ "$SAVE_MODE" = true ]; then
         cp -a "$HOME/.profile" "$DOTFILES_DIR/profile"
     fi
 
+    # Applications (.desktop files) - Whitelist to prevent directory pollution
+    if [ -d "$DOTFILES_DIR/applications" ] && [ -d "$HOME/.local/share/applications" ]; then
+        for app in "$DOTFILES_DIR/applications/"*.desktop; do
+            [ -f "$app" ] || continue
+            base="$(basename "$app")"
+            [ -f "$HOME/.local/share/applications/$base" ] && cp -a "$HOME/.local/share/applications/$base" "$DOTFILES_DIR/applications/"
+        done
+    fi
+
     echo -e "${GREEN}✓ Dotfiles repository successfully updated!${NC}"
     echo ""
     echo -e "${BLUE}==>${NC} Git working tree status:"
@@ -186,11 +195,9 @@ if [ "$INSTALL_PACKAGES" = true ]; then
         done < "$DOTFILES_DIR/packages/cachyos-packages.txt"
 
         MISSING_PKGS=()
-        for pkg in "${PKGS[@]}"; do
-            if ! pacman -Qi "$pkg" >/dev/null 2>&1; then
-                MISSING_PKGS+=("$pkg")
-            fi
-        done
+        if [ ${#PKGS[@]} -gt 0 ]; then
+            mapfile -t MISSING_PKGS < <(pacman -T "${PKGS[@]}" 2>/dev/null || true)
+        fi
 
         if [ ${#MISSING_PKGS[@]} -gt 0 ]; then
             echo -e "${YELLOW}Packages to install:${NC} ${MISSING_PKGS[*]}"
@@ -225,9 +232,11 @@ backup_if_exists() {
     fi
 }
 
+backup_if_exists "$HOME/.config/alacritty"
 backup_if_exists "$HOME/.config/labwc"
 backup_if_exists "$HOME/.config/noctalia"
 backup_if_exists "$HOME/.config/environment.d"
+backup_if_exists "$HOME/.config/xdg-desktop-portal"
 backup_if_exists "$HOME/.config/fcitx5"
 backup_if_exists "$HOME/.config/fastfetch"
 backup_if_exists "$HOME/.config/starship.toml"
@@ -238,6 +247,7 @@ backup_if_exists "$HOME/.profile"
 # 4. Deploy Directories & Configurations
 echo -e "${BLUE}==>${NC} Deploying configuration files..."
 
+mkdir -p "$HOME/.config/alacritty"
 mkdir -p "$HOME/.config/labwc"
 mkdir -p "$HOME/.config/noctalia"
 mkdir -p "$HOME/.config/environment.d"
@@ -249,6 +259,13 @@ mkdir -p "$HOME/.local/share/themes"
 mkdir -p "$HOME/.local/share/applications"
 
 # Copy configs
+if [ -d "$DOTFILES_DIR/config/alacritty" ]; then
+    for f in "$DOTFILES_DIR/config/alacritty/"*; do
+        [ -e "$f" ] || continue
+        [ "$(basename "$f")" = "themes" ] && continue
+        cp -a "$f" "$HOME/.config/alacritty/"
+    done
+fi
 cp -a "$DOTFILES_DIR/config/labwc/"* "$HOME/.config/labwc/"
 cp -a "$DOTFILES_DIR/config/noctalia/"* "$HOME/.config/noctalia/"
 cp -a "$DOTFILES_DIR/config/environment.d/"* "$HOME/.config/environment.d/"
@@ -267,31 +284,18 @@ if [ -f "$DOTFILES_DIR/profile" ]; then
     cp -a "$DOTFILES_DIR/profile" "$HOME/.profile"
 fi
 
-# Deploy Firefox Trackpad settings (user.js)
-for profile in "$HOME/.config/mozilla/firefox/"*.default* "$HOME/.mozilla/firefox/"*.default*; do
-    if [ -d "$profile" ]; then
-        cp -a "$DOTFILES_DIR/config/firefox/user.js" "$profile/" 2>/dev/null || true
-    fi
-done
-
-# Enable Fcitx5 Lotus Server (Uinput mode daemon) if available
-if [ -f "/usr/lib/systemd/system/fcitx5-lotus-server@.service" ]; then
-    if ! systemctl is-active --quiet "fcitx5-lotus-server@$USER.service"; then
-        echo -e "${YELLOW}==>${NC} Enabling fcitx5-lotus-server for $USER..."
-        sudo systemctl enable --now "fcitx5-lotus-server@$USER.service" 2>/dev/null || true
-    fi
-fi
-
 # Ensure executable permissions
 chmod +x "$HOME/.local/bin/"*.sh 2>/dev/null || true
 chmod +x "$HOME/.config/labwc/autostart" 2>/dev/null || true
 
 # Ensure Noctalia state overrides have square corners if settings.toml exists
 if [ -f "$HOME/.local/state/noctalia/settings.toml" ]; then
-    sed -i 's/corner_radius_scale = [0-9.]\+/corner_radius_scale = 0.0/g' "$HOME/.local/state/noctalia/settings.toml"
-    sed -i 's/background_radius = [0-9.]\+/background_radius = 0.0/g' "$HOME/.local/state/noctalia/settings.toml"
-    sed -i 's/input_radius = [0-9.]\+/input_radius = 0.0/g' "$HOME/.local/state/noctalia/settings.toml"
-    sed -i 's/floating_offset = [0-9]\+/floating_offset = 0/g' "$HOME/.local/state/noctalia/settings.toml"
+    sed -i \
+        -e 's/corner_radius_scale = [0-9.]\+/corner_radius_scale = 0.0/g' \
+        -e 's/background_radius = [0-9.]\+/background_radius = 0.0/g' \
+        -e 's/input_radius = [0-9.]\+/input_radius = 0.0/g' \
+        -e 's/floating_offset = [0-9]\+/floating_offset = 0/g' \
+        "$HOME/.local/state/noctalia/settings.toml"
 fi
 
 # 5. Ensure ~/.local/bin is in PATH (Idempotent)

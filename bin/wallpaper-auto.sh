@@ -5,7 +5,7 @@
 
 CACHE_DIR="$HOME/.cache/auto-wallpapers"
 POOL_DIR="$CACHE_DIR/pool"
-LOCK_FILE="/tmp/wallpaper-fetch.lock"
+LOCK_FILE="${XDG_RUNTIME_DIR:-/tmp}/wallpaper-fetch.lock"
 
 mkdir -p "$CACHE_DIR" "$POOL_DIR"
 

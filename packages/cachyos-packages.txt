@@ -7,6 +7,10 @@ cachyos-mango-noctalia
 alacritty
 dolphin
 btop
+fastfetch
+bat
+micro
+fzf
 
 # Vietnamese Input Method (Fcitx5)
 fcitx5
@@ -21,9 +25,11 @@ starship
 
 # Wayland Utilities & Media
 wtype
+wl-clipboard
 grim
 slurp
 imagemagick
 jq
 curl
 git
+libnotify

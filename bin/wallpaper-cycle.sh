@@ -7,7 +7,7 @@ CACHE_DIR="$HOME/.cache/auto-wallpapers"
 POOL_DIR="$CACHE_DIR/pool"
 HISTORY_FILE="$CACHE_DIR/history.log"
 POS_FILE="$CACHE_DIR/history.pos"
-CYCLE_LOCK="/tmp/wallpaper-cycle.lock"
+CYCLE_LOCK="${XDG_RUNTIME_DIR:-/tmp}/wallpaper-cycle.lock"
 
 mkdir -p "$CACHE_DIR" "$POOL_DIR"
 
