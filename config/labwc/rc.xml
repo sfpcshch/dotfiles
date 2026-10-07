@@ -87,9 +87,9 @@
       <action name="PreviousWindow" />
     </keybind>
 
-    <!-- Win + S: Toggle Shell & System Settings (Noctalia) -->
+    <!-- Win + S: Search / App Launcher (Windows standard) -->
     <keybind key="W-s">
-      <action name="Execute" command="noctalia msg settings-toggle" />
+      <action name="Execute" command="noctalia msg panel-toggle launcher" />
     </keybind>
 
     <!-- Win + R: App Launcher / Run Dialog -->
@@ -124,20 +124,31 @@
       <action name="Execute" command="brave-origin" />
     </keybind>
 
-    <!-- Win + Enter or Win + T: Open Terminal (Alacritty) -->
+    <!-- Win + Enter, Win + T, or Ctrl + Alt + T: Open Terminal (Alacritty) -->
     <keybind key="W-Return">
       <action name="Execute" command="alacritty" />
     </keybind>
     <keybind key="W-t">
       <action name="Execute" command="alacritty" />
     </keybind>
+    <keybind key="C-A-t">
+      <action name="Execute" command="alacritty" />
+    </keybind>
 
-    <!-- Win + Arrows: Maximize, minimize, and snap window left/right -->
+    <!-- Win + Arrows: Maximize, minimize/restore, and snap window left/right -->
     <keybind key="W-Up">
       <action name="Maximize" />
     </keybind>
     <keybind key="W-Down">
-      <action name="Iconify" />
+      <action name="If">
+        <query maximized="both" />
+        <then>
+          <action name="UnMaximize" />
+        </then>
+        <else>
+          <action name="Iconify" />
+        </else>
+      </action>
     </keybind>
     <keybind key="W-Left">
       <action name="SnapToEdge" direction="left" />

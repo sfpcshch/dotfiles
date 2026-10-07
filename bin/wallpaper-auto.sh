@@ -29,7 +29,7 @@ download_single_to() {
         local page=$(( RANDOM % 50 + 1 ))
         local api_url="https://wallhaven.cc/api/v1/search?sorting=toplist&topRange=1y&atleast=1600x900&ratios=16x9,16x10,21x9&categories=${CATEGORIES}&purity=${PURITY}&page=${page}${API_PARAM}"
         local response
-        response=$(curl -s --max-time 8 "$api_url")
+        response=$(curl -s -f --max-time 8 "$api_url")
         
         local all_paths
         all_paths=$(echo "$response" | jq -r '.data[].path' 2>/dev/null)
@@ -51,7 +51,7 @@ download_single_to() {
             local dest="$target_dir/$img_name"
             local tmp_dest="${dest}.tmp.$$"
             
-            if curl -s --max-time 25 -o "$tmp_dest" "$img_url" && [ -s "$tmp_dest" ]; then
+            if curl -s -f --max-time 25 -o "$tmp_dest" "$img_url" && [ -s "$tmp_dest" ]; then
                 mv "$tmp_dest" "$dest"
                 echo "$dest"
                 return 0
