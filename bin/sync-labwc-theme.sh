@@ -29,6 +29,25 @@ accent_fg="${accent_fg:-#2c331a}"
 headerbar_bg="${headerbar_bg:-#1d2023}"
 headerbar_fg="${headerbar_fg:-#e1e2eb}"
 
+# Compute Monet Container tone for Inactive windows (blend 35% accent + 65% dark base)
+# Produces rich wallpaper-tinted surface, preventing inactive bar from looking pitch black
+inactive_bg="$headerbar_bg"
+if [[ "$accent_bg" =~ ^#[0-9a-fA-F]{6}$ ]] && [[ "$headerbar_bg" =~ ^#[0-9a-fA-F]{6}$ ]]; then
+    r1=$((16#${accent_bg:1:2}))
+    g1=$((16#${accent_bg:3:2}))
+    b1=$((16#${accent_bg:5:2}))
+
+    r2=$((16#${headerbar_bg:1:2}))
+    g2=$((16#${headerbar_bg:3:2}))
+    b2=$((16#${headerbar_bg:5:2}))
+
+    r=$(( (r1 * 35 + r2 * 65) / 100 ))
+    g=$(( (g1 * 35 + g2 * 65) / 100 ))
+    b=$(( (b1 * 35 + b2 * 65) / 100 ))
+
+    printf -v inactive_bg "#%02x%02x%02x" "$r" "$g" "$b"
+fi
+
 # Only write to disk when colors change
 need_write=true
 if [ -f "$THEMERC" ]; then
@@ -36,8 +55,7 @@ if [ -f "$THEMERC" ]; then
     if [[ "$cur" == *"menu.items.bg.color: $bg"* ]] && \
        [[ "$cur" == *"menu.items.active.bg.color: $accent_bg"* ]] && \
        [[ "$cur" == *"window.active.title.bg.color: $accent_bg"* ]] && \
-       [[ "$cur" == *"window.inactive.title.bg.color: $headerbar_bg"* ]] && \
-       [[ "$cur" == *"window.inactive.button.unpressed.image.color: $headerbar_fg"* ]]; then
+       [[ "$cur" == *"window.inactive.title.bg.color: $inactive_bg"* ]]; then
         need_write=false
     fi
 fi
@@ -55,16 +73,14 @@ window.titlebar.padding.width: 0
 # Left-align window title label next to app icon
 window.label.text.justify: left
 
-# Titlebar: Active gets vibrant Monet accent, Inactive gets dark Monet surface
+# Titlebar: Active gets vibrant Monet accent, Inactive gets rich Monet container tint
 window.active.title.bg.color: $accent_bg
 window.active.label.text.color: $accent_fg
-window.active.button.unpressed.image.color: $accent_fg
 window.active.border.color: $accent_bg
 
-window.inactive.title.bg.color: $headerbar_bg
+window.inactive.title.bg.color: $inactive_bg
 window.inactive.label.text.color: $headerbar_fg
-window.inactive.button.unpressed.image.color: $headerbar_fg
-window.inactive.border.color: $headerbar_bg
+window.inactive.border.color: $inactive_bg
 
 # Alt+Tab window switcher OSD (neutral dark tone)
 osd.bg.color: #1a1a1e

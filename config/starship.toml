@@ -6,7 +6,7 @@ add_newline = true
 # Block 1: Fast username/session module (<1ms, direct memory lookup, root warning)
 # Powerline multi-color segments with prev_bg transitions for dynamic git/duration handling
 format = '''
-[┌─](green)$username[](fg:green bg:blue)$directory$git_branch$git_status$cmd_duration[](fg:prev_bg bg:surface1)$time[](fg:prev_bg)
+[┌](green)$username[](fg:green bg:blue)$directory$git_branch$git_status$cmd_duration[](fg:prev_bg bg:surface1)$time[](fg:prev_bg)
 $character'''
 
 [username]
@@ -44,8 +44,8 @@ format = "[  $time ]($style)"
 
 # Input prompt line, seamless gapless ⚡ symbol matching the frame connector
 [character]
-success_symbol = "[└─⚡](bold green) "
-error_symbol = "[└─⚡](bold red) "
+success_symbol = "[└⚡](bold green) "
+error_symbol = "[└⚡](bold red) "
 
 # >>> NOCTALIA STARSHIP PALETTE >>>
 # Noctalia Starship Palette
@@ -53,40 +53,40 @@ error_symbol = "[└─⚡](bold red) "
 
 [palettes.noctalia]
 # Standard colors
-blue      = "#ffb956"
+blue      = "#f7c2ad"
 red       = "#ffb4ab"
-green     = "#ffb4a9"
-yellow    = "#ffb4a9"
-cyan      = "#ffb4a9"
-magenta   = "#ffb4a9"
-white     = "#ffdad5"
-black     = "#5f3f3a"
+green     = "#eec1d4"
+yellow    = "#d8c1c9"
+cyan      = "#d8c1c9"
+magenta   = "#e7bacd"
+white     = "#e9e0e2"
+black     = "#4f4448"
 
 # Extended palette (Catppuccin-compatible names)
-rosewater = "#ffb4a9"
+rosewater = "#d8c1c9"
 flamingo  = "#ffb4ab"
-pink      = "#ffb4a9"
-mauve     = "#ffb4a9"
+pink      = "#e7bacd"
+mauve     = "#e7bacd"
 maroon    = "#ffb4ab"
-peach     = "#ffb4a9"
-teal      = "#ffb4a9"
-sky       = "#ffb4a9"
-sapphire  = "#ffb956"
-lavender  = "#ffb4a9"
+peach     = "#d8c1c9"
+teal      = "#d8c1c9"
+sky       = "#d8c1c9"
+sapphire  = "#f7c2ad"
+lavender  = "#e7bacd"
 
 # Text shades
-text      = "#ffdad5"
-subtext1  = "#ffdad5"
-subtext0  = "#b08781"
+text      = "#e9e0e2"
+subtext1  = "#e9e0e2"
+subtext0  = "#9b8d92"
 
 # Surface shades
-overlay2  = "#b08781"
-overlay1  = "#b08781"
-overlay0  = "#5f3f3a"
-surface2  = "#5f3f3a"
-surface1  = "#5f3f3a"
-surface0  = "#210e0c"
-base      = "#210e0c"
-mantle    = "#210e0c"
-crust     = "#210e0c"
+overlay2  = "#9b8d92"
+overlay1  = "#9b8d92"
+overlay0  = "#4f4448"
+surface2  = "#4f4448"
+surface1  = "#4f4448"
+surface0  = "#161214"
+base      = "#161214"
+mantle    = "#161214"
+crust     = "#161214"
 # <<< NOCTALIA STARSHIP PALETTE <<<
