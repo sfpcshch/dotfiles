@@ -45,6 +45,7 @@ git clone https://github.com/sfpcshch/dotfiles.git ~/dotfiles && cd ~/dotfiles &
 | `Win + Down` | Restore window (if maximized) / Minimize window |
 | `Win + Left` | Snap window to left half |
 | `Win + Right` | Snap window to right half |
+| `Win + Shift + Left / Right` | Move active window to other display / monitor |
 
 ### 2. Applications & Tools
 

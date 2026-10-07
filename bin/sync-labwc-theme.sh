@@ -7,16 +7,17 @@
 CSS="$HOME/.config/gtk-3.0/noctalia.css"
 THEMERC="$HOME/.config/labwc/themerc-override"
 
-bg="" fg="" accent_bg="" accent_fg=""
+bg="" fg="" accent_bg="" accent_fg="" headerbar_bg=""
 if [ -f "$CSS" ]; then
     while read -r a b c rest; do
         case "$b" in
-            popover_bg_color) bg="${c%;}" ;;
-            popover_fg_color) fg="${c%;}" ;;
-            accent_bg_color)  accent_bg="${c%;}" ;;
-            accent_fg_color)  accent_fg="${c%;}" ;;
+            popover_bg_color)   bg="${c%;}" ;;
+            popover_fg_color)   fg="${c%;}" ;;
+            accent_bg_color)    accent_bg="${c%;}" ;;
+            accent_fg_color)    accent_fg="${c%;}" ;;
+            headerbar_bg_color) headerbar_bg="${c%;}" ;;
         esac
-        [ -n "$bg" ] && [ -n "$fg" ] && [ -n "$accent_bg" ] && [ -n "$accent_fg" ] && break
+        [ -n "$bg" ] && [ -n "$fg" ] && [ -n "$accent_bg" ] && [ -n "$accent_fg" ] && [ -n "$headerbar_bg" ] && break
     done < "$CSS"
 fi
 
@@ -24,13 +25,16 @@ bg="${bg:-#20201d}"
 fg="${fg:-#e5e2de}"
 accent_bg="${accent_bg:-#c1cba7}"
 accent_fg="${accent_fg:-#2c331a}"
+headerbar_bg="${headerbar_bg:-#1d2023}"
 
-# Only write to disk when menu colors change
+# Only write to disk when menu or titlebar colors change
 need_write=true
 if [ -f "$THEMERC" ]; then
     cur=$(<"$THEMERC")
     if [[ "$cur" == *"menu.items.bg.color: $bg"* ]] && \
-       [[ "$cur" == *"menu.items.active.bg.color: $accent_bg"* ]]; then
+       [[ "$cur" == *"menu.items.active.bg.color: $accent_bg"* ]] && \
+       [[ "$cur" == *"window.active.title.bg.color: $accent_bg"* ]] && \
+       [[ "$cur" == *"window.inactive.title.bg.color: $headerbar_bg"* ]]; then
         need_write=false
     fi
 fi
@@ -47,6 +51,15 @@ window.titlebar.padding.width: 0
 
 # Left-align window title label next to app icon
 window.label.text.justify: left
+
+# Titlebar: Active gets vibrant Monet accent, Inactive gets dark surface
+window.active.title.bg.color: $accent_bg
+window.active.label.text.color: $accent_fg
+window.active.border.color: $accent_bg
+
+window.inactive.title.bg.color: $headerbar_bg
+window.inactive.label.text.color: #8a9199
+window.inactive.border.color: #ffffff18
 
 # Alt+Tab window switcher OSD (neutral dark tone)
 osd.bg.color: #1a1a1e

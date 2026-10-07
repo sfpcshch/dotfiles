@@ -34,7 +34,7 @@ path = "/usr/share/wallpapers/cachyos-wallpapers/cachysurf4.jpg"
 [idle]
 behavior_order = [ "lock", "screen-off", "lock-and-suspend" ]
 
-    [idle.behavior.Screen-off]
+    [idle.behavior.screen-off]
     action = "screen-off"
     enabled = true
     timeout = 300.0
@@ -73,9 +73,9 @@ app_grid = false
 sort_by_usage = true
 
 [shell.panel]
-borders = true
+borders = false
 shadow = true
-transparency_mode = "glass"
+transparency_mode = "soft"
 floating_layer = "overlay"
 floating_offset = 0
 control_center_placement = "floating"
@@ -97,7 +97,8 @@ mode = "dark"
 source = "wallpaper"
 
     [theme.templates]
-    builtin_ids = [ "gtk3", "gtk4", "kcolorscheme", "qt" ]
+    builtin_ids = [ "alacritty", "btop", "gtk3", "gtk4", "kcolorscheme", "labwc", "qt", "starship" ]
+    community_ids = [ "antigravity", "brave-origin", "telegram", "micro", "fastfetch", "fcitx5", "papirus-icons", "bat", "fzf" ]
 
 [widget.Spacer]
 length = 10
@@ -124,6 +125,7 @@ active_opacity = 1.0
 inactive_opacity = 1.0
 pinned_opacity = 0.65
 show_active_indicator = true
+pinned = [ "org.kde.dolphin", "com.shellyorg.shelly", "Alacritty", "org.telegram.desktop", "brave-origin", "antigravity" ]
 
 [location]
 auto_locate = false
@@ -135,6 +137,7 @@ enabled = false
 drawer = true
 drawer_columns = 4
 drawer_item_size = 22
+pinned = [ "Antigravity", "Fcitx" ]
 
 [widget.show_desktop]
 type = "text"

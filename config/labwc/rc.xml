@@ -94,7 +94,7 @@
 
     <!-- Win + R: Reload Compositor & Desktop Shell configuration -->
     <keybind key="W-r">
-      <action name="Execute" command="labwc --reconfigure; noctalia msg config-reload" />
+      <action name="Execute" command="sh -c 'labwc --reconfigure; noctalia msg config-reload'" />
     </keybind>
 
     <!-- Win + P: Pin active window (Toggle Always On Top - Hyprland/KDE style) -->
@@ -172,6 +172,12 @@
     </keybind>
     <keybind key="W-Right">
       <action name="SnapToEdge" direction="right" />
+    </keybind>
+    <keybind key="W-S-Left">
+      <action name="MoveToOutput" direction="left" wrap="yes" />
+    </keybind>
+    <keybind key="W-S-Right">
+      <action name="MoveToOutput" direction="right" wrap="yes" />
     </keybind>
 
     <!-- Win + D: Minimize all / Show Desktop -->

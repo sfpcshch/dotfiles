@@ -18,28 +18,26 @@ set -gx QT_QPA_PLATFORMTHEME qt6ct
 set -gx QT_QPA_PLATFORM "wayland;xcb"
 set -gx XMODIFIERS "@im=fcitx"
 set -gx QT_IM_MODULE fcitx
-starship init fish | source
+# Shell prompt and modern CLI tools (interactive only)
+if status is-interactive
+    starship init fish | source
 
-# --- Modern Unix Tools (Zero Overhead) ---
-# System Monitor: btop thay thế top/htop
-if type -q btop
-    alias top="btop"
-    alias htop="btop"
-end
+    if type -q btop
+        alias top="btop"
+        alias htop="btop"
+    end
 
-# File Viewer: bat thay thế cat
-if type -q bat
-    alias cat="bat --style=plain"
-    alias bcat="bat"
-end
+    if type -q bat
+        alias cat="bat --style=plain"
+        alias bcat="bat"
+    end
 
-# Default Editor: micro thay thế nano
-if type -q micro
-    set -gx EDITOR micro
-    set -gx VISUAL micro
-end
+    if type -q micro
+        set -gx EDITOR micro
+        set -gx VISUAL micro
+    end
 
-# Fuzzy Finder: fzf tích hợp phím tắt (Ctrl+R tìm lệnh, Ctrl+T tìm file)
-if type -q fzf
-    fzf --fish | source
+    if type -q fzf
+        fzf --fish | source
+    end
 end
