@@ -32,6 +32,17 @@
     <windows>20</windows>
   </resist>
 
+  <!-- Window resize ergonomics: larger corner grab area (20px) and minimum window area -->
+  <resize>
+    <cornerRange>20</cornerRange>
+    <minimumArea>16</minimumArea>
+  </resize>
+
+  <!-- Core window manager behavior: independent workspaces per output -->
+  <core>
+    <perMonitorDesktop>yes</perMonitorDesktop>
+  </core>
+
   <!-- Mouse bindings: drag titlebar to move, double click to maximize -->
   <mouse>
     <default />
@@ -133,7 +144,7 @@
 
     <!-- Win + E: Open File Explorer (Dolphin) -->
     <keybind key="W-e">
-      <action name="Execute" command="env QT_QPA_PLATFORMTHEME=qt6ct dolphin" />
+      <action name="Execute" command="dolphin" />
     </keybind>
 
     <!-- Win + B: Launch Web Browser (Brave) -->
@@ -152,27 +163,7 @@
       <action name="Execute" command="alacritty" />
     </keybind>
 
-    <!-- Win + Arrows: Maximize, minimize/restore, and snap window left/right -->
-    <keybind key="W-Up">
-      <action name="Maximize" />
-    </keybind>
-    <keybind key="W-Down">
-      <action name="If">
-        <query maximized="both" />
-        <then>
-          <action name="UnMaximize" />
-        </then>
-        <else>
-          <action name="Iconify" />
-        </else>
-      </action>
-    </keybind>
-    <keybind key="W-Left">
-      <action name="SnapToEdge" direction="left" />
-    </keybind>
-    <keybind key="W-Right">
-      <action name="SnapToEdge" direction="right" />
-    </keybind>
+    <!-- Multi-monitor window movement: Win + Shift + Left/Right -->
     <keybind key="W-S-Left">
       <action name="MoveToOutput" direction="left" wrap="yes" />
     </keybind>

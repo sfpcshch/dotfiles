@@ -79,10 +79,14 @@ if [ "$SAVE_MODE" = true ]; then
         done
     fi
 
-    # Noctalia
+    # Noctalia (config.toml and user theme templates)
     if [ -d "$HOME/.config/noctalia" ]; then
         mkdir -p "$DOTFILES_DIR/config/noctalia"
         [ -f "$HOME/.config/noctalia/config.toml" ] && cp -a "$HOME/.config/noctalia/config.toml" "$DOTFILES_DIR/config/noctalia/"
+        if [ -d "$HOME/.config/noctalia/templates" ]; then
+            mkdir -p "$DOTFILES_DIR/config/noctalia/templates"
+            cp -a "$HOME/.config/noctalia/templates/"* "$DOTFILES_DIR/config/noctalia/templates/" 2>/dev/null || true
+        fi
     fi
 
     # Fcitx5

@@ -6,7 +6,7 @@ QT_QPA_PLATFORMTHEME=qt6ct
 GDK_BACKEND=wayland,x11,*
 _JAVA_AWT_WM_NONREPARENTING=1
 
-# Cursor Theme & Size (Adwaita system-wide consistent)
+# Cursor Theme & Size (Breeze Cursors)
 XCURSOR_THEME=breeze_cursors
 XCURSOR_SIZE=24
 

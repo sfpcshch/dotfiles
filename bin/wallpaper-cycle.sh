@@ -116,25 +116,9 @@ fi
 flock -u 201 2>/dev/null
 exec 201>&-
 
-# Apply wallpaper
+# Apply wallpaper (Noctalia natively generates templates and triggers labwc reconfigure with 0 overhead)
 if [ -n "$TARGET_WALLPAPER" ]; then
-    REF="${XDG_RUNTIME_DIR:-/tmp}/.wall_time_$$"
-    touch "$REF"
     noctalia msg wallpaper-set "$TARGET_WALLPAPER" >/dev/null 2>&1
-    (
-        THEME="$HOME/.local/share/themes/noctalia/openbox-3/themerc"
-        CSS="$HOME/.config/gtk-3.0/noctalia.css"
-        # Wait for Noctalia to update palette for both Labwc and GTK
-        for ((i = 0; i < 160; i++)); do
-            if [ "$THEME" -nt "$REF" ] && [ "$CSS" -nt "$REF" ]; then
-                rm -f "$REF"
-                "$HOME/.local/bin/sync-labwc-theme.sh"
-                exit 0
-            fi
-            sleep 0.05
-        done
-        rm -f "$REF"
-    ) >/dev/null 2>&1 &
 fi
 
 # Automatically refill pool in background

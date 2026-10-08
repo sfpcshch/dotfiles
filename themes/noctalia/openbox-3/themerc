@@ -30,17 +30,3 @@ menu.separator.color: #01363a
 menu.title.bg.color: #a1cfd3
 menu.title.text.color: #01363a
 
-# window buttons & titlebar height (Windows 10 rectangular style)
-window.button.width: 34
-window.button.height: 20
-window.button.spacing: 0
-window.titlebar.padding.width: 0
-
-# on screen display (Alt+Tab window-cycle dialog - fixed neutral dark)
-osd.bg.color: #1a1a1e
-osd.border.color: #ffffff20
-osd.border.width: 1
-osd.label.text.color: #e5e5e5
-osd.window-switcher.style-thumbnail.item.active.border.color: #ffffff40
-osd.window-switcher.style-thumbnail.item.active.bg.color: #ffffff15
-osd.window-switcher.preview.border.color: #ffffff30

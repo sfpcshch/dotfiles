@@ -1,8 +1,6 @@
-# CachyOS & Arch Linux Dotfiles
+# CachyOS Linux Dotfiles
 
-A minimalist, high-performance Wayland desktop configuration featuring **Labwc**, **Noctalia Shell**, and **Starship Prompt**.
-
-Designed with a sharp geometric aesthetic (`radius = 0`), Windows-style ergonomic keybindings, and dynamic Material You color palette extraction directly from wallpapers.
+A Wayland desktop configuration featuring **Labwc**, **Noctalia Shell**
 
 ---
 
@@ -41,10 +39,7 @@ git clone https://github.com/sfpcshch/dotfiles.git ~/dotfiles && cd ~/dotfiles &
 | `Win + F` | Toggle true fullscreen |
 | `Win + P` | Pin active window (Toggle Always On Top) |
 | `Win + D` | Minimize all windows / Show Desktop |
-| `Win + Up` | Maximize window |
-| `Win + Down` | Restore window (if maximized) / Minimize window |
-| `Win + Left` | Snap window to left half |
-| `Win + Right` | Snap window to right half |
+| `Win + Arrows` | Snap window to half or 4 corners (native Labwc) |
 | `Win + Shift + Left / Right` | Move active window to other display / monitor |
 
 ### 2. Applications & Tools
