@@ -94,14 +94,13 @@
       "hideType": "integrated"
     },
     {
-      "type": "gpu",
-      "key": "󰾲",
-      "format": "{2}",
-      "hideType": "discrete"
-    },
-    {
       "type": "memory",
       "key": ""
+    },
+    {
+      "type": "swap",
+      "key": "󰓡",
+      "format": "{1} / {2} ({3})"
     },
     {
       "type": "disk",
