@@ -35,49 +35,65 @@
     {
       "type": "os",
       "key": "󰣇",
+      "keyColor": "cyan",
       "format": "{3}"
     },
     {
       "type": "host",
       "key": "󰌢",
+      "keyColor": "cyan",
       "format": "{2}"
     },
     {
       "type": "kernel",
       "key": "",
+      "keyColor": "cyan",
       "format": "{1} {2}"
     },
     {
       "type": "uptime",
-      "key": "󰅐"
+      "key": "󰅐",
+      "keyColor": "cyan"
+    },
+    {
+      "type": "processes",
+      "key": "󰒋",
+      "keyColor": "cyan",
+      "format": "{1} ({2} threads)"
     },
     {
       "type": "packages",
-      "key": "󰏖"
+      "key": "󰏖",
+      "keyColor": "cyan"
     },
     {
       "type": "break"
     },
     {
       "type": "wm",
-      "key": "󱂬"
+      "key": "󱂬",
+      "keyColor": "magenta"
     },
     {
       "type": "terminal",
-      "key": ""
+      "key": "",
+      "keyColor": "magenta"
     },
     {
       "type": "shell",
-      "key": ""
+      "key": "",
+      "keyColor": "magenta"
     },
     {
       "type": "display",
       "key": "󰍹",
+      "keyColor": "magenta",
       "format": "{1}x{2} @ {3}Hz"
     },
     {
       "type": "theme",
-      "key": "󰉼"
+      "key": "󰉼",
+      "keyColor": "magenta"
     },
     {
       "type": "break"
@@ -85,37 +101,38 @@
     {
       "type": "cpu",
       "key": "󰍛",
+      "keyColor": "green",
       "format": "{1} ({4}) @ {7}"
     },
     {
       "type": "gpu",
       "key": "󰾲",
+      "keyColor": "green",
       "format": "{2}",
       "hideType": "integrated"
     },
     {
       "type": "memory",
-      "key": ""
-    },
-    {
-      "type": "swap",
-      "key": "󰓡",
-      "format": "{1} / {2} ({3})"
+      "key": "",
+      "keyColor": "green"
     },
     {
       "type": "disk",
       "key": "󰋊",
+      "keyColor": "green",
       "folders": "/",
       "format": "{1} / {2} ({3})"
     },
     {
       "type": "battery",
       "key": "",
+      "keyColor": "green",
       "format": "{4} [{5}]"
     },
     {
       "type": "localip",
       "key": "󰩟",
+      "keyColor": "green",
       "format": "{ipv4}"
     },
     {
