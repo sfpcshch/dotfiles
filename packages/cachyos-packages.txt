@@ -1,7 +1,6 @@
 # Core Compositor & Desktop Shell
 labwc
 noctalia
-cachyos-mango-noctalia
 
 # Core Desktop Applications
 alacritty

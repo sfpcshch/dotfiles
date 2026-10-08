@@ -89,10 +89,11 @@ if [ "$SAVE_MODE" = true ]; then
         fi
     fi
 
-    # Fcitx5
+    # Fcitx5 (exclude machine-specific cached_layouts)
     if [ -d "$HOME/.config/fcitx5" ]; then
         mkdir -p "$DOTFILES_DIR/config/fcitx5"
         cp -a "$HOME/.config/fcitx5/"* "$DOTFILES_DIR/config/fcitx5/" 2>/dev/null || true
+        rm -f "$DOTFILES_DIR/config/fcitx5/conf/cached_layouts"
     fi
 
     # Alacritty
@@ -111,10 +112,17 @@ if [ "$SAVE_MODE" = true ]; then
         cp -a "$HOME/.config/environment.d/"* "$DOTFILES_DIR/config/environment.d/" 2>/dev/null || true
     fi
 
-    # XDG Desktop Portal
+    # XDG Desktop Portal (only save labwc and global portals)
     if [ -d "$HOME/.config/xdg-desktop-portal" ]; then
         mkdir -p "$DOTFILES_DIR/config/xdg-desktop-portal"
-        cp -a "$HOME/.config/xdg-desktop-portal/"* "$DOTFILES_DIR/config/xdg-desktop-portal/" 2>/dev/null || true
+        for p in "$HOME/.config/xdg-desktop-portal/"*; do
+            [ -f "$p" ] || continue
+            case "$(basename "$p")" in
+                portals.conf|labwc-portals.conf)
+                    cp -a "$p" "$DOTFILES_DIR/config/xdg-desktop-portal/"
+                    ;;
+            esac
+        done
     fi
 
     # Fastfetch

@@ -97,7 +97,7 @@ mode = "dark"
 source = "wallpaper"
 
     [theme.templates]
-    builtin_ids = [ "alacritty", "btop", "gtk3", "gtk4", "kcolorscheme", "labwc", "qt", "starship" ]
+    builtin_ids = [ "alacritty", "btop", "gtk3", "gtk4", "kcolorscheme", "qt", "starship" ]
     community_ids = [ "antigravity", "brave-origin", "telegram", "micro", "fastfetch", "fcitx5", "papirus-icons", "bat", "fzf" ]
 
     [theme.templates.user.labwc-themerc]
