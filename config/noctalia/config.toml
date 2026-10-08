@@ -98,7 +98,7 @@ source = "wallpaper"
 
     [theme.templates]
     builtin_ids = [ "alacritty", "btop", "gtk3", "gtk4", "kcolorscheme", "qt", "starship" ]
-    community_ids = [ "antigravity", "brave-origin", "telegram", "micro", "fastfetch", "fcitx5", "papirus-icons", "bat", "fzf" ]
+    community_ids = [ "antigravity", "telegram", "micro", "fastfetch", "fcitx5", "papirus-icons", "bat", "fzf" ]
 
     [theme.templates.user.labwc-themerc]
     input_path = "~/.config/noctalia/templates/labwc-themerc.conf"

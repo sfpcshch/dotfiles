@@ -96,7 +96,7 @@
     {
       "type": "gpu",
       "key": "󰾲",
-      "format": "Radeon Vega Mobile",
+      "format": "{2}",
       "hideType": "discrete"
     },
     {
