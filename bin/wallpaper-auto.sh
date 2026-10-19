@@ -153,6 +153,9 @@ for i in {1..50}; do
     sleep 0.1
 done
 
+# Allow Noctalia's initial layer-shell surface to fully map before cycling
+sleep 1
+
 # Cycle to next wallpaper (triggers background pool refill + locked cache cleanup)
 wallpaper-cycle.sh next
 
