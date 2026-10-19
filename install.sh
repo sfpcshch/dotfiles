@@ -89,6 +89,18 @@ if [ "$SAVE_MODE" = true ]; then
         fi
     fi
 
+    # Noctalia Community Templates (save optimized templates & sync cache)
+    state_templates="$HOME/.local/state/noctalia/community-templates"
+    if [ -d "$state_templates" ]; then
+        for t in brave-origin telegram papirus-icons; do
+            if [ -d "$state_templates/$t" ]; then
+                mkdir -p "$DOTFILES_DIR/community-templates/$t"
+                cp -a "$state_templates/$t/"* "$DOTFILES_DIR/community-templates/$t/" 2>/dev/null || true
+                [ -f "$state_templates/$t/.noctalia-cache.json" ] && cp -a "$state_templates/$t/.noctalia-cache.json" "$DOTFILES_DIR/community-templates/$t/"
+            fi
+        done
+    fi
+
     # GTK 3.0 & GTK 4.0 (save gtk.css and settings.ini; exclude generated noctalia.css)
     for g in gtk-3.0 gtk-4.0; do
         if [ -d "$HOME/.config/$g" ]; then
@@ -316,6 +328,18 @@ cp -a "$DOTFILES_DIR/themes/noctalia" "$HOME/.local/share/themes/"
 cp -a "$DOTFILES_DIR/bin/"* "$HOME/.local/bin/"
 cp -a "$DOTFILES_DIR/applications/"* "$HOME/.local/share/applications/" 2>/dev/null || true
 update-desktop-database "$HOME/.local/share/applications" 2>/dev/null || true
+
+# Deploy Noctalia community templates optimizations & sync metadata
+if [ -d "$DOTFILES_DIR/community-templates" ]; then
+    mkdir -p "$HOME/.local/state/noctalia/community-templates"
+    for t in "$DOTFILES_DIR/community-templates/"*; do
+        [ -d "$t" ] || continue
+        base="$(basename "$t")"
+        mkdir -p "$HOME/.local/state/noctalia/community-templates/$base"
+        cp -a "$t/"* "$HOME/.local/state/noctalia/community-templates/$base/" 2>/dev/null || true
+        [ -f "$t/.noctalia-cache.json" ] && cp -a "$t/.noctalia-cache.json" "$HOME/.local/state/noctalia/community-templates/$base/"
+    done
+fi
 
 # Deploy ~/.profile (Login shell / Ly display manager environment)
 if [ -f "$DOTFILES_DIR/profile" ]; then
