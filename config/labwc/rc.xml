@@ -48,8 +48,10 @@
     <default />
 
     <!-- Disable desktop scroll switching to prevent accidental workspace jumps -->
-    <!-- Right click opens desktop menu -->
+    <!-- Only Right click opens desktop menu; Left and Middle clicks are unbound -->
     <context name="Root">
+      <mousebind button="Left" action="Press" />
+      <mousebind button="Middle" action="Press" />
       <mousebind direction="Up" action="Scroll" />
       <mousebind direction="Down" action="Scroll" />
       <mousebind direction="Left" action="Scroll" />
@@ -59,6 +61,8 @@
       </mousebind>
     </context>
     <context name="Desktop">
+      <mousebind button="Left" action="Press" />
+      <mousebind button="Middle" action="Press" />
       <mousebind direction="Up" action="Scroll" />
       <mousebind direction="Down" action="Scroll" />
       <mousebind direction="Left" action="Scroll" />
