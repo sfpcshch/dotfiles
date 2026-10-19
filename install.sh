@@ -89,6 +89,18 @@ if [ "$SAVE_MODE" = true ]; then
         fi
     fi
 
+    # GTK 3.0 & GTK 4.0 (save gtk.css and settings.ini; exclude generated noctalia.css)
+    for g in gtk-3.0 gtk-4.0; do
+        if [ -d "$HOME/.config/$g" ]; then
+            mkdir -p "$DOTFILES_DIR/config/$g"
+            for f in "$HOME/.config/$g/"*; do
+                [ -f "$f" ] || continue
+                [ "$(basename "$f")" = "noctalia.css" ] && continue
+                cp -a "$f" "$DOTFILES_DIR/config/$g/"
+            done
+        fi
+    done
+
     # Fcitx5 (exclude machine-specific cached_layouts)
     if [ -d "$HOME/.config/fcitx5" ]; then
         mkdir -p "$DOTFILES_DIR/config/fcitx5"
@@ -101,7 +113,9 @@ if [ "$SAVE_MODE" = true ]; then
         mkdir -p "$DOTFILES_DIR/config/alacritty"
         for f in "$HOME/.config/alacritty/"*; do
             [ -e "$f" ] || continue
-            [ "$(basename "$f")" = "themes" ] && continue
+            case "$(basename "$f")" in
+                themes|*.bak) continue ;;
+            esac
             cp -a "$f" "$DOTFILES_DIR/config/alacritty/"
         done
     fi
@@ -130,7 +144,9 @@ if [ "$SAVE_MODE" = true ]; then
         mkdir -p "$DOTFILES_DIR/config/fastfetch"
         for f in "$HOME/.config/fastfetch/"*; do
             [ -e "$f" ] || continue
-            [ "$(basename "$f")" = "themes" ] && continue
+            case "$(basename "$f")" in
+                themes|*.bak) continue ;;
+            esac
             cp -a "$f" "$DOTFILES_DIR/config/fastfetch/"
         done
     fi
@@ -247,6 +263,8 @@ backup_if_exists() {
 backup_if_exists "$HOME/.config/alacritty"
 backup_if_exists "$HOME/.config/labwc"
 backup_if_exists "$HOME/.config/noctalia"
+backup_if_exists "$HOME/.config/gtk-3.0"
+backup_if_exists "$HOME/.config/gtk-4.0"
 backup_if_exists "$HOME/.config/environment.d"
 backup_if_exists "$HOME/.config/xdg-desktop-portal"
 backup_if_exists "$HOME/.config/fcitx5"
@@ -262,6 +280,8 @@ echo -e "${BLUE}==>${NC} Deploying configuration files..."
 mkdir -p "$HOME/.config/alacritty"
 mkdir -p "$HOME/.config/labwc"
 mkdir -p "$HOME/.config/noctalia"
+mkdir -p "$HOME/.config/gtk-3.0"
+mkdir -p "$HOME/.config/gtk-4.0"
 mkdir -p "$HOME/.config/environment.d"
 mkdir -p "$HOME/.config/xdg-desktop-portal"
 mkdir -p "$HOME/.config/fastfetch"
@@ -280,6 +300,12 @@ if [ -d "$DOTFILES_DIR/config/alacritty" ]; then
 fi
 cp -a "$DOTFILES_DIR/config/labwc/"* "$HOME/.config/labwc/"
 cp -a "$DOTFILES_DIR/config/noctalia/"* "$HOME/.config/noctalia/"
+for g in gtk-3.0 gtk-4.0; do
+    if [ -d "$DOTFILES_DIR/config/$g" ]; then
+        mkdir -p "$HOME/.config/$g"
+        cp -a "$DOTFILES_DIR/config/$g/"* "$HOME/.config/$g/" 2>/dev/null || true
+    fi
+done
 cp -a "$DOTFILES_DIR/config/environment.d/"* "$HOME/.config/environment.d/"
 cp -a "$DOTFILES_DIR/config/fcitx5/"* "$HOME/.config/fcitx5/"
 cp -a "$DOTFILES_DIR/config/xdg-desktop-portal/"* "$HOME/.config/xdg-desktop-portal/" 2>/dev/null || true

@@ -1,6 +1,8 @@
 [Hotkey]
 # Enumerate when holding modifier of Toggle key
 # EnumerateWithTriggerKeys=True
+# Consume redundant Activate/Deactivate key
+# ConsumeRedundantActivateKeys=False
 # Temporarily Toggle Input Method
 AltTriggerKeys=
 # Enumerate Input Method Forward
@@ -52,7 +54,7 @@ ActiveByDefault=True
 # Share Input State
 ShareInputState=All
 # Show preedit in application
-PreeditEnabledByDefault=True
+# PreeditEnabledByDefault=True
 # Show Input Method Information when switch input method
 # ShowInputMethodInformation=True
 # Show Input Method Information when changing focus

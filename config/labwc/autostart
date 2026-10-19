@@ -3,20 +3,24 @@
 # Redirect autostart logs to cache (preserve previous session log as .old)
 _log="${XDG_CACHE_HOME:-$HOME/.cache}/labwc-autostart.log"
 [ -f "$_log" ] && mv -f "$_log" "${_log}.old"
-exec > "$_log" 2>&1
 
-# Ensure user scripts directory is in PATH
-export PATH="$HOME/.local/bin:$PATH"
+# Ensure user scripts directory is in PATH without duplication
+case ":$PATH:" in
+    *":$HOME/.local/bin:"*) ;;
+    *) export PATH="$HOME/.local/bin:$PATH" ;;
+esac
 
 # Start Noctalia Desktop Shell (Taskbar, Launcher, Wallpaper, Notifications, Polkit Agent)
-command -v noctalia >/dev/null 2>&1 && noctalia &
+command -v noctalia >/dev/null 2>&1 && noctalia >>"$_log" 2>&1 &
 
 # Update systemd and D-Bus activation environments
 command -v dbus-update-activation-environment >/dev/null 2>&1 && \
-    dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP QT_QPA_PLATFORMTHEME QT_QPA_PLATFORM XMODIFIERS QT_IM_MODULE PATH JAVA_HOME ANDROID_HOME &
+    dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP QT_QPA_PLATFORMTHEME QT_QPA_PLATFORM XMODIFIERS QT_IM_MODULE PATH JAVA_HOME ANDROID_HOME >>"$_log" 2>&1 &
 
 # Launch Fcitx5 input method in pure Wayland mode
-command -v fcitx5 >/dev/null 2>&1 && fcitx5 -d --disable xim,xcb &
+command -v fcitx5 >/dev/null 2>&1 && fcitx5 -d --disable xim,xcb >>"$_log" 2>&1 &
 
-# Auto-sync wallpaper in background
-[ -x "$HOME/.local/bin/wallpaper-auto.sh" ] && "$HOME/.local/bin/wallpaper-auto.sh" &
+# Auto-sync wallpaper & Monet theme in background
+[ -x "$HOME/.local/bin/wallpaper-auto.sh" ] && "$HOME/.local/bin/wallpaper-auto.sh" >>"$_log" 2>&1 &
+
+exit 0

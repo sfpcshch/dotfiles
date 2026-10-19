@@ -41,3 +41,6 @@ if status is-interactive
         fzf --fish | source
     end
 end
+
+# Hermes Agent command
+fish_add_path "$HOME/.local/bin"

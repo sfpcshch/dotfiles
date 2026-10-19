@@ -25,17 +25,17 @@ radius_bottom_left = 0
 radius_bottom_right = 0
 radius_top_left = 0
 radius_top_right = 0
-start = [ "session" ]
+start = []
 thickness = 32
 
 [wallpaper.default]
 path = "/usr/share/wallpapers/cachyos-wallpapers/cachysurf4.jpg"
 
 [idle]
-behavior_order = [ "lock", "screen-off", "lock-and-suspend" ]
+behavior_order = [ "screen-off", "lock", "lock-and-suspend" ]
 
     [idle.behavior.screen-off]
-    action = "screen-off"
+    action = "screen_off"
     enabled = true
     timeout = 300.0
 
@@ -45,23 +45,13 @@ behavior_order = [ "lock", "screen-off", "lock-and-suspend" ]
     timeout = 600.0
 
     [idle.behavior.lock-and-suspend]
-    action = "suspend"
+    action = "lock_and_suspend"
     enabled = true
-    lock_before_suspend = false
+    lock_before_suspend = true
     timeout = 900.0
 
 [plugins]
 enabled = []
-
-    [[plugins.source]]
-    kind = "git"
-    location = "https://github.com/noctalia-dev/official-plugins"
-    name = "official"
-
-    [[plugins.source]]
-    kind = "git"
-    location = "https://github.com/noctalia-dev/community-plugins"
-    name = "community"
 
 [shell]
 corner_radius_scale = 0.0
@@ -98,7 +88,7 @@ source = "wallpaper"
 
     [theme.templates]
     builtin_ids = [ "alacritty", "btop", "gtk3", "gtk4", "kcolorscheme", "qt", "starship" ]
-    community_ids = [ "antigravity", "telegram", "micro", "fastfetch", "fcitx5", "papirus-icons", "bat", "fzf" ]
+    community_ids = [ "antigravity", "brave-origin", "telegram", "micro", "fastfetch", "fcitx5", "papirus-icons", "bat", "fzf" ]
 
     [theme.templates.user.labwc-themerc]
     input_path = "~/.config/noctalia/templates/labwc-themerc.conf"
@@ -154,9 +144,6 @@ left = "exec toggle-desktop.sh"
 
 
 
-[widget.Spacer_Power]
-length = 12
-type = "spacer"
 
 [widget.battery]
 show_label = false

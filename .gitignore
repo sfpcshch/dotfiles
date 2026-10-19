@@ -3,6 +3,8 @@ config/labwc/themerc-override
 config/labwc/noctalia.conf
 config/alacritty/themes/
 config/fastfetch/themes/
+config/gtk-3.0/noctalia.css
+config/gtk-4.0/noctalia.css
 
 # Dynamic cached layouts from Fcitx5
 config/fcitx5/conf/cached_layouts
@@ -10,3 +12,4 @@ config/fcitx5/conf/cached_layouts
 # Backups and temporary files
 *.tmp*
 *~
+*.bak

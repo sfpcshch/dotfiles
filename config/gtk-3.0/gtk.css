@@ -1,0 +1,20 @@
+@import url("noctalia.css");
+
+/* 
+ * Minimalist CSD Window Borders (Exact sync with Labwc border colors)
+ * Only targets client-side decorated windows; leaves SSD windows to Labwc
+ */
+window.csd decoration {
+  border: 1px solid @accent_color;
+  background-clip: padding-box;
+}
+
+window.csd decoration:backdrop {
+  border: 1px solid mix(@window_bg_color, @accent_color, 0.32);
+}
+
+window.csd.maximized decoration,
+window.csd.fullscreen decoration,
+window.csd.tiled decoration {
+  border: none;
+}

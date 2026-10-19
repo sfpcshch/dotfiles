@@ -146,17 +146,14 @@ if [ "$1" = "--refill" ]; then
 fi
 
 # 3. Default execution on login or via systemd timer
-for i in {1..10}; do
+for i in {1..50}; do
     if noctalia msg status >/dev/null 2>&1; then
         break
     fi
-    sleep 1
+    sleep 0.1
 done
 
-# Cycle to next wallpaper
+# Cycle to next wallpaper (triggers background pool refill + locked cache cleanup)
 wallpaper-cycle.sh next
-
-# Clean cache if exceeding file limit
-cleanup_cache
 
 exit 0
