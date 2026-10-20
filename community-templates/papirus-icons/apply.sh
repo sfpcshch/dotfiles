@@ -95,25 +95,35 @@ set -euo pipefail
     }
   ')
 
-  # 5/6. Fast-path: skip disk I/O if folder color and variant already match
+  # 5/6. Recolor every installed Papirus variant, not just the base one so Papirus-Dark and Papirus-Light stay in sync too
   [[ -n "$closest" ]] || { echo "Error: no matching folder color found" 1>&2; exit 0; }
 
-  STATE_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/papirus-folders/keep"
-  if [[ -f "$STATE_FILE" ]] && grep -Fxq "color=$closest" "$STATE_FILE" && grep -Fxq "theme=${ICON_VARIANT:-Papirus-Dark}" "$STATE_FILE"; then
-    exit 0
-  fi
+  # Locate the system Papirus install via XDG_DATA_DIRS (covers NixOS, Guix
+  # and custom prefixes), falling back to the classic FHS locations.
+  dirs=()
+  IFS=: read -ra dirs <<< "${XDG_DATA_DIRS:-}"
+  dirs+=(/usr/local/share /usr/share)
 
-  for variant in Papirus "${ICON_VARIANT:-Papirus-Dark}"; do
-    [[ -d "/usr/share/icons/$variant" ]] || continue
-    if [[ ! -d "$HOME/.local/share/icons/$variant" ]]; then
+  for variant in Papirus Papirus-Dark Papirus-Light; do
+    src=""
+    for dir in "${dirs[@]}"; do
+      if [[ -n "$dir" && -d "$dir/icons/$variant" ]]; then
+        # Resolve symlinks so we copy the real theme, not a link into a
+        # read-only store (e.g. /run/current-system/sw on NixOS).
+        src="$(readlink -f "$dir/icons/$variant")"
+        break
+      fi
+    done
+    [[ -n "$src" ]] || continue
+
+    dest="$HOME/.local/share/icons/$variant"
+    if [[ ! -d "$dest" ]]; then
       mkdir -p "$HOME/.local/share/icons"
-      cp -a "/usr/share/icons/$variant" "$HOME/.local/share/icons/"
+      cp -r "$src" "$dest"
+      # Files copied from a read-only store keep their read-only mode.
+      chmod -R u+w "$dest"
     fi
-    DISABLE_UPDATE_ICON_CACHE=1 "$(dirname "$0")/papirus-folders" -o -t "$variant" -C "$closest" \
+    "$(dirname "$0")/papirus-folders" -t "$variant" -C "$closest" \
       || echo "Error: papirus-folders failed for $variant" 1>&2
   done
-
-  mkdir -p "$(dirname "$STATE_FILE")"
-  printf "theme=%s\ncolor=%s\n" "${ICON_VARIANT:-Papirus-Dark}" "$closest" > "$STATE_FILE"
-  gtk-update-icon-cache -qf "$HOME/.local/share/icons/${ICON_VARIANT:-Papirus-Dark}" 2>/dev/null || true
 }

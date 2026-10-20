@@ -35,7 +35,9 @@ path = "/usr/share/wallpapers/cachyos-wallpapers/cachysurf4.jpg"
 behavior_order = [ "screen-off", "lock", "lock-and-suspend" ]
 
     [idle.behavior.screen-off]
-    action = "screen_off"
+    action = "command"
+    command = "noctalia msg dpms-off"
+    resume_command = "noctalia msg dpms-on"
     enabled = true
     timeout = 300.0
 
@@ -154,3 +156,7 @@ show_label = false
 [widget.Spacer_Launch]
 length = 16
 type = "spacer"
+
+[notification]
+history_retention_hours = 72
+max_visible = 5

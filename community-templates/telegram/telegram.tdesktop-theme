@@ -162,5 +162,5 @@ contactsStatusFgOnline: {{colors.primary.default.hex}}; // Online contact status
 photoCropFadeBg: {{colors.surface.default.hex}}cc; // Photo crop fade background
 photoCropPointFg: {{colors.primary.default.hex}}; // Photo crop points
 
-chat_inBubbleSelected: {{ colors.secondary_container.default.hex }}; // inbox selected chat background
-chat_outBubbleSelected: {{ colors.secondary_container.default.hex }}; // outbox selected chat background
+chat_inBubbleSelected: #313244; // inbox selected chat background
+chat_outBubbleSelected: #313244; // outbox selected chat background

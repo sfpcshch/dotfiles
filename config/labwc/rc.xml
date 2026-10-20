@@ -27,10 +27,10 @@
   </snapping>
 
   <!-- Edge resistance when dragging windows -->
-  <resist>
-    <screen>20</screen>
-    <windows>20</windows>
-  </resist>
+  <resistance>
+    <screenEdgeStrength>20</screenEdgeStrength>
+    <windowEdgeStrength>20</windowEdgeStrength>
+  </resistance>
 
   <!-- Window resize ergonomics: larger corner grab area (20px) and minimum window area -->
   <resize>
@@ -59,14 +59,6 @@
       <mousebind button="Right" action="Press">
         <action name="ShowMenu" menu="root-menu" />
       </mousebind>
-    </context>
-    <context name="Desktop">
-      <mousebind button="Left" action="Press" />
-      <mousebind button="Middle" action="Press" />
-      <mousebind direction="Up" action="Scroll" />
-      <mousebind direction="Down" action="Scroll" />
-      <mousebind direction="Left" action="Scroll" />
-      <mousebind direction="Right" action="Scroll" />
     </context>
     <context name="TitleBar">
       <mousebind direction="Up" action="Scroll" />
@@ -142,6 +134,9 @@
     <keybind key="Super_L" onRelease="yes">
       <action name="Execute" command="noctalia msg panel-toggle launcher" />
     </keybind>
+    <keybind key="Super_R" onRelease="yes">
+      <action name="Execute" command="noctalia msg panel-toggle launcher" />
+    </keybind>
     <keybind key="W-space">
       <action name="Execute" command="noctalia msg panel-toggle launcher" />
     </keybind>
@@ -208,6 +203,16 @@
     <!-- Win + Shift + S: Region screenshot (Snipping Tool) -->
     <keybind key="W-S-s">
       <action name="Execute" command="noctalia msg screenshot-region" />
+    </keybind>
+
+    <!-- Win + Shift + A: Screen freeze & annotate (Snipping Tool Draw) -->
+    <keybind key="W-S-a">
+      <action name="Execute" command="noctalia msg screenshot-annotate" />
+    </keybind>
+
+    <!-- Win + Shift + P: Cycle power profiles (Performance / Balanced / Power-saver) -->
+    <keybind key="W-S-p">
+      <action name="Execute" command="noctalia msg power-cycle" />
     </keybind>
 
     <!-- Ctrl + Shift + Esc: Process Manager (btop) -->

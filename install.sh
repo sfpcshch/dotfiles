@@ -79,13 +79,17 @@ if [ "$SAVE_MODE" = true ]; then
         done
     fi
 
-    # Noctalia (config.toml and user theme templates)
+    # Noctalia (config.toml, user theme templates, and custom icons)
     if [ -d "$HOME/.config/noctalia" ]; then
         mkdir -p "$DOTFILES_DIR/config/noctalia"
         [ -f "$HOME/.config/noctalia/config.toml" ] && cp -a "$HOME/.config/noctalia/config.toml" "$DOTFILES_DIR/config/noctalia/"
         if [ -d "$HOME/.config/noctalia/templates" ]; then
             mkdir -p "$DOTFILES_DIR/config/noctalia/templates"
             cp -a "$HOME/.config/noctalia/templates/"* "$DOTFILES_DIR/config/noctalia/templates/" 2>/dev/null || true
+        fi
+        if [ -d "$HOME/.config/noctalia/icons" ]; then
+            mkdir -p "$DOTFILES_DIR/config/noctalia/icons"
+            cp -a "$HOME/.config/noctalia/icons/"* "$DOTFILES_DIR/config/noctalia/icons/" 2>/dev/null || true
         fi
     fi
 
@@ -261,6 +265,9 @@ fi
 echo ""
 echo -e "${BLUE}==>${NC} Backing up existing configurations to: ${YELLOW}$BACKUP_DIR${NC}"
 mkdir -p "$BACKUP_DIR"
+
+# Keep only the 3 most recent backups to prevent disk buildup
+find "$CACHE_DIR/dotfiles-backup" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | sort -r | tail -n +4 | xargs rm -rf 2>/dev/null || true
 
 backup_if_exists() {
     local target="$1"

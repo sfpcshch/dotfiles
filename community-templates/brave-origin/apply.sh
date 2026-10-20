@@ -103,8 +103,7 @@ import os
 from datetime import datetime, timezone
 from pathlib import Path
 
-import struct
-import zlib
+from PIL import Image
 
 rendered = Path(os.environ["RENDERED_MANIFEST"])
 installed = Path(os.environ["INSTALLED_MANIFEST"])
@@ -138,14 +137,8 @@ def rgb(name):
 
 
 def write_png(name, color, size):
-    width, height = size
     path = img_dir / name
-    raw = b"".join(b"\x00" + bytes(color) * width for _ in range(height))
-    idat = zlib.compress(raw)
-    def chunk(tag, data):
-        return struct.pack(">I", len(data)) + tag + data + struct.pack(">I", zlib.crc32(tag + data))
-    png = b"\x89PNG\r\n\x1a\n" + chunk(b"IHDR", struct.pack(">IIBBBBB", width, height, 8, 2, 0, 0, 0)) + chunk(b"IDAT", idat) + chunk(b"IEND", b"")
-    path.write_bytes(png)
+    Image.new("RGB", size, color).save(path, "PNG")
 
 
 write_png("theme_frame.png", rgb("frame"), (80, 60))

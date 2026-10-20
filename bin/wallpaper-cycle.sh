@@ -94,7 +94,8 @@ elif [ "$ACTION" = "next" ]; then
             TARGET_WALLPAPER="$dest"
             NEED_REFILL=true
         else
-            # Pool temporarily empty -> Download single image synchronously
+            # Pool temporarily empty -> Notify and download single image synchronously
+            notify-send -a "Noctalia" -i preferences-desktop-wallpaper "Wallhaven" "Đang tải hình nền mới..." -t 2500 2>/dev/null || true
             dest=$(~/.local/bin/wallpaper-auto.sh --download-one 201>&-)
             if [ -n "$dest" ] && [ -f "$dest" ]; then
                 echo "$dest" >> "$HISTORY_FILE"
@@ -119,6 +120,9 @@ exec 201>&-
 # Apply wallpaper (Noctalia natively generates templates and triggers labwc reconfigure with 0 overhead)
 if [ -n "$TARGET_WALLPAPER" ]; then
     noctalia msg wallpaper-set "$TARGET_WALLPAPER" >/dev/null 2>&1
+    for mon in $(wlr-randr 2>/dev/null | awk '/^[a-zA-Z0-9-]+ / {name=$1} /Enabled: yes/ {print name}'); do
+        noctalia msg wallpaper-set "$mon" "$TARGET_WALLPAPER" >/dev/null 2>&1
+    done
 fi
 
 # Automatically refill pool in background
