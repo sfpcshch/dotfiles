@@ -105,7 +105,7 @@ type = "spacer"
 type = "spacer"
 
 [widget.date]
-format = "{:%a %d %b -}"
+format = "{:%a %d %b •}"
 
 [widget.launcher]
 custom_image = "/usr/share/icons/hicolor/scalable/apps/org.cachyos.hello.svg"

@@ -200,6 +200,17 @@ if [ "$SAVE_MODE" = true ]; then
         done
     fi
 
+    # Openbox-3 Noctalia Window Theme
+    if [ -d "$HOME/.local/share/themes/noctalia" ]; then
+        mkdir -p "$DOTFILES_DIR/themes/noctalia"
+        cp -a "$HOME/.local/share/themes/noctalia/"* "$DOTFILES_DIR/themes/noctalia/" 2>/dev/null || true
+    fi
+
+    # User avatar (~/.face)
+    if [ -f "$HOME/.face" ]; then
+        cp -a "$HOME/.face" "$DOTFILES_DIR/face"
+    fi
+
     echo -e "${GREEN}✓ Dotfiles repository successfully updated!${NC}"
     echo ""
     echo -e "${BLUE}==>${NC} Git working tree status:"
@@ -351,6 +362,11 @@ fi
 # Deploy ~/.profile (Login shell / Ly display manager environment)
 if [ -f "$DOTFILES_DIR/profile" ]; then
     cp -a "$DOTFILES_DIR/profile" "$HOME/.profile"
+fi
+
+# Deploy ~/.face user avatar
+if [ -f "$DOTFILES_DIR/face" ]; then
+    cp -a "$DOTFILES_DIR/face" "$HOME/.face"
 fi
 
 # Ensure executable permissions

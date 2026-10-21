@@ -162,6 +162,24 @@
       <action name="Execute" command="alacritty" />
     </keybind>
 
+    <!-- Windows Aero Snap Tiling & Window Management -->
+    <!-- Win + Left: Snap window to left half (combine with Up/Down for corners) -->
+    <keybind key="W-Left">
+      <action name="ToggleSnapToEdge" direction="left" combine="yes" />
+    </keybind>
+    <!-- Win + Right: Snap window to right half (combine with Up/Down for corners) -->
+    <keybind key="W-Right">
+      <action name="ToggleSnapToEdge" direction="right" combine="yes" />
+    </keybind>
+    <!-- Win + Up: Maximize active window -->
+    <keybind key="W-Up">
+      <action name="ToggleMaximize" />
+    </keybind>
+    <!-- Win + Down: Minimize (iconify) active window -->
+    <keybind key="W-Down">
+      <action name="Iconify" />
+    </keybind>
+
     <!-- Multi-monitor window movement: Win + Shift + Left/Right -->
     <keybind key="W-S-Left">
       <action name="MoveToOutput" direction="left" wrap="yes" />
