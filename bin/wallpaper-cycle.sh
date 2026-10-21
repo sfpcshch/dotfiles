@@ -120,9 +120,6 @@ exec 201>&-
 # Apply wallpaper (Noctalia natively generates templates and triggers labwc reconfigure with 0 overhead)
 if [ -n "$TARGET_WALLPAPER" ]; then
     noctalia msg wallpaper-set "$TARGET_WALLPAPER" >/dev/null 2>&1
-    for mon in $(wlr-randr 2>/dev/null | awk '/^[a-zA-Z0-9-]+ / {name=$1} /Enabled: yes/ {print name}'); do
-        noctalia msg wallpaper-set "$mon" "$TARGET_WALLPAPER" >/dev/null 2>&1
-    done
 fi
 
 # Automatically refill pool in background

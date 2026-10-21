@@ -26,18 +26,14 @@ download_single_to() {
     local max_attempts=3
     
     # 100% Curated Toplist: Guaranteed high-rating, community-voted masterpieces only
-    # Rotate across timeframes for rich aesthetic diversity without uncurated noise
-    local ranges=("all" "1y" "6M" "3M" "1M")
+    # Strictly restricted to "all" and "1y" to avoid recent unrated/low-favorite noise
+    local ranges=("all" "1y")
 
     for ((attempt = 1; attempt <= max_attempts; attempt++)); do
         local chosen_range="${WALLHAVEN_TOPRANGE:-${ranges[$(( RANDOM % ${#ranges[@]} ))]}}"
         
-        # Keep pages strictly within highest-rated tier:
-        # All-time and 1y have deep pools (1-35); recent ranges have fresh top (1-15)
-        local max_page=15
-        if [ "$chosen_range" = "all" ] || [ "$chosen_range" = "1y" ]; then
-            max_page=35
-        fi
+        # Keep pages strictly within top-tier verified pool (pages 1-10)
+        local max_page=10
         local page=$(( RANDOM % max_page + 1 ))
 
         local api_url="https://wallhaven.cc/api/v1/search?sorting=toplist&topRange=${chosen_range}&atleast=1600x900&ratios=16x9,16x10,21x9&categories=${CATEGORIES}&purity=${PURITY}&page=${page}${API_PARAM}"
@@ -45,8 +41,9 @@ download_single_to() {
         response=$(curl -s -f --max-time 8 "$api_url")
         
         local all_paths
-        # Generous 20MB ceiling: allows all gorgeous high-bitrate 4K/lossless wallpapers without arbitrary cutoffs
-        all_paths=$(echo "$response" | jq -r '.data[] | select(.file_size <= 20971520) | .path' 2>/dev/null)
+        # Strict quality floor: minimum 30 favorites to guarantee top-tier aesthetic value
+        # Generous 20MB ceiling: allows crisp high-bitrate 4K/lossless wallpapers without cutoff
+        all_paths=$(echo "$response" | jq -r '.data[] | select(.favorites >= 30 and .file_size <= 20971520) | .path' 2>/dev/null)
         [ -z "$all_paths" ] && continue
         
         local candidates=()
