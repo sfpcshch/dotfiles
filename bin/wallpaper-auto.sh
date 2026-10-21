@@ -21,39 +21,23 @@ fi
 # Category filter: General/Anime/People (100 = General only, exclude anime & people)
 CATEGORIES="${WALLHAVEN_CATEGORIES:-100}"
 
-# Negative tags: Exclude text-heavy content, infographics, quotes, calligraphy, and religious tables
-EXCLUDE_TAGS="${WALLHAVEN_EXCLUDE_TAGS:--text -religion -quote -calligraphy -typography -words}"
-
 download_single_to() {
     local target_dir="$1"
     local max_attempts=3
     
-    # 100% Curated Toplist: Guaranteed high-rating, community-voted masterpieces only
-    # Strictly restricted to "all" and "1y" to avoid recent unrated/low-favorite noise
-    local ranges=("all" "1y")
-
     for ((attempt = 1; attempt <= max_attempts; attempt++)); do
-        local chosen_range="${WALLHAVEN_TOPRANGE:-${ranges[$(( RANDOM % ${#ranges[@]} ))]}}"
-        
-        # Keep pages strictly within top-tier verified pool (pages 1-10)
-        local max_page=10
+        # Sample across top 250 pages of all-time favorites (~6,000 community-voted masterpieces)
+        # Guarantees zero low-vote noise, massive diversity, and virtually zero repetition
+        local max_page=250
         local page=$(( RANDOM % max_page + 1 ))
 
-        local q_param=""
-        if [ -n "$EXCLUDE_TAGS" ]; then
-            local encoded_q
-            encoded_q=$(echo "$EXCLUDE_TAGS" | tr ' ' '+')
-            q_param="&q=${encoded_q}"
-        fi
-
-        local api_url="https://wallhaven.cc/api/v1/search?sorting=toplist&topRange=${chosen_range}&atleast=1600x900&ratios=16x9,16x10,21x9&categories=${CATEGORIES}&purity=${PURITY}&page=${page}${q_param}${API_PARAM}"
+        local api_url="https://wallhaven.cc/api/v1/search?sorting=favorites&atleast=1600x900&ratios=16x9,16x10,21x9&categories=${CATEGORIES}&purity=${PURITY}&page=${page}${API_PARAM}"
         local response
         response=$(curl -s -f --max-time 8 "$api_url")
         
         local all_paths
-        # Strict quality floor: minimum 30 favorites to guarantee top-tier aesthetic value
-        # Generous 20MB ceiling: allows crisp high-bitrate 4K/lossless wallpapers without cutoff
-        all_paths=$(echo "$response" | jq -r '.data[] | select(.favorites >= 30 and .file_size <= 20971520) | .path' 2>/dev/null)
+        # Generous 20MB ceiling, safe floor >= 100 favorites (0 overhead)
+        all_paths=$(echo "$response" | jq -r '.data[] | select(.favorites >= 100 and .file_size <= 20971520) | .path' 2>/dev/null)
         [ -z "$all_paths" ] && continue
         
         local candidates=()
