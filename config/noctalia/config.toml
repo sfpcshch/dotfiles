@@ -160,3 +160,11 @@ type = "spacer"
 [notification]
 history_retention_hours = 72
 max_visible = 5
+
+[lockscreen]
+grace_period_seconds = 5
+
+[nightlight]
+enabled = true
+temperature_day = 6500
+temperature_night = 4000

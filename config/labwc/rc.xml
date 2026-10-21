@@ -325,4 +325,15 @@
     </device>
   </libinput>
 
+  <!-- Window Rules: Ergonomic handling for Dialogs & Picture-in-Picture -->
+  <windowRules>
+    <!-- Picture-in-Picture: Always on top, skip taskbar and Alt+Tab switcher -->
+    <windowRule title="*Picture-in-Picture*" skipTaskbar="yes" skipWindowSwitcher="yes">
+      <action name="ToggleAlwaysOnTop" />
+    </windowRule>
+    <windowRule title="*Picture in picture*" skipTaskbar="yes" skipWindowSwitcher="yes">
+      <action name="ToggleAlwaysOnTop" />
+    </windowRule>
+  </windowRules>
+
 </labwc_config>
