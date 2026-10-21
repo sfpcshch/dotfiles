@@ -25,22 +25,22 @@ download_single_to() {
     local target_dir="$1"
     local max_attempts=3
     
-    # Dynamic range & sorting pool for maximum wallpaper diversity
-    local ranges=("1M" "3M" "6M" "1y" "all")
-    local sortings=("toplist" "toplist" "toplist" "hot" "random")
+    # 100% Curated Toplist: Guaranteed high-rating, community-voted masterpieces only
+    # Rotate across timeframes for rich aesthetic diversity without uncurated noise
+    local ranges=("all" "1y" "6M" "3M" "1M")
 
     for ((attempt = 1; attempt <= max_attempts; attempt++)); do
-        local chosen_sorting="${WALLHAVEN_SORTING:-${sortings[$(( RANDOM % ${#sortings[@]} ))]}}"
         local chosen_range="${WALLHAVEN_TOPRANGE:-${ranges[$(( RANDOM % ${#ranges[@]} ))]}}"
         
-        local extra_params=""
-        if [ "$chosen_sorting" = "toplist" ]; then
-            extra_params="&topRange=${chosen_range}&page=$(( RANDOM % 100 + 1 ))"
-        elif [ "$chosen_sorting" = "hot" ]; then
-            extra_params="&page=$(( RANDOM % 20 + 1 ))"
+        # Keep pages strictly within highest-rated tier:
+        # All-time and 1y have deep pools (1-35); recent ranges have fresh top (1-15)
+        local max_page=15
+        if [ "$chosen_range" = "all" ] || [ "$chosen_range" = "1y" ]; then
+            max_page=35
         fi
+        local page=$(( RANDOM % max_page + 1 ))
 
-        local api_url="https://wallhaven.cc/api/v1/search?sorting=${chosen_sorting}&atleast=1920x1080&ratios=16x9,16x10,21x9&categories=${CATEGORIES}&purity=${PURITY}${extra_params}${API_PARAM}"
+        local api_url="https://wallhaven.cc/api/v1/search?sorting=toplist&topRange=${chosen_range}&atleast=1600x900&ratios=16x9,16x10,21x9&categories=${CATEGORIES}&purity=${PURITY}&page=${page}${API_PARAM}"
         local response
         response=$(curl -s -f --max-time 8 "$api_url")
         
