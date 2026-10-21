@@ -26,17 +26,17 @@ download_single_to() {
     local max_attempts=3
     
     for ((attempt = 1; attempt <= max_attempts; attempt++)); do
-        # Sample across top 250 pages of all-time favorites (~6,000 community-voted masterpieces)
-        # Guarantees zero low-vote noise, massive diversity, and virtually zero repetition
-        local max_page=250
+        # Toplist 1 năm qua (100% ảnh hiện đại 2025-2026, tránh ảnh cổ đại 10 năm trước)
+        # Trang 1-15 có hơn 300 kiệt tác mới với >= 100 favorites
+        local max_page=15
         local page=$(( RANDOM % max_page + 1 ))
 
-        local api_url="https://wallhaven.cc/api/v1/search?sorting=favorites&atleast=1600x900&ratios=16x9,16x10,21x9&categories=${CATEGORIES}&purity=${PURITY}&page=${page}${API_PARAM}"
+        local api_url="https://wallhaven.cc/api/v1/search?sorting=toplist&topRange=1y&atleast=1600x900&ratios=16x9,16x10,21x9&categories=${CATEGORIES}&purity=${PURITY}&page=${page}${API_PARAM}"
         local response
         response=$(curl -s -f --max-time 8 "$api_url")
         
         local all_paths
-        # Generous 20MB ceiling, safe floor >= 100 favorites (0 overhead)
+        # Chốt an toàn >= 100 favorites: Chặn sạch ảnh ít vote và bảng chữ rác
         all_paths=$(echo "$response" | jq -r '.data[] | select(.favorites >= 100 and .file_size <= 20971520) | .path' 2>/dev/null)
         [ -z "$all_paths" ] && continue
         
