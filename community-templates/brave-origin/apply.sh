@@ -100,10 +100,10 @@ install_theme_files() {
         python3 - <<'PY'
 import json
 import os
+import struct
+import zlib
 from datetime import datetime, timezone
 from pathlib import Path
-
-from PIL import Image
 
 rendered = Path(os.environ["RENDERED_MANIFEST"])
 installed = Path(os.environ["INSTALLED_MANIFEST"])
@@ -136,17 +136,27 @@ def rgb(name):
     return tuple(int(c) for c in value)
 
 
-def write_png(name, color, size):
-    path = img_dir / name
-    Image.new("RGB", size, color).save(path, "PNG")
+def write_solid_png(path, color, width, height):
+    raw_row = b"\x00" + bytes(color) * width
+    raw_data = raw_row * height
+    compressed = zlib.compress(raw_data)
+
+    def chunk(tag, data):
+        crc = zlib.crc32(tag + data) & 0xFFFFFFFF
+        return struct.pack(">I", len(data)) + tag + data + struct.pack(">I", crc)
+
+    ihdr = struct.pack(">IIBBBBB", width, height, 8, 2, 0, 0, 0)
+    png = b"\x89PNG\r\n\x1a\n" + chunk(b"IHDR", ihdr) + chunk(b"IDAT", compressed) + chunk(b"IEND", b"")
+    with open(path, "wb") as f:
+        f.write(png)
 
 
-write_png("theme_frame.png", rgb("frame"), (80, 60))
-write_png("theme_frame_inactive.png", rgb("frame_inactive"), (80, 60))
-write_png("theme_frame_incognito.png", rgb("frame_incognito"), (80, 60))
-write_png("theme_toolbar.png", rgb("toolbar"), (320, 120))
-write_png("theme_tab_background.png", rgb("frame"), (64, 64))
-write_png("theme_ntp_background.png", rgb("ntp_background"), (1920, 1080))
+write_solid_png(img_dir / "theme_frame.png", rgb("frame"), 80, 60)
+write_solid_png(img_dir / "theme_frame_inactive.png", rgb("frame_inactive"), 80, 60)
+write_solid_png(img_dir / "theme_frame_incognito.png", rgb("frame_incognito"), 80, 60)
+write_solid_png(img_dir / "theme_toolbar.png", rgb("toolbar"), 320, 120)
+write_solid_png(img_dir / "theme_tab_background.png", rgb("frame"), 64, 64)
+write_solid_png(img_dir / "theme_ntp_background.png", rgb("ntp_background"), 1920, 1080)
 
 installed.write_text(json.dumps(manifest, indent=2) + "\n")
 print(f"wrote {installed} version={manifest['version']}")

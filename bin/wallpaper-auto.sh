@@ -25,14 +25,28 @@ download_single_to() {
     local target_dir="$1"
     local max_attempts=3
     
+    # Dynamic range & sorting pool for maximum wallpaper diversity
+    local ranges=("1M" "3M" "6M" "1y" "all")
+    local sortings=("toplist" "toplist" "toplist" "hot" "random")
+
     for ((attempt = 1; attempt <= max_attempts; attempt++)); do
-        local page=$(( RANDOM % 50 + 1 ))
-        local api_url="https://wallhaven.cc/api/v1/search?sorting=toplist&topRange=1y&atleast=1600x900&ratios=16x9,16x10,21x9&categories=${CATEGORIES}&purity=${PURITY}&page=${page}${API_PARAM}"
+        local chosen_sorting="${WALLHAVEN_SORTING:-${sortings[$(( RANDOM % ${#sortings[@]} ))]}}"
+        local chosen_range="${WALLHAVEN_TOPRANGE:-${ranges[$(( RANDOM % ${#ranges[@]} ))]}}"
+        
+        local extra_params=""
+        if [ "$chosen_sorting" = "toplist" ]; then
+            extra_params="&topRange=${chosen_range}&page=$(( RANDOM % 100 + 1 ))"
+        elif [ "$chosen_sorting" = "hot" ]; then
+            extra_params="&page=$(( RANDOM % 20 + 1 ))"
+        fi
+
+        local api_url="https://wallhaven.cc/api/v1/search?sorting=${chosen_sorting}&atleast=1920x1080&ratios=16x9,16x10,21x9&categories=${CATEGORIES}&purity=${PURITY}${extra_params}${API_PARAM}"
         local response
         response=$(curl -s -f --max-time 8 "$api_url")
         
         local all_paths
-        all_paths=$(echo "$response" | jq -r '.data[] | select(.file_size <= 5242880) | .path' 2>/dev/null)
+        # Generous 20MB ceiling: allows all gorgeous high-bitrate 4K/lossless wallpapers without arbitrary cutoffs
+        all_paths=$(echo "$response" | jq -r '.data[] | select(.file_size <= 20971520) | .path' 2>/dev/null)
         [ -z "$all_paths" ] && continue
         
         local candidates=()
@@ -65,7 +79,7 @@ download_single_to() {
 }
 
 cleanup_cache() {
-    local max_files=50
+    local max_files="${WALLHAVEN_MAX_FILES:-30}"
     local history_file="$CACHE_DIR/history.log"
     local pos_file="$CACHE_DIR/history.pos"
     

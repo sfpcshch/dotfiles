@@ -98,6 +98,12 @@ set -euo pipefail
   # 5/6. Recolor every installed Papirus variant, not just the base one so Papirus-Dark and Papirus-Light stay in sync too
   [[ -n "$closest" ]] || { echo "Error: no matching folder color found" 1>&2; exit 0; }
 
+  # Fast cache check: if closest color is already applied, exit immediately (avoid 11s disk churn)
+  local_keep="${XDG_CONFIG_HOME:-$HOME/.config}/papirus-folders/keep"
+  if [[ -f "$local_keep" ]] && grep -q "^color=$closest\$" "$local_keep"; then
+    exit 0
+  fi
+
   # Locate the system Papirus install via XDG_DATA_DIRS (covers NixOS, Guix
   # and custom prefixes), falling back to the classic FHS locations.
   dirs=()
