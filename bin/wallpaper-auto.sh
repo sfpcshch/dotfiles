@@ -21,6 +21,9 @@ fi
 # Category filter: General/Anime/People (100 = General only, exclude anime & people)
 CATEGORIES="${WALLHAVEN_CATEGORIES:-100}"
 
+# Negative tags: Exclude text-heavy content, infographics, quotes, calligraphy, and religious tables
+EXCLUDE_TAGS="${WALLHAVEN_EXCLUDE_TAGS:--text -religion -quote -calligraphy -typography -words}"
+
 download_single_to() {
     local target_dir="$1"
     local max_attempts=3
@@ -36,7 +39,14 @@ download_single_to() {
         local max_page=10
         local page=$(( RANDOM % max_page + 1 ))
 
-        local api_url="https://wallhaven.cc/api/v1/search?sorting=toplist&topRange=${chosen_range}&atleast=1600x900&ratios=16x9,16x10,21x9&categories=${CATEGORIES}&purity=${PURITY}&page=${page}${API_PARAM}"
+        local q_param=""
+        if [ -n "$EXCLUDE_TAGS" ]; then
+            local encoded_q
+            encoded_q=$(echo "$EXCLUDE_TAGS" | tr ' ' '+')
+            q_param="&q=${encoded_q}"
+        fi
+
+        local api_url="https://wallhaven.cc/api/v1/search?sorting=toplist&topRange=${chosen_range}&atleast=1600x900&ratios=16x9,16x10,21x9&categories=${CATEGORIES}&purity=${PURITY}&page=${page}${q_param}${API_PARAM}"
         local response
         response=$(curl -s -f --max-time 8 "$api_url")
         
