@@ -32,7 +32,7 @@ download_single_to() {
         response=$(curl -s -f --max-time 8 "$api_url")
         
         local all_paths
-        all_paths=$(echo "$response" | jq -r '.data[].path' 2>/dev/null)
+        all_paths=$(echo "$response" | jq -r '.data[] | select(.file_size <= 5242880) | .path' 2>/dev/null)
         [ -z "$all_paths" ] && continue
         
         local candidates=()
@@ -146,8 +146,9 @@ if [ "$1" = "--refill" ]; then
 fi
 
 # 3. Default execution on login or via systemd timer
-for i in {1..50}; do
-    if noctalia msg status >/dev/null 2>&1; then
+sock="${XDG_RUNTIME_DIR:-/run/user/$UID}/noctalia-${WAYLAND_DISPLAY:-wayland-0}.sock"
+for ((i=1; i<=30; i++)); do
+    if [ -S "$sock" ] && noctalia msg status >/dev/null 2>&1; then
         break
     fi
     sleep 0.1

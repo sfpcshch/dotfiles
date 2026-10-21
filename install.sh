@@ -373,16 +373,6 @@ fi
 chmod +x "$HOME/.local/bin/"*.sh 2>/dev/null || true
 chmod +x "$HOME/.config/labwc/autostart" 2>/dev/null || true
 
-# Ensure Noctalia state overrides have square corners if settings.toml exists
-if [ -f "$HOME/.local/state/noctalia/settings.toml" ]; then
-    sed -i \
-        -e 's/corner_radius_scale = [0-9.]\+/corner_radius_scale = 0.0/g' \
-        -e 's/background_radius = [0-9.]\+/background_radius = 0.0/g' \
-        -e 's/input_radius = [0-9.]\+/input_radius = 0.0/g' \
-        -e 's/floating_offset = [0-9]\+/floating_offset = 0/g' \
-        "$HOME/.local/state/noctalia/settings.toml"
-fi
-
 # 5. Ensure ~/.local/bin is in PATH (Idempotent)
 if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
     echo -e "${YELLOW}==>${NC} Adding ~/.local/bin to PATH variable..."
