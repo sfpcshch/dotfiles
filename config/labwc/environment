@@ -13,3 +13,6 @@ XCURSOR_SIZE=24
 # Fcitx5 Vietnamese Input Method configuration
 XMODIFIERS=@im=fcitx
 QT_IM_MODULE=fcitx
+
+# Default Browser
+BROWSER=thorium-browser

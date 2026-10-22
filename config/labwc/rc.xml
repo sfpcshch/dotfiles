@@ -146,9 +146,9 @@
       <action name="Execute" command="dolphin" />
     </keybind>
 
-    <!-- Win + B: Launch Web Browser (Brave) -->
+    <!-- Win + B: Launch Web Browser (Thorium) -->
     <keybind key="W-b">
-      <action name="Execute" command="brave-origin" />
+      <action name="Execute" command="thorium-browser" />
     </keybind>
 
     <!-- Win + Enter, Win + T, or Ctrl + Alt + T: Open Terminal (Alacritty) -->

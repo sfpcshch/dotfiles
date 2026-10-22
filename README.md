@@ -46,7 +46,7 @@ git clone https://github.com/sfpcshch/dotfiles.git ~/dotfiles && cd ~/dotfiles &
 
 | Shortcut | Action |
 | :--- | :--- |
-| `Win + B` | Launch Web Browser (Brave) |
+| `Win + B` | Launch Web Browser (Thorium) |
 | `Win + E` | Open File Manager (Dolphin) |
 | `Win + Enter` / `Win + T` / `Ctrl + Alt + T` | Open Terminal (Alacritty) |
 | `Win + .` (Period) | Emoji Picker |

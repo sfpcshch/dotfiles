@@ -96,7 +96,7 @@ if [ "$SAVE_MODE" = true ]; then
     # Noctalia Community Templates (save optimized templates & sync cache)
     state_templates="$HOME/.local/state/noctalia/community-templates"
     if [ -d "$state_templates" ]; then
-        for t in brave-origin telegram papirus-icons; do
+        for t in telegram papirus-icons; do
             if [ -d "$state_templates/$t" ]; then
                 mkdir -p "$DOTFILES_DIR/community-templates/$t"
                 cp -a "$state_templates/$t/"* "$DOTFILES_DIR/community-templates/$t/" 2>/dev/null || true
